@@ -42,7 +42,7 @@ fun CenterContentHorizontalDivider(
 
 @Composable
 @Preview
-fun CenterContentHorizontalDividerPreview() {
+private fun CenterContentHorizontalDividerPreview() {
     CenterContentHorizontalDivider {
         WavveSecondaryText(
             modifier = Modifier.padding(horizontal = 8.dp),
