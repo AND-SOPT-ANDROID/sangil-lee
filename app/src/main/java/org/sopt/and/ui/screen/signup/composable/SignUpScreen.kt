@@ -20,7 +20,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
+import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.text.IconFrontText
+import org.sopt.and.ui.component.text.WavveSecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
 
@@ -95,6 +97,15 @@ fun SignUpScreen(
             text = stringResource(R.string.sign_up_caution_password, 8, 20),
             painter = painterResource(R.drawable.ic_caution),
         )
+
+        CenterContentHorizontalDivider(
+            modifier = Modifier.padding(top = 48.dp)
+        ) {
+            WavveSecondaryText(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                text = stringResource(R.string.sign_up_with_other),
+            )
+        }
     }
 }
 
