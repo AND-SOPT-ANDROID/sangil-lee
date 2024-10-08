@@ -11,7 +11,8 @@ class WavveColorScheme(
     val background: Color,
     val onBackground: Color,
     val surface: Color,
-    val surfaceVariant: Color
+    val surfaceVariant: Color,
+    val surfaceBright: Color
 )
 
 fun wavveDarkColorScheme(
@@ -22,7 +23,8 @@ fun wavveDarkColorScheme(
     background: Color = WavveColorDarkTokens.background,
     onBackground: Color = WavveColorDarkTokens.onBackground,
     surface: Color = WavveColorDarkTokens.surface,
-    surfaceVariant: Color = WavveColorDarkTokens.surfaceVariant
+    surfaceVariant: Color = WavveColorDarkTokens.surfaceVariant,
+    surfaceBright: Color = WavveColorDarkTokens.surfaceBright
 ): WavveColorScheme {
     return WavveColorScheme(
         primary = primary,
@@ -32,7 +34,8 @@ fun wavveDarkColorScheme(
         background = background,
         onBackground = onBackground,
         surface = surface,
-        surfaceVariant = surfaceVariant
+        surfaceVariant = surfaceVariant,
+        surfaceBright = surfaceBright
     )
 }
 
