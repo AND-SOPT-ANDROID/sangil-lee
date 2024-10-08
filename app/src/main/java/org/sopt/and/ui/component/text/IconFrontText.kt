@@ -46,7 +46,7 @@ fun IconFrontText(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
-    style: TextStyle = WavveTheme.typography.bodySmall
+    style: TextStyle = WavveTheme.typography.bodyMedium
 ) {
     Row(
         modifier = modifier,
