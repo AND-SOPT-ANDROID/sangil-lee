@@ -74,7 +74,7 @@ fun SignUpInputContentView(
         )
 
         FilledTextField(
-            modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+            modifier = Modifier.padding(top = 28.dp).fillMaxWidth(),
             value = emailInput,
             onValueChange = {
                 emailInput = it
@@ -83,13 +83,13 @@ fun SignUpInputContentView(
         )
 
         IconFrontText(
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 12.dp),
             text = stringResource(R.string.sign_up_caution_exact_email),
             painter = painterResource(R.drawable.ic_caution),
         )
 
         FilledTextField(
-            modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+            modifier = Modifier.padding(top = 20.dp).fillMaxWidth(),
             value = passwordInput,
             onValueChange = {
                 passwordInput = it
@@ -98,13 +98,13 @@ fun SignUpInputContentView(
         )
 
         IconFrontText(
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 12.dp),
             text = stringResource(R.string.sign_up_caution_password, 8, 20),
             painter = painterResource(R.drawable.ic_caution),
         )
 
         CenterContentHorizontalDivider(
-            modifier = Modifier.padding(top = 48.dp)
+            modifier = Modifier.padding(top = 56.dp)
         ) {
             WavveSecondaryText(
                 modifier = Modifier.padding(horizontal = 8.dp),
@@ -113,12 +113,12 @@ fun SignUpInputContentView(
         }
 
         SocialIconsRow(
-            modifier = Modifier.padding(top = 24.dp),
+            modifier = Modifier.padding(top = 32.dp),
             spacing = 12.dp
         )
 
         TertiaryText(
-            modifier = Modifier.padding(top = 30.dp),
+            modifier = Modifier.padding(top = 48.dp),
             text = stringResource(R.string.sign_up_alert_social)
         )
     }
