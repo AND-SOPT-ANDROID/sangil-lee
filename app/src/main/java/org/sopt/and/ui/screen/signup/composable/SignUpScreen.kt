@@ -30,6 +30,7 @@ import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.image.CircularImage
 import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.IconFrontText
+import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.text.WavveSecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
@@ -118,6 +119,11 @@ fun SignUpScreen(
         SocialIconsRow(
             modifier = Modifier.padding(top = 24.dp),
             spacing = 12.dp
+        )
+
+        TertiaryText(
+            modifier = Modifier.padding(top = 30.dp),
+            text = stringResource(R.string.sign_up_alert_social)
         )
 
     }
