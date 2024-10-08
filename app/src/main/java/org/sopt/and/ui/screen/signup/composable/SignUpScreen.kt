@@ -32,6 +32,9 @@ fun SignUpScreen(
     var emailInput by remember {
         mutableStateOf("")
     }
+    var passwordInput by remember {
+        mutableStateOf("")
+    }
 
     Column(
         modifier = modifier
@@ -64,7 +67,7 @@ fun SignUpScreen(
         )
 
         FilledTextField(
-            modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+            modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
             value = emailInput,
             onValueChange = {
                 emailInput = it
@@ -75,6 +78,21 @@ fun SignUpScreen(
         IconFrontText(
             modifier = Modifier.padding(top = 8.dp),
             text = stringResource(R.string.sign_up_caution_exact_email),
+            painter = painterResource(R.drawable.ic_caution),
+        )
+
+        FilledTextField(
+            modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+            value = passwordInput,
+            onValueChange = {
+                passwordInput = it
+            },
+            placeholder = stringResource(R.string.sign_up_password_input_placeholder)
+        )
+
+        IconFrontText(
+            modifier = Modifier.padding(top = 8.dp),
+            text = stringResource(R.string.sign_up_caution_password, 8, 20),
             painter = painterResource(R.drawable.ic_caution),
         )
     }
