@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">AND-ANDROID</string>
+
+    <!-- Content Description -->
+    <string name="close_content_description">닫기</string>
+
+    <!-- 회원가입 -->
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_sign_up">회원가입</string>
+    <string name="sign_up_email_input_placeholder">wavve@example.com</string>
+
 </resources>

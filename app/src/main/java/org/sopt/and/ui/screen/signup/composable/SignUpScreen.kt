@@ -2,6 +2,8 @@ package org.sopt.and.ui.screen.signup.composable
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,11 +11,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import org.sopt.and.R
+import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
@@ -53,6 +59,15 @@ fun SignUpScreen(
             },
             style = WavveTheme.typography.headSmall,
             fontWeight = FontWeight.Medium
+        )
+
+        FilledTextField(
+            modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+            value = emailInput,
+            onValueChange = {
+                emailInput = it
+            },
+            placeholder = stringResource(R.string.sign_up_email_input_placeholder)
         )
     }
 }
