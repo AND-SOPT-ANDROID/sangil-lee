@@ -3,6 +3,7 @@ package org.sopt.and.ui.component.textfield
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,6 +30,7 @@ fun FilledTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = "",
+    innerPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
     color: Color = WavveTheme.colorScheme.surfaceVariant,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -68,10 +70,7 @@ fun FilledTextField(
                     color = color,
                     shape = RoundedCornerShape(8.dp)
                 )
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp
-                ),
+                .padding(innerPadding),
         ) {
             TextFieldPlaceholder(text = if (value.isEmpty()) placeholder else "")
             innerTextField()
