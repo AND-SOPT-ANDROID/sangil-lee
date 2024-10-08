@@ -23,12 +23,12 @@ fun SignUpScreen(
 
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
-    
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         SignUpInputContentView(
-            modifier = modifier.padding(top = 40.dp).padding(horizontal = 12.dp),
+            modifier = modifier.padding(top = 24.dp).padding(horizontal = 6.dp),
             emailInput = emailInput,
             passwordInput = passwordInput,
             onEmailInputChanged = { emailInput = it },
