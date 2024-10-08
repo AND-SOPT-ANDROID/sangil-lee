@@ -3,11 +3,19 @@
 
     <!-- Content Description -->
     <string name="close_content_description">닫기</string>
+    <string name="sign_up_with_kakao_content_description">카카오 계정으로 회원가입</string>
+    <string name="sign_up_with_naver_content_description">네이버 계정으로 회원가입</string>
+    <string name="sign_up_with_t_content_description">T 계정으로 회원가입</string>
+    <string name="sign_up_with_facebook_content_description">페이스북 계정으로 회원가입</string>
+    <string name="sign_up_with_apple_content_description">애플 계정으로 회원가입</string>
 
     <!-- 회원가입 -->
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_sign_up">회원가입</string>
     <string name="sign_up_email_input_placeholder">wavve@example.com</string>
     <string name="sign_up_caution_exact_email">로그인, 비밀번호 찾기, 알림에 사용되니 정확한 이메일을 입력해주세요.</string>
+    <string name="sign_up_password_input_placeholder">Wavve 비밀번호 설정</string>
+    <string name="sign_up_caution_password">비밀번호는 %s~%s자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
+    <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
 
 </resources>
