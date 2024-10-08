@@ -17,5 +17,6 @@
     <string name="sign_up_password_input_placeholder">Wavve 비밀번호 설정</string>
     <string name="sign_up_caution_password">비밀번호는 %s~%s자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
     <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
+    <string name="sign_up_alert_social">·SNS계정으로 간편하게 가입하여 서비스를 이용하실 수 있습니다. 기존 POOQ 계정 또는 Wavve 계정과는 연동되지 않으니 이용에 참고하세요.</string>
 
 </resources>
