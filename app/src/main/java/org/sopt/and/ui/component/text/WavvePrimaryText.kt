@@ -1,6 +1,5 @@
 package org.sopt.and.ui.component.text
 
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,7 +34,7 @@ fun WavvePrimaryText(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
-    style: TextStyle = LocalTextStyle.current
+    style: TextStyle = WavveTheme.typography.bodyMedium
 ) {
     Text(
         text = text,
