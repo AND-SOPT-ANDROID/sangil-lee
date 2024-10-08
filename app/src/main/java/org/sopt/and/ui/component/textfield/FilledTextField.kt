@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.sopt.and.ui.component.text.TextFieldPlaceholder
 import org.sopt.and.ui.component.text.WavvePrimaryText
 import org.sopt.and.ui.theme.WavveTheme
@@ -43,7 +44,7 @@ fun FilledTextField(
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
+    singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -74,14 +75,16 @@ fun FilledTextField(
                 .background(
                     color = color,
                     shape = RoundedCornerShape(8.dp)
-                )
-                .padding(innerPadding),
+                ).padding(innerPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier,
             ) {
-                TextFieldPlaceholder(text = if (value.isEmpty()) placeholder else "")
+                TextFieldPlaceholder(
+                    text = if (value.isEmpty()) placeholder else "",
+                    style = textStyle,
+                )
                 innerTextField()
             }
             Spacer(modifier = Modifier.weight(1f))
