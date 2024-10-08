@@ -45,12 +45,16 @@ fun ANDANDROIDTheme(
         darkTheme -> wavveDarkColorScheme()
         else -> wavveDarkColorScheme()
     }
+
+    val wavveTypography = WavveTypography.Default
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = {
             CompositionLocalProvider(
                 LocalWavveColorScheme provides wavveColorScheme,
+                LocalWavveTypography provides wavveTypography
             ) {
                 content()
             }

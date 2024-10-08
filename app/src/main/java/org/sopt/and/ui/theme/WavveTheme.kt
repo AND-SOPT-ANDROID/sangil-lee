@@ -8,4 +8,9 @@ object WavveTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalWavveColorScheme.current
+
+    val typography: WavveTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalWavveTypography.current
 }
