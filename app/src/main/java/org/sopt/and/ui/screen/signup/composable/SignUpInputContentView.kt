@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,14 +26,12 @@ import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
 fun SignUpInputContentView(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    emailInput: String,
+    passwordInput: String,
+    onEmailInputChanged: (String) -> Unit,
+    onPasswordInputChanged: (String) -> Unit
 ) {
-    var emailInput by remember {
-        mutableStateOf("")
-    }
-    var passwordInput by remember {
-        mutableStateOf("")
-    }
 
     Column(
         modifier = modifier
@@ -76,9 +70,7 @@ fun SignUpInputContentView(
         FilledTextField(
             modifier = Modifier.padding(top = 28.dp).fillMaxWidth(),
             value = emailInput,
-            onValueChange = {
-                emailInput = it
-            },
+            onValueChange = onEmailInputChanged,
             placeholder = stringResource(R.string.sign_up_email_input_placeholder)
         )
 
@@ -91,9 +83,7 @@ fun SignUpInputContentView(
         FilledTextField(
             modifier = Modifier.padding(top = 20.dp).fillMaxWidth(),
             value = passwordInput,
-            onValueChange = {
-                passwordInput = it
-            },
+            onValueChange = onPasswordInputChanged,
             placeholder = stringResource(R.string.sign_up_password_input_placeholder)
         )
 
