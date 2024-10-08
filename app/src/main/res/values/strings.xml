@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">AND-ANDROID</string>
 
+    <!-- Common -->
+    <string name="show_password_indicate">show</string>
+    <string name="hide_password_indicate">hide</string>
+
     <!-- Content Description -->
     <string name="close_content_description">닫기</string>
     <string name="sign_up_with_kakao_content_description">카카오 계정으로 회원가입</string>
