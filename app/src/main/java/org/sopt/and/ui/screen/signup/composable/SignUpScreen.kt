@@ -1,10 +1,13 @@
 package org.sopt.and.ui.screen.signup.composable
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
 import org.sopt.and.ui.component.button.FullWidthTextButton
+import org.sopt.and.util.isValidEmail
+import org.sopt.and.util.isValidPassword
 
 @Composable
 fun SignUpScreen(
@@ -24,21 +29,38 @@ fun SignUpScreen(
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
 
+    var signUpButtonEnabled by remember { mutableStateOf(false) }
+
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
     ) {
-        SignUpInputContentView(
-            modifier = modifier.padding(top = 24.dp).padding(horizontal = 6.dp),
-            emailInput = emailInput,
-            passwordInput = passwordInput,
-            onEmailInputChanged = { emailInput = it },
-            onPasswordInputChanged = { passwordInput = it }
-        )
-        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .weight(1f)
+                .padding(bottom = 24.dp)
+        ) {
+            SignUpInputContentView(
+                modifier = modifier
+                    .padding(top = 24.dp)
+                    .padding(horizontal = 6.dp),
+                emailInput = emailInput,
+                passwordInput = passwordInput,
+                onEmailInputChanged = { emailInput = it },
+                onPasswordInputChanged = { passwordInput = it }
+            )
+        }
         FullWidthTextButton(
+            modifier = Modifier,
             text = stringResource(R.string.wavve_sign_up),
-            enabled = false
+            enabled = signUpButtonEnabled
         )
+    }
+
+    LaunchedEffect(key1 = emailInput, key2 = passwordInput) {
+        signUpButtonEnabled = emailInput.isValidEmail() && passwordInput.isValidPassword()
     }
 }
 
