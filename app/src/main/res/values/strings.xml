@@ -14,6 +14,7 @@
     <string name="sign_up_with_facebook_content_description">페이스북 계정으로 회원가입</string>
     <string name="sign_up_with_apple_content_description">애플 계정으로 회원가입</string>
     <string name="navigate_up_content_description">뒤로가기</string>
+    <string name="notification_content_description">알림</string>
 
     <!-- 회원가입 -->
     <string name="title_activity_sign_up">SignUpActivity</string>
