@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.and.ui.component.text.WavvePrimaryText
+import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
@@ -36,7 +36,7 @@ fun FullWidthTextButton(
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        WavvePrimaryText(
+        PrimaryText(
             modifier = Modifier.padding(vertical = 16.dp),
             text = text,
             color = if (enabled) color.contentColor else color.disabledContentColor,

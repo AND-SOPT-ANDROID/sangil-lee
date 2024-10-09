@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.TextUnit
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
-fun WavvePrimaryText(
+fun PrimaryText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = WavveTheme.colorScheme.primary,
@@ -60,5 +60,5 @@ fun WavvePrimaryText(
 @Preview
 @Composable
 private fun WavvePrimaryTextPreview() {
-    WavvePrimaryText(text = "WavveText")
+    PrimaryText(text = "WavveText")
 }

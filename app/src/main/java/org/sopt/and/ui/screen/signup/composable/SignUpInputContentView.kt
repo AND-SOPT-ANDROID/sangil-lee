@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -31,7 +29,7 @@ import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.IconFrontText
 import org.sopt.and.ui.component.text.TertiaryText
-import org.sopt.and.ui.component.text.WavvePrimaryText
+import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.component.text.WavveSecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
@@ -102,7 +100,7 @@ fun SignUpInputContentView(
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingContent = {
-                WavvePrimaryText(
+                PrimaryText(
                     modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible },
                     text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(R.string.show_password_indicate)
                 )
