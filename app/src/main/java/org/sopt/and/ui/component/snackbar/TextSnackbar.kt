@@ -17,6 +17,7 @@ import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
 fun TextSnackbar(
+    modifier: Modifier = Modifier,
     message: String,
     contentColor: Color = WavveTheme.colorScheme.primary,
     containerColor: Color = WavveTheme.colorScheme.surface,
@@ -28,6 +29,7 @@ fun TextSnackbar(
     dismissActionContentColor: Color = WavveTheme.colorScheme.secondary
 ) {
     Snackbar(
+        modifier = modifier,
         containerColor = containerColor,
         action = action,
         dismissAction = dismissAction,

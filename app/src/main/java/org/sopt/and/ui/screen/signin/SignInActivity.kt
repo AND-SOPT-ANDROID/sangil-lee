@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.launch
 import org.sopt.and.R
+import org.sopt.and.ui.component.snackbar.TextSnackbar
 import org.sopt.and.ui.component.surface.WavveDefaultSurface
 import org.sopt.and.ui.screen.signin.composable.SignInContentScreen
 import org.sopt.and.ui.theme.ANDANDROIDTheme
@@ -64,7 +65,10 @@ class SignInActivity : ComponentActivity() {
                         SnackbarHost(
                             hostState = snackbarHostState
                         ) {
-
+                            TextSnackbar(
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                                message = it.visuals.message
+                            )
                         }
                     }
                 ) { innerPadding ->
@@ -73,6 +77,7 @@ class SignInActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding).fillMaxSize().padding(horizontal = 14.dp),
                             onLoginResult = { isSuccessful ->
                                 scope.launch {
+                                    snackbarHostState.currentSnackbarData?.dismiss()
                                     snackbarHostState.showSnackbar(
                                         message = if (isSuccessful)
                                             ContextCompat.getString(this@SignInActivity, R.string.sign_in_success)
