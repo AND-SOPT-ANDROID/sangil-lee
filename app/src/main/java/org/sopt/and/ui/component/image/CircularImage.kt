@@ -25,9 +25,9 @@ fun CircularImage(
     colorFilter: ColorFilter? = null
 ) {
     Image(
-        modifier = modifier.clip(
+        modifier = Modifier.clip(
             shape = CircleShape
-        ),
+        ).then(modifier),
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
