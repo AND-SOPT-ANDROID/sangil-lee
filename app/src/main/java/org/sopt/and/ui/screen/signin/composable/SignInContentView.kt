@@ -1,12 +1,16 @@
 package org.sopt.and.ui.screen.signin.composable
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +26,9 @@ import androidx.compose.ui.unit.dp
 import org.sopt.and.R
 import org.sopt.and.ui.component.button.RoundedHorizontalButton
 import org.sopt.and.ui.component.text.PrimaryText
+import org.sopt.and.ui.component.text.SecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
+import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
 fun SignInContentView(
@@ -61,12 +67,37 @@ fun SignInContentView(
             }
         )
         RoundedHorizontalButton(
-            modifier = Modifier.padding(top = 12.dp).fillMaxWidth(),
+            modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
             onClick = onLoginButtonClicked
         ) {
             PrimaryText(
                 modifier = Modifier.padding(vertical = 6.dp),
                 text = stringResource(R.string.sign_in)
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(top = 20.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            SecondaryText(
+                text = stringResource(R.string.find_id),
+                style = WavveTheme.typography.bodySmall,
+            )
+            VerticalDivider(
+                color = WavveTheme.colorScheme.secondary,
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 2.dp)
+            )
+            SecondaryText(
+                text = stringResource(R.string.reset_password),
+                style = WavveTheme.typography.bodySmall,
+            )
+            VerticalDivider(
+                color = WavveTheme.colorScheme.secondary,
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 2.dp)
+            )
+            SecondaryText(
+                text = stringResource(R.string.sign_up),
+                style = WavveTheme.typography.bodySmall,
             )
         }
     }
