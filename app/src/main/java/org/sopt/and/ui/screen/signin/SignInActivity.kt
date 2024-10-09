@@ -7,9 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
 import org.sopt.and.ui.component.surface.WavveDefaultSurface
-import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.screen.signin.composable.SignInContentScreen
 import org.sopt.and.ui.theme.ANDANDROIDTheme
 
@@ -43,7 +43,8 @@ class SignInActivity : ComponentActivity() {
                                 )
                             }, navigationIcon = {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                                    modifier = Modifier.padding(start = 8.dp).size(32.dp),
+                                    imageVector = Icons.AutoMirrored.Sharp.KeyboardArrowLeft,
                                     contentDescription = stringResource(R.string.navigate_up_content_description)
                                 )
                             }
