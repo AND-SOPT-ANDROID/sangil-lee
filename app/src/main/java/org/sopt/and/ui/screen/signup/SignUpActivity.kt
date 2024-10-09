@@ -54,7 +54,13 @@ class SignUpActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         SignUpScreen(
-                            modifier = Modifier.padding(horizontal = 12.dp)
+                            modifier = Modifier.padding(horizontal = 12.dp),
+                            onSignUpComplete = { email, password ->
+                                intent.putExtra("email", email)
+                                intent.putExtra("password", password)
+                                setResult(RESULT_OK, intent)
+                                finish()
+                            }
                         )
                     }
                 }

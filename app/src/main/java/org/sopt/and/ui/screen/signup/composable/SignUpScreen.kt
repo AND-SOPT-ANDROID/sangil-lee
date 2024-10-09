@@ -23,7 +23,8 @@ import org.sopt.and.util.isValidPassword
 
 @Composable
 fun SignUpScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSignUpComplete: (String, String) -> Unit = { _, _ -> }
 ) {
 
     var emailInput by remember { mutableStateOf("") }
@@ -55,7 +56,10 @@ fun SignUpScreen(
         FullWidthTextButton(
             modifier = Modifier,
             text = stringResource(R.string.wavve_sign_up),
-            enabled = signUpButtonEnabled
+            enabled = signUpButtonEnabled,
+            onClick = {
+                onSignUpComplete(emailInput, passwordInput)
+            }
         )
     }
 
