@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.sopt.and.User
 
 @Composable
 fun SignInContentScreen(
@@ -33,7 +34,11 @@ fun SignInContentScreen(
             onEmailInputChanged = { emailInput = it },
             onPasswordInputChanged = { passwordInput = it },
             onLoginButtonClicked = {
-                // TODO : Implement login button click event
+                if (User.email == emailInput && User.password == passwordInput) {
+                    // 로그인 성공
+                } else {
+                    // 로그인 실패
+                }
             }
         )
     }
