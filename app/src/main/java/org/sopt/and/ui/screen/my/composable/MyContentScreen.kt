@@ -48,7 +48,9 @@ fun MyContentScreen(
                         contentDescription = stringResource(R.string.profile_image),
                     )
                     PrimaryText(
-                        text = User.email
+                        modifier = Modifier.padding(start = 12.dp),
+                        text = User.email,
+                        style = WavveTheme.typography.bodyLarge,
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     PrimaryIcon(
