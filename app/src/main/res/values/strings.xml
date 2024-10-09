@@ -39,4 +39,7 @@
     <string name="sign_in_with_other">또는 다른 서비스 계정으로 로그인</string>
     <string name="sign_in_success">로그인 성공 !</string>
     <string name="sign_in_failure">로그인 실패</string>
+
+    <!-- My -->
+    <string name="title_activity_my">MyActivity</string>
 </resources>
