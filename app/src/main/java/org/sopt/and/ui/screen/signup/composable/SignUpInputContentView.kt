@@ -2,6 +2,7 @@ package org.sopt.and.ui.screen.signup.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,9 +29,9 @@ import org.sopt.and.R
 import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.IconFrontText
-import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.component.text.SecondaryText
+import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
 
@@ -127,10 +128,19 @@ fun SignUpInputContentView(
             spacing = 12.dp
         )
 
-        TertiaryText(
-            modifier = Modifier.padding(top = 48.dp),
-            text = stringResource(R.string.sign_up_alert_social)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+        ) {
+            TertiaryText(
+                text = "· ",
+                modifier = Modifier.alignByBaseline()
+            )
+            TertiaryText(
+                modifier = Modifier.alignByBaseline(),
+                text = stringResource(R.string.alert_social_sign),
+                style = WavveTheme.typography.bodySmall
+            )
+        }
     }
 }
 

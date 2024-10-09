@@ -29,6 +29,7 @@ import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.component.text.SecondaryText
+import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
 
@@ -116,6 +117,20 @@ fun SignInContentView(
             modifier = Modifier.padding(top = 32.dp),
             spacing = 18.dp
         )
+
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+        ) {
+            TertiaryText(
+                text = "· ",
+                modifier = Modifier.alignByBaseline()
+            )
+            TertiaryText(
+                modifier = Modifier.alignByBaseline(),
+                text = stringResource(R.string.alert_social_sign),
+                style = WavveTheme.typography.bodySmall
+            )
+        }
     }
 }
 
