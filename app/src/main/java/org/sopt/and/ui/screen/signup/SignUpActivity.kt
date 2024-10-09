@@ -23,6 +23,7 @@ import org.sopt.and.ui.component.icon.PrimaryIcon
 import org.sopt.and.ui.component.surface.WavveDefaultSurface
 import org.sopt.and.ui.screen.signup.composable.SignUpScreen
 import org.sopt.and.ui.theme.ANDANDROIDTheme
+import org.sopt.and.util.noRippleClickable
 
 @OptIn(ExperimentalMaterial3Api::class)
 class SignUpActivity : ComponentActivity() {
@@ -43,7 +44,9 @@ class SignUpActivity : ComponentActivity() {
                             modifier = Modifier,
                             actions = {
                                 PrimaryIcon(
-                                    modifier = Modifier.size(28.dp).padding(end = 8.dp),
+                                    modifier = Modifier.size(28.dp).padding(end = 8.dp).noRippleClickable {
+                                        finish()
+                                    },
                                     painter = painterResource(R.drawable.ic_close),
                                     contentDescription = stringResource(R.string.close_content_description)
                                 )
