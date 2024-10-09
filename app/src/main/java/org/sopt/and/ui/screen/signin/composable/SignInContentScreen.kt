@@ -16,7 +16,8 @@ import org.sopt.and.User
 
 @Composable
 fun SignInContentScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLoginResult: (Boolean) -> Unit
 ) {
 
     var emailInput by remember { mutableStateOf("") }
@@ -34,11 +35,10 @@ fun SignInContentScreen(
             onEmailInputChanged = { emailInput = it },
             onPasswordInputChanged = { passwordInput = it },
             onLoginButtonClicked = {
-                if (User.email == emailInput && User.password == passwordInput) {
-                    // 로그인 성공
-                } else {
-                    // 로그인 실패
-                }
+                if (emailInput.isNotEmpty() && passwordInput.isNotEmpty() && User.email == emailInput && User.password == passwordInput)
+                    onLoginResult(true)
+                else
+                    onLoginResult(false)
             }
         )
     }
