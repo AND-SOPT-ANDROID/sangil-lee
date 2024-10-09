@@ -117,7 +117,7 @@ fun SignInContentView(
             SecondaryText(
                 text = stringResource(R.string.sign_up),
                 style = WavveTheme.typography.bodySmall,
-                modifier = Modifier.clickable {
+                modifier = Modifier.noRippleClickable {
                     signUpLauncher.launch(Intent(context, SignUpActivity::class.java))
                 }
             )
