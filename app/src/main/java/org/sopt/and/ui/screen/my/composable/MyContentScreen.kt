@@ -19,11 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
 import org.sopt.and.User
+import org.sopt.and.ui.component.box.NoContentAlertBox
 import org.sopt.and.ui.component.icon.PrimaryIcon
 import org.sopt.and.ui.component.image.CircularImage
 import org.sopt.and.ui.component.surface.VariantSurface
 import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.component.text.SecondaryText
+import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
 fun MyContentScreen(
@@ -105,6 +107,28 @@ fun MyContentScreen(
                     )
                 }
             }
+        }
+
+        Column(
+            modifier = Modifier.padding(16.dp).fillMaxWidth()
+        ) {
+            PrimaryText(
+                text = stringResource(R.string.total_viewing_history),
+                style = WavveTheme.typography.headSmall
+            )
+            NoContentAlertBox(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                text = stringResource(R.string.no_viewing_history)
+            )
+
+            PrimaryText(
+                text = stringResource(R.string.interested_program),
+                style = WavveTheme.typography.headSmall
+            )
+            NoContentAlertBox(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                text = stringResource(R.string.no_interested_program)
+            )
         }
     }
 }
