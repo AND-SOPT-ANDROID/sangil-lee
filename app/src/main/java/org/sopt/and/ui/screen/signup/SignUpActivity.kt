@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import org.sopt.and.R
+import org.sopt.and.User
 import org.sopt.and.ui.component.icon.PrimaryIcon
 import org.sopt.and.ui.component.surface.WavveDefaultSurface
 import org.sopt.and.ui.screen.signup.composable.SignUpScreen
@@ -58,6 +59,9 @@ class SignUpActivity : ComponentActivity() {
                             onSignUpComplete = { email, password ->
                                 intent.putExtra("email", email)
                                 intent.putExtra("password", password)
+                                User.email = email
+                                User.password = password
+                                
                                 setResult(RESULT_OK, intent)
                                 finish()
                             }
