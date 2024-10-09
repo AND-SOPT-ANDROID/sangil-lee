@@ -1,6 +1,5 @@
 package org.sopt.and.ui.screen.signup.composable
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +33,7 @@ import org.sopt.and.ui.component.text.SecondaryText
 import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
+import org.sopt.and.util.noRippleClickable
 
 @Composable
 fun SignUpInputContentView(
@@ -102,7 +102,7 @@ fun SignUpInputContentView(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingContent = {
                 PrimaryText(
-                    modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible },
+                    modifier = Modifier.noRippleClickable { isPasswordVisible = !isPasswordVisible },
                     text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(R.string.show_password_indicate)
                 )
             }

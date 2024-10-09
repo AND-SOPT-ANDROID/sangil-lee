@@ -38,6 +38,7 @@ import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.screen.signup.SignUpActivity
 import org.sopt.and.ui.theme.WavveTheme
+import org.sopt.and.util.noRippleClickable
 
 @Composable
 fun SignInContentView(
@@ -79,7 +80,7 @@ fun SignInContentView(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingContent = {
                 PrimaryText(
-                    modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible },
+                    modifier = Modifier.noRippleClickable { isPasswordVisible = !isPasswordVisible },
                     text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(R.string.show_password_indicate)
                 )
             }
