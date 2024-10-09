@@ -23,5 +23,6 @@
     <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
     <string name="sign_up_alert_social">·SNS계정으로 간편하게 가입하여 서비스를 이용하실 수 있습니다. 기존 POOQ 계정 또는 Wavve 계정과는 연동되지 않으니 이용에 참고하세요.</string>
     <string name="wavve_sign_up">Wavve 회원가입</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
 
 </resources>

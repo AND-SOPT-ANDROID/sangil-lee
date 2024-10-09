@@ -13,11 +13,10 @@
         android:theme="@style/Theme.ANDANDROID"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screen.signup.SignUpActivity"
+            android:name=".ui.screen.signin.SignInActivity"
             android:exported="true"
-            android:label="@string/title_activity_sign_up"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.ANDANDROID" >
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.ANDANDROID">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,11 +24,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.screen.signup.SignUpActivity"
+            android:exported="false"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/Theme.ANDANDROID"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ANDANDROID">
-        </activity>
+            android:theme="@style/Theme.ANDANDROID" />
     </application>
 
 </manifest>
