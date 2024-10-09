@@ -44,4 +44,6 @@
     <!-- My -->
     <string name="title_activity_my">MyActivity</string>
     <string name="profile_image">프로필 이미지</string>
+    <string name="promote_first_payment">첫 결제 시 첫 달 100원!</string>
+    <string name="pay">구매하기</string>
 </resources>
