@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
@@ -16,6 +17,21 @@ fun SecondaryIcon(
 ) {
     Icon(
         painter = painter,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        tint = tint
+    )
+}
+
+@Composable
+fun SecondaryIcon(
+    imageVector: ImageVector,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    tint: Color = WavveTheme.colorScheme.secondary
+) {
+    Icon(
+        imageVector = imageVector,
         contentDescription = contentDescription,
         modifier = modifier,
         tint = tint
