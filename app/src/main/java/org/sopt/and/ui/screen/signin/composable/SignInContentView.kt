@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.and.R
 import org.sopt.and.ui.component.button.RoundedHorizontalButton
 import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
+import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.PrimaryText
 import org.sopt.and.ui.component.text.SecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
@@ -110,6 +111,11 @@ fun SignInContentView(
                 text = stringResource(R.string.sign_in_with_other),
             )
         }
+
+        SocialIconsRow(
+            modifier = Modifier.padding(top = 32.dp),
+            spacing = 18.dp
+        )
     }
 }
 
