@@ -42,4 +42,5 @@
 
     <!-- My -->
     <string name="title_activity_my">MyActivity</string>
+    <string name="profile_image">프로필 이미지</string>
 </resources>
