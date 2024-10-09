@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
-import org.sopt.and.ui.component.text.WavveSecondaryText
+import org.sopt.and.ui.component.text.SecondaryText
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
@@ -44,7 +44,7 @@ fun CenterContentHorizontalDivider(
 @Preview
 private fun CenterContentHorizontalDividerPreview() {
     CenterContentHorizontalDivider {
-        WavveSecondaryText(
+        SecondaryText(
             modifier = Modifier.padding(horizontal = 8.dp),
             text = stringResource(R.string.sign_up_with_other),
         )

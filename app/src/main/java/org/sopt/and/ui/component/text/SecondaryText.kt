@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.TextUnit
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
-fun WavveSecondaryText(
+fun SecondaryText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = WavveTheme.colorScheme.secondary,
@@ -59,6 +59,6 @@ fun WavveSecondaryText(
 
 @Preview
 @Composable
-private fun WavveSecondaryTextPreview() {
-    WavveSecondaryText(text = "WavveText")
+private fun SecondaryTextPreview() {
+    SecondaryText(text = "WavveText")
 }

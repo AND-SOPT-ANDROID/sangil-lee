@@ -30,7 +30,7 @@ import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.IconFrontText
 import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.component.text.PrimaryText
-import org.sopt.and.ui.component.text.WavveSecondaryText
+import org.sopt.and.ui.component.text.SecondaryText
 import org.sopt.and.ui.component.textfield.FilledTextField
 import org.sopt.and.ui.theme.WavveTheme
 
@@ -116,7 +116,7 @@ fun SignUpInputContentView(
         CenterContentHorizontalDivider(
             modifier = Modifier.padding(top = 56.dp)
         ) {
-            WavveSecondaryText(
+            SecondaryText(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 text = stringResource(R.string.sign_up_with_other),
             )
