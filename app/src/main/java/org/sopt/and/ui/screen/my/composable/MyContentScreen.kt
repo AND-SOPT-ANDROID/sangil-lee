@@ -121,7 +121,7 @@ fun MyContentScreen(
                 style = WavveTheme.typography.headSmall
             )
             NoContentAlertBox(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 60.dp),
                 text = stringResource(R.string.no_viewing_history)
             )
 
@@ -130,7 +130,7 @@ fun MyContentScreen(
                 style = WavveTheme.typography.headSmall
             )
             NoContentAlertBox(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 60.dp),
                 text = stringResource(R.string.no_interested_program)
             )
         }
