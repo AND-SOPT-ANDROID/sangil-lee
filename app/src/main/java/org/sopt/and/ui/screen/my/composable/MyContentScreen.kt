@@ -66,6 +66,7 @@ fun MyContentScreen(
                 SecondaryText(
                     modifier = Modifier.padding(top = 24.dp),
                     text = stringResource(R.string.promote_first_payment),
+                    style = WavveTheme.typography.bodyLarge
                 )
                 Row(
                     modifier = Modifier.padding(top = 2.dp),
@@ -73,6 +74,7 @@ fun MyContentScreen(
                 ) {
                     PrimaryText(
                         text = stringResource(R.string.pay),
+                        style = WavveTheme.typography.bodyLarge
                     )
                     PrimaryIcon(
                         modifier = Modifier.padding(start = 4.dp),
@@ -92,6 +94,7 @@ fun MyContentScreen(
             ) {
                 SecondaryText(
                     text = stringResource(R.string.have_no_wavve_access),
+                    style = WavveTheme.typography.bodyLarge
                 )
                 Row(
                     modifier = Modifier.padding(top = 2.dp),
@@ -99,6 +102,7 @@ fun MyContentScreen(
                 ) {
                     PrimaryText(
                         text = stringResource(R.string.pay),
+                        style = WavveTheme.typography.bodyLarge
                     )
                     PrimaryIcon(
                         modifier = Modifier.padding(start = 4.dp),
