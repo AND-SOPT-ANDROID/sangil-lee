@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
-fun RoundedHorizontalButton(
+fun HorizontallyRoundedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -52,7 +52,7 @@ fun RoundedHorizontalButton(
 @Composable
 @Preview
 private fun RoundedHorizontalButtonPreview() {
-    RoundedHorizontalButton(
+    HorizontallyRoundedButton(
         onClick = {},
         content = {
             Text("Button")

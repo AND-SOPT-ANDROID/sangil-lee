@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -29,7 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.and.R
-import org.sopt.and.ui.component.button.RoundedHorizontalButton
+import org.sopt.and.ui.component.button.HorizontallyRoundedButton
 import org.sopt.and.ui.component.divider.CenterContentHorizontalDivider
 import org.sopt.and.ui.component.row.SocialIconsRow
 import org.sopt.and.ui.component.text.PrimaryText
@@ -85,7 +84,7 @@ fun SignInContentView(
                 )
             }
         )
-        RoundedHorizontalButton(
+        HorizontallyRoundedButton(
             modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
             onClick = onLoginButtonClicked
         ) {
