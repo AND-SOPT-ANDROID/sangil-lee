@@ -28,8 +28,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.and.ui.component.text.TextFieldPlaceholder
 import org.sopt.and.ui.component.text.PrimaryText
+import org.sopt.and.ui.component.text.TertiaryText
 import org.sopt.and.ui.theme.WavveTheme
 
 @Composable
@@ -94,10 +94,11 @@ fun FilledTextField(
                 modifier = Modifier,
                 contentAlignment = Alignment.CenterStart
             ) {
-                TextFieldPlaceholder(
+                TertiaryText(
                     modifier = Modifier.height(newHeight),
                     text = if (value.isEmpty()) placeholder else "",
                     style = textStyle,
+                    maxLines = 1
                 )
                 innerTextField()
             }
