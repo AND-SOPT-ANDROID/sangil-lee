@@ -5,9 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,7 +31,6 @@ import org.sopt.and.ui.component.snackbar.TextSnackbar
 import org.sopt.and.ui.component.surface.WavveDefaultSurface
 import org.sopt.and.ui.screen.signin.composable.SignInContentScreen
 import org.sopt.and.ui.theme.ANDANDROIDTheme
-import org.sopt.and.ui.theme.WavveTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class SignInActivity : ComponentActivity() {
@@ -55,7 +53,9 @@ class SignInActivity : ComponentActivity() {
                                 )
                             }, navigationIcon = {
                                 Icon(
-                                    modifier = Modifier.padding(start = 8.dp).size(32.dp),
+                                    modifier = Modifier
+                                        .padding(start = 8.dp)
+                                        .size(32.dp),
                                     imageVector = Icons.AutoMirrored.Sharp.KeyboardArrowLeft,
                                     contentDescription = stringResource(R.string.navigate_up_content_description)
                                 )
@@ -63,6 +63,7 @@ class SignInActivity : ComponentActivity() {
                         )
                     }, snackbarHost = {
                         SnackbarHost(
+                            modifier = Modifier.imePadding(),
                             hostState = snackbarHostState
                         ) {
                             TextSnackbar(
@@ -74,15 +75,24 @@ class SignInActivity : ComponentActivity() {
                 ) { innerPadding ->
                     WavveDefaultSurface {
                         SignInContentScreen(
-                            modifier = Modifier.padding(innerPadding).fillMaxSize().padding(horizontal = 14.dp),
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
+                                .padding(horizontal = 14.dp),
                             onLoginResult = { isSuccessful ->
                                 scope.launch {
                                     snackbarHostState.currentSnackbarData?.dismiss()
                                     snackbarHostState.showSnackbar(
                                         message = if (isSuccessful)
-                                            ContextCompat.getString(this@SignInActivity, R.string.sign_in_success)
+                                            ContextCompat.getString(
+                                                this@SignInActivity,
+                                                R.string.sign_in_success
+                                            )
                                         else
-                                            ContextCompat.getString(this@SignInActivity, R.string.sign_in_failure)
+                                            ContextCompat.getString(
+                                                this@SignInActivity,
+                                                R.string.sign_in_failure
+                                            )
                                     )
                                 }
                             }
