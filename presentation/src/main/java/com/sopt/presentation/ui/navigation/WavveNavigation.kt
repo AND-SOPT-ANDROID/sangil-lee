@@ -1,11 +1,13 @@
 package com.sopt.presentation.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 
 @Composable
 fun WavveNavigation(
@@ -21,7 +23,7 @@ fun WavveNavigation(
             startDestination = Routes.Auth.SignIn
         ) {
             composable<Routes.Auth.SignIn> {
-
+                SignInScreen(modifier = Modifier.fillMaxSize())
             }
             composable<Routes.Auth.SignUp> {
 
