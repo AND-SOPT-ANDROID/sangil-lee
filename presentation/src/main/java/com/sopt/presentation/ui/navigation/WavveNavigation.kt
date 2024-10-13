@@ -15,7 +15,7 @@ fun WavveNavigation(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = Routes.Auth.SignIn
+        startDestination = Routes.Auth.Graph
     ) {
         navigation<Routes.Auth.Graph>(
             startDestination = Routes.Auth.SignIn
