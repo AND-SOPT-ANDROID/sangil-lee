@@ -25,15 +25,16 @@ import com.sopt.presentation.util.isValidEmail
 import com.sopt.presentation.util.isValidPassword
 
 @Composable
-fun SignUpScreen(
+fun SignUpContentScreen(
     modifier: Modifier = Modifier,
-    onSignUpComplete: (String, String) -> Unit = { _, _ -> }
+    emailInput: String = "",
+    passwordInput: String = "",
+    onEmailInputChanged: (String) -> Unit = {},
+    onPasswordInputChanged: (String) -> Unit = {},
+    onSignUpComplete: () -> Unit = { }
 ) {
 
     val context = LocalContext.current
-
-    var emailInput by remember { mutableStateOf("") }
-    var passwordInput by remember { mutableStateOf("") }
 
     var signUpButtonEnabled by remember { mutableStateOf(false) }
 
@@ -57,8 +58,8 @@ fun SignUpScreen(
                     .padding(horizontal = 6.dp),
                 emailInput = emailInput,
                 passwordInput = passwordInput,
-                onEmailInputChanged = { emailInput = it },
-                onPasswordInputChanged = { passwordInput = it }
+                onEmailInputChanged = onEmailInputChanged,
+                onPasswordInputChanged = onPasswordInputChanged
             )
         }
         FullWidthTextButton(
@@ -67,7 +68,7 @@ fun SignUpScreen(
             enabled = signUpButtonEnabled,
             onClick = {
                 if (signUpButtonEnabled)
-                    onSignUpComplete(emailInput, passwordInput)
+                    onSignUpComplete()
                 else {
                     when {
                         emailInput.isValidEmail().not() -> {
@@ -98,5 +99,5 @@ fun SignUpScreen(
 @Composable
 @Preview
 private fun SignUpScreenPreview() {
-    SignUpScreen()
+    SignUpContentScreen()
 }

@@ -31,7 +31,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToSignUp: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -91,7 +92,7 @@ fun SignInScreen(
                                 )
                         )
                     }
-                }
+                }, onNavigateToSignUp = onNavigateToSignUp
             )
         }
     }

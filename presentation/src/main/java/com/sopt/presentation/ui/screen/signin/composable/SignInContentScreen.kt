@@ -17,7 +17,8 @@ import com.sopt.presentation.User
 @Composable
 fun SignInContentScreen(
     modifier: Modifier = Modifier,
-    onLoginResult: (Boolean) -> Unit
+    onLoginResult: (Boolean) -> Unit,
+    onNavigateToSignUp: () -> Unit
 ) {
 
     var emailInput by remember { mutableStateOf("") }
@@ -39,7 +40,7 @@ fun SignInContentScreen(
                     onLoginResult(true)
                 else
                     onLoginResult(false)
-            }
+            }, onNavigateToSignUp = onNavigateToSignUp
         )
     }
 }

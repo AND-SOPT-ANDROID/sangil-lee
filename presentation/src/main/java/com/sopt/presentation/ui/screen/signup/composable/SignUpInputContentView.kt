@@ -38,10 +38,10 @@ import com.sopt.presentation.util.noRippleClickable
 @Composable
 fun SignUpInputContentView(
     modifier: Modifier = Modifier,
-    emailInput: String,
-    passwordInput: String,
-    onEmailInputChanged: (String) -> Unit,
-    onPasswordInputChanged: (String) -> Unit
+    emailInput: String = "",
+    passwordInput: String = "",
+    onEmailInputChanged: (String) -> Unit = {},
+    onPasswordInputChanged: (String) -> Unit = {}
 ) {
 
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -147,7 +147,7 @@ fun SignUpInputContentView(
 @Preview
 @Composable
 private fun SignUpInputContentViewPreview() {
-    SignUpScreen(
+    SignUpInputContentView(
         modifier = Modifier.fillMaxSize()
     )
 }

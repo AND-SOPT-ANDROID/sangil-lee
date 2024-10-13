@@ -1,9 +1,5 @@
 package com.sopt.presentation.ui.screen.signin.composable
 
-import android.app.Activity
-import android.content.Intent
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -20,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -35,7 +30,6 @@ import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.text.SecondaryText
 import com.sopt.presentation.ui.component.text.TertiaryText
 import com.sopt.presentation.ui.component.textfield.FilledTextField
-import com.sopt.presentation.ui.screen.signup.SignUpActivity
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.noRippleClickable
 
@@ -46,17 +40,9 @@ fun SignInContentView(
     passwordInput: String,
     onEmailInputChanged: (String) -> Unit,
     onPasswordInputChanged: (String) -> Unit,
-    onLoginButtonClicked: () -> Unit
+    onLoginButtonClicked: () -> Unit,
+    onNavigateToSignUp: () -> Unit
 ) {
-
-    val context = LocalContext.current
-    val signUpLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            onEmailInputChanged(data?.getStringExtra("email") ?: emailInput)
-            onPasswordInputChanged(data?.getStringExtra("password") ?: passwordInput)
-        }
-    }
 
     var isPasswordVisible by remember { mutableStateOf(false) }
 
@@ -117,7 +103,7 @@ fun SignInContentView(
                 text = stringResource(R.string.sign_up),
                 style = WavveTheme.typography.bodySmall,
                 modifier = Modifier.noRippleClickable {
-                    signUpLauncher.launch(Intent(context, SignUpActivity::class.java))
+                    onNavigateToSignUp()
                 }
             )
         }
@@ -160,6 +146,7 @@ private fun SignInContentViewPreview() {
         passwordInput = "",
         onEmailInputChanged = {},
         onPasswordInputChanged = {},
-        onLoginButtonClicked = {}
+        onLoginButtonClicked = {},
+        onNavigateToSignUp = {}
     )
 }
