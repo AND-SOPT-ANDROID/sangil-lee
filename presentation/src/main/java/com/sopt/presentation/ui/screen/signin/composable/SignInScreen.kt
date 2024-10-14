@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.sopt.presentation.R
+import com.sopt.presentation.ui.component.image.WavveLogoImage
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
@@ -44,11 +45,7 @@ fun SignInScreen(
         topBar = {
             DefaultCenterAlignedTopAppBar(
                 title = {
-                    Image(
-                        modifier = Modifier.width(100.dp),
-                        painter = painterResource(id = R.drawable.logo_wavve),
-                        contentDescription = stringResource(R.string.wavve)
-                    )
+                    WavveLogoImage()
                 }, navigationIcon = {
                     Icon(
                         modifier = Modifier
