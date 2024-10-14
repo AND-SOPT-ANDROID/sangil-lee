@@ -20,7 +20,8 @@ import com.sopt.presentation.util.noRippleClickable
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeContentScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onVideoTypeSelected: (VideoType) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -28,7 +29,7 @@ fun HomeContentScreen(
         stickyHeader {
             VideoTypeTabRow(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                onVideoTypeSelected = {}
+                onVideoTypeSelected = onVideoTypeSelected
             )
         }
     }
