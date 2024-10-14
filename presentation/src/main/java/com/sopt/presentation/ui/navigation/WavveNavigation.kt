@@ -94,10 +94,12 @@ fun WavveNavigation(
         }
     }
     LaunchedEffect(key1 = selectedMainBottomTab) {
-        when (selectedMainBottomTab) {
-            WavveBottomBarItem.Home -> navController.navigate(Routes.Main.Home)
-            WavveBottomBarItem.Search -> navController.navigate(Routes.Main.Search)
-            WavveBottomBarItem.My -> navController.navigate(Routes.Main.My)
+        if (navBackStackEntry?.shouldShowBottomBar() == true) {
+            when (selectedMainBottomTab) {
+                WavveBottomBarItem.Home -> navController.navigate(Routes.Main.Home)
+                WavveBottomBarItem.Search -> navController.navigate(Routes.Main.Search)
+                WavveBottomBarItem.My -> navController.navigate(Routes.Main.My)
+            }
         }
     }
 }
