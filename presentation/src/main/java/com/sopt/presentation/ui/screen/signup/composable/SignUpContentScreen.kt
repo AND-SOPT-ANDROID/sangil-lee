@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,7 @@ fun SignUpContentScreen(
 ) {
 
     val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val signUpButtonActivated by remember(
         emailInput,
@@ -71,8 +73,10 @@ fun SignUpContentScreen(
             text = stringResource(R.string.wavve_sign_up),
             activated = signUpButtonActivated,
             onClick = {
-                if (signUpButtonActivated)
+                if (signUpButtonActivated) {
+                    keyboardController?.hide()
                     onSignUpComplete()
+                }
                 else {
                     when {
                         emailInput.isValidEmail().not() -> toast.show()
