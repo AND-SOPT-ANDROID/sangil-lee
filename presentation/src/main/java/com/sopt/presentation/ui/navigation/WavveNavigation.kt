@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -90,6 +91,13 @@ fun WavveNavigation(
                     )
                 }
             }
+        }
+    }
+    LaunchedEffect(key1 = selectedMainBottomTab) {
+        when (selectedMainBottomTab) {
+            WavveBottomBarItem.Home -> navController.navigate(Routes.Main.Home)
+            WavveBottomBarItem.Search -> navController.navigate(Routes.Main.Search)
+            WavveBottomBarItem.My -> navController.navigate(Routes.Main.My)
         }
     }
 }
