@@ -11,6 +11,15 @@
     <string name="title_home">홈</string>
     <string name="title_my">MY</string>
     <string name="title_search">검색</string>
+    <string name="type_new_classic">뉴클래식</string>
+    <string name="type_drama">드라마</string>
+    <string name="type_entertainment">예능</string>
+    <string name="type_movie">영화</string>
+    <string name="type_animation">애니</string>
+    <string name="type_abroad_series">해외시리즈</string>
+    <string name="type_information_culture">시사교양</string>
+    <string name="type_kids">키즈</string>
+    <string name="type_movie_plus">영화플러스</string>
 
     <!-- Content Description -->
     <string name="close_content_description">닫기</string>
