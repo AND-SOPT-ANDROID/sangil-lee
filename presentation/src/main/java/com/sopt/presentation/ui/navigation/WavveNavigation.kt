@@ -77,6 +77,7 @@ fun WavveNavigation(
                 composable<Routes.Main.Home> {
                     HomeScreen(
                         modifier = Modifier
+                            .padding(bottom = innerPadding.calculateBottomPadding())
                             .fillMaxSize()
                     )
                 }
