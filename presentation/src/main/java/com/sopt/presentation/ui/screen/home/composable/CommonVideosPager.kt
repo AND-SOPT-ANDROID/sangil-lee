@@ -32,7 +32,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.icon.SecondaryIcon
 import com.sopt.presentation.ui.component.text.PrimaryText
-import com.sopt.presentation.ui.state.CommonVideoOverviews
+import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.noRippleClickable
@@ -40,7 +40,7 @@ import com.sopt.presentation.util.noRippleClickable
 @Composable
 fun CommonVideosHorizontalPager(
     modifier: Modifier = Modifier,
-    commonVideoOverview: CommonVideoOverviews,
+    commonVideoOverview: CommonVideoOverviewsViewState,
     onVideoClicked: (VideoOverviewViewState) -> Unit
 ) {
     val state = rememberLazyListState()
