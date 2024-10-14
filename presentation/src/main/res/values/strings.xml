@@ -31,6 +31,7 @@
     <string name="navigate_up_content_description">뒤로가기</string>
     <string name="notification_content_description">알림</string>
     <string name="caution_content_description">주의</string>
+    <string name="see_more_content_description">더보기</string>
 
     <!-- 회원가입 -->
     <string name="sign_up">회원가입</string>
