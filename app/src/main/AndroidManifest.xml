@@ -23,11 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.sopt.presentation.ui.screen.my.MyActivity"
-            android:exported="false"
-            android:label="@string/title_activity_my"
-            android:theme="@style/Theme.ANDANDROID" />
     </application>
 
 </manifest>
