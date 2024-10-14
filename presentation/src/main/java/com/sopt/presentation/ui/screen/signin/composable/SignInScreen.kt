@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowLeft
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -26,6 +25,7 @@ import androidx.core.content.ContextCompat
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
+import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ fun SignInScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            CenterAlignedTopAppBar(
+            DefaultCenterAlignedTopAppBar(
                 title = {
                     Image(
                         modifier = Modifier.width(100.dp),
