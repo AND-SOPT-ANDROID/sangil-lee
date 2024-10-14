@@ -65,7 +65,7 @@ fun SignUpContentScreen(
         FullWidthTextButton(
             modifier = Modifier,
             text = stringResource(R.string.wavve_sign_up),
-            enabled = signUpButtonEnabled,
+            activated = signUpButtonEnabled,
             onClick = {
                 if (signUpButtonEnabled)
                     onSignUpComplete()

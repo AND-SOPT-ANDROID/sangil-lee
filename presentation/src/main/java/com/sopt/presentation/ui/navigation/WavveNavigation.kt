@@ -35,7 +35,7 @@ fun WavveNavigation(
                     onActionIconClicked = { navController.popBackStack() },
                     onSignUpComplete = {
                         navController.navigate(Routes.Auth.SignIn) {
-                            popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                            popUpTo(navController.graph.startDestinationId) { inclusive = false }
                         }
                     }
                 )

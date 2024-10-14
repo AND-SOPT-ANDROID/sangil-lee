@@ -14,6 +14,13 @@ import androidx.compose.ui.unit.dp
 import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.theme.WavveTheme
 
+/**
+ * @param modifier
+ * @param color
+ * @param text
+ * @param onClick
+ * @param activated false여도 클릭 가능
+ */
 @Composable
 fun FullWidthTextButton(
     modifier: Modifier = Modifier,
@@ -25,13 +32,13 @@ fun FullWidthTextButton(
     ),
     text: String,
     onClick: () -> Unit = { },
-    enabled: Boolean = true,
+    activated: Boolean = true,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = if (enabled) color.containerColor else color.disabledContainerColor
+                color = if (activated) color.containerColor else color.disabledContainerColor
             )
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
@@ -39,7 +46,7 @@ fun FullWidthTextButton(
         PrimaryText(
             modifier = Modifier.padding(vertical = 16.dp),
             text = text,
-            color = if (enabled) color.contentColor else color.disabledContentColor,
+            color = if (activated) color.contentColor else color.disabledContentColor,
         )
     }
 }
@@ -57,6 +64,6 @@ private fun FullWidthEnabledTextButtonPreview() {
 private fun FullWidthDisabledTextButtonPreview() {
     FullWidthTextButton(
         text = "Wavve 회원가입",
-        enabled = false
+        activated = false
     )
 }
