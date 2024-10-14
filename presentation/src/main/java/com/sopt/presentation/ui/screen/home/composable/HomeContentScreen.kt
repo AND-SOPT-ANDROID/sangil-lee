@@ -1,4 +1,4 @@
-package com.sopt.presentation.ui.screen.home
+package com.sopt.presentation.ui.screen.home.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi

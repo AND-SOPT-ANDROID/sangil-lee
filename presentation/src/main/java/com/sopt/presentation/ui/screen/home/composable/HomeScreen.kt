@@ -1,4 +1,4 @@
-package com.sopt.presentation.ui.screen.home
+package com.sopt.presentation.ui.screen.home.composable
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -18,7 +18,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
-import com.sopt.presentation.ui.screen.home.HomeScreen
+import com.sopt.presentation.ui.screen.home.composable.HomeScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
