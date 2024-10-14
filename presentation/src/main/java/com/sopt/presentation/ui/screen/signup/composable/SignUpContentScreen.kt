@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +37,10 @@ fun SignUpContentScreen(
 
     val context = LocalContext.current
 
-    var signUpButtonEnabled by remember { mutableStateOf(false) }
+    val signUpButtonActivated by remember(
+        emailInput,
+        passwordInput
+    ) { derivedStateOf { emailInput.isValidEmail() && passwordInput.isValidPassword() } }
 
     var signUpFailureMessage by remember { mutableStateOf("") }
     var toast = Toast.makeText(context, signUpFailureMessage, Toast.LENGTH_SHORT)
@@ -65,32 +69,29 @@ fun SignUpContentScreen(
         FullWidthTextButton(
             modifier = Modifier,
             text = stringResource(R.string.wavve_sign_up),
-            activated = signUpButtonEnabled,
+            activated = signUpButtonActivated,
             onClick = {
-                if (signUpButtonEnabled)
+                if (signUpButtonActivated)
                     onSignUpComplete()
                 else {
                     when {
-                        emailInput.isValidEmail().not() -> {
-                            toast.show()
-                        }
-                        passwordInput.isValidPassword().not() -> {
-                            toast.show()
-                        }
+                        emailInput.isValidEmail().not() -> toast.show()
+                        passwordInput.isValidPassword().not() -> toast.show()
                     }
                 }
             }
         )
     }
 
-    LaunchedEffect(key1 = emailInput, key2 = passwordInput) {
-        signUpButtonEnabled = emailInput.isValidEmail() && passwordInput.isValidPassword()
+    LaunchedEffect(signUpButtonActivated) {
         when {
             emailInput.isValidEmail().not() -> {
                 signUpFailureMessage = ContextCompat.getString(context, R.string.check_email_format)
             }
+
             passwordInput.isValidPassword().not() -> {
-                signUpFailureMessage = ContextCompat.getString(context, R.string.check_password_format)
+                signUpFailureMessage =
+                    ContextCompat.getString(context, R.string.check_password_format)
             }
         }
     }
