@@ -26,7 +26,8 @@ fun WavveNavigation(
             composable<Routes.Auth.SignIn> {
                 SignInScreen(
                     modifier = Modifier.fillMaxSize(),
-                    onNavigateToSignUp = { navController.navigate(Routes.Auth.SignUp) }
+                    onNavigateToSignUp = { navController.navigate(Routes.Auth.SignUp) },
+                    onSignInComplete = { navController.navigate(Routes.Main.Graph) }
                 )
             }
             composable<Routes.Auth.SignUp> {

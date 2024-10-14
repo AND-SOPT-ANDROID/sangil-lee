@@ -32,7 +32,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onSignInComplete: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -77,20 +78,19 @@ fun SignInScreen(
                     .fillMaxSize()
                     .padding(horizontal = 14.dp),
                 onLoginResult = { isSuccessful ->
-                    scope.launch {
-                        snackbarHostState.currentSnackbarData?.dismiss()
-                        snackbarHostState.showSnackbar(
-                            message = if (isSuccessful)
-                                ContextCompat.getString(
-                                    context,
-                                    R.string.sign_in_success
-                                )
-                            else
+                    if (isSuccessful) {
+                        onSignInComplete()
+                    } else {
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar(
+                                message =
                                 ContextCompat.getString(
                                     context,
                                     R.string.sign_in_failure
                                 )
-                        )
+                            )
+                        }
                     }
                 }, onNavigateToSignUp = onNavigateToSignUp
             )
