@@ -23,6 +23,7 @@ import com.sopt.presentation.ui.screen.home.composable.HomeScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
+import com.sopt.presentation.util.getSerialName
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -57,7 +58,9 @@ fun WavveNavigation(
                     SignInScreen(
                         modifier = Modifier.fillMaxSize(),
                         onNavigateToSignUp = { navController.navigate(Routes.Auth.SignUp) },
-                        onSignInComplete = { navController.navigate(Routes.Main.Graph) }
+                        onSignInComplete = { navController.navigate(Routes.Main.Graph) {
+                            popUpTo(Routes.Auth.SignIn) { inclusive = true }
+                        } }
                     )
                 }
                 composable<Routes.Auth.SignUp> {
@@ -98,24 +101,24 @@ fun WavveNavigation(
     }
     LaunchedEffect(key1 = selectedMainBottomTab) {
         if (navBackStackEntry?.shouldShowBottomBar() == true) {
-            if (currentRoute != navController.currentDestination?.route)
-                navController.navigate(
-                    when (selectedMainBottomTab) {
-                        WavveBottomBarItem.Home -> Routes.Main.Home
-                        WavveBottomBarItem.Search -> Routes.Main.Search
-                        WavveBottomBarItem.My -> Routes.Main.My
-                    }
-                ) {
+            val targetRoute = when (selectedMainBottomTab) {
+                WavveBottomBarItem.Home -> Routes.Main.Home.serializer().getSerialName()
+                WavveBottomBarItem.Search -> Routes.Main.Search.serializer().getSerialName()
+                WavveBottomBarItem.My -> Routes.Main.My.serializer().getSerialName()
+            }
+            if (currentRoute != targetRoute) {
+                navController.navigate(targetRoute) {
                     popUpTo(Routes.Main.Home) { inclusive = false }
                 }
+            }
         }
     }
 
     LaunchedEffect(key1 = currentRoute) {
         selectedMainBottomTab = when (currentRoute) {
-            Routes.Main.Home.serializer().descriptor.serialName -> WavveBottomBarItem.Home
-            Routes.Main.Search.serializer().descriptor.serialName -> WavveBottomBarItem.Search
-            Routes.Main.My.serializer().descriptor.serialName -> WavveBottomBarItem.My
+            Routes.Main.Home.serializer().getSerialName() -> WavveBottomBarItem.Home
+            Routes.Main.Search.serializer().getSerialName() -> WavveBottomBarItem.Search
+            Routes.Main.My.serializer().getSerialName() -> WavveBottomBarItem.My
             else -> selectedMainBottomTab
         }
     }
@@ -124,8 +127,8 @@ fun WavveNavigation(
 @OptIn(ExperimentalSerializationApi::class)
 private fun NavBackStackEntry.shouldShowBottomBar(): Boolean {
     return this.destination.route in listOf(
-        Routes.Main.Home.serializer().descriptor.serialName,
-        Routes.Main.Search.serializer().descriptor.serialName,
-        Routes.Main.My.serializer().descriptor.serialName
+        Routes.Main.Home.serializer().getSerialName(),
+        Routes.Main.Search.serializer().getSerialName(),
+        Routes.Main.My.serializer().getSerialName()
     )
 }
