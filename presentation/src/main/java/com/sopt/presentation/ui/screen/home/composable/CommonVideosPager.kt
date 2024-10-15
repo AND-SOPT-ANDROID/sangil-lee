@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -55,7 +56,7 @@ fun CommonVideosHorizontalPager(
             kindDescription = commonVideoOverview.kindDescription
         )
         LazyRow(
-            modifier = Modifier.padding(top = 6.dp),
+            modifier = Modifier.padding(top = 8.dp),
             state = state,
             contentPadding = PaddingValues(horizontal = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -79,6 +80,7 @@ private fun VideosKindDescriptionRow(
 ) {
     Row(
         modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         PrimaryText(
             text = kindDescription,
