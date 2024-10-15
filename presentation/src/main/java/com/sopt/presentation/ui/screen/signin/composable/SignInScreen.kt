@@ -75,6 +75,7 @@ fun SignInScreen(
                     .fillMaxSize()
                     .padding(horizontal = 14.dp),
                 onLoginResult = { isSuccessful ->
+                    onSignInComplete()
                     if (isSuccessful) {
                         onSignInComplete()
                     } else {
