@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.sopt.presentation.R
@@ -35,7 +34,7 @@ import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun CommonVideosHorizontalPager(
@@ -109,7 +108,9 @@ private fun CommonVideoItem(
             .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
-            modifier = Modifier.fillMaxSize().height(180.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(180.dp),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,
             contentScale = ContentScale.Crop

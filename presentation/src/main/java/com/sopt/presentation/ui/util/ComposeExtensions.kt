@@ -1,4 +1,4 @@
-package com.sopt.presentation.util
+package com.sopt.presentation.ui.util
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.sopt.presentation.ui.state.VideoOverviewViewState
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun HeadDisplayedVideoHorizontalPager(
@@ -50,9 +50,11 @@ private fun HeadDisplayedVideoItem(
     onClick: (VideoOverviewViewState) -> Unit = {}
 ) {
     Box(
-        modifier = modifier.clip(
-            shape = RoundedCornerShape(12.dp)
-        ).noRippleClickable { onClick(videoOverview) }
+        modifier = modifier
+            .clip(
+                shape = RoundedCornerShape(12.dp)
+            )
+            .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
             modifier = Modifier.fillMaxSize(),

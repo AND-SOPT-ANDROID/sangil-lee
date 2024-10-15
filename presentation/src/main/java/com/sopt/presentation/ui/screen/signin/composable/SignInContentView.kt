@@ -31,7 +31,7 @@ import com.sopt.presentation.ui.component.text.SecondaryText
 import com.sopt.presentation.ui.component.text.TertiaryText
 import com.sopt.presentation.ui.component.textfield.FilledTextField
 import com.sopt.presentation.ui.theme.WavveTheme
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun SignInContentView(
@@ -56,7 +56,9 @@ fun SignInContentView(
             placeholder = stringResource(R.string.email_address_or_id),
         )
         FilledTextField(
-            modifier = Modifier.padding(top = 6.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 6.dp)
+                .fillMaxWidth(),
             innerPadding = PaddingValues(horizontal = 12.dp, vertical = 18.dp),
             value = passwordInput,
             onValueChange = onPasswordInputChanged,
@@ -65,13 +67,19 @@ fun SignInContentView(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingContent = {
                 PrimaryText(
-                    modifier = Modifier.noRippleClickable { isPasswordVisible = !isPasswordVisible },
-                    text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(R.string.show_password_indicate)
+                    modifier = Modifier.noRippleClickable {
+                        isPasswordVisible = !isPasswordVisible
+                    },
+                    text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(
+                        R.string.show_password_indicate
+                    )
                 )
             }
         )
         HorizontallyRoundedButton(
-            modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .fillMaxWidth(),
             onClick = onLoginButtonClicked
         ) {
             PrimaryText(
@@ -80,7 +88,10 @@ fun SignInContentView(
             )
         }
         Row(
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(top = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)
+                .padding(top = 20.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             SecondaryText(
@@ -123,7 +134,9 @@ fun SignInContentView(
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 48.dp)
         ) {
             TertiaryText(
                 text = "· ",

@@ -25,7 +25,7 @@ import com.sopt.presentation.ui.screen.home.type.VideoType
 import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +63,9 @@ fun HomeContentScreen(
 
         item {
             HeadDisplayedVideoHorizontalPager(
-                modifier = Modifier.fillMaxWidth().height(500.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(500.dp),
                 state = headDisplayPagerState,
                 videoOverviews = headVideoOverviews,
                 onVideoClicked = { }

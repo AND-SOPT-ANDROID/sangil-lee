@@ -29,7 +29,7 @@ import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun TodayTopVideosPager(
@@ -56,7 +56,10 @@ fun TodayTopVideosPager(
             state = state,
             contentPadding = PaddingValues(horizontal = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
-            flingBehavior = rememberSnapFlingBehavior(lazyListState = state, snapPosition = SnapPosition.Start)
+            flingBehavior = rememberSnapFlingBehavior(
+                lazyListState = state,
+                snapPosition = SnapPosition.Start
+            )
         ) {
             itemsIndexed(commonVideoOverview.videoOverviews) { idx, _ ->
                 TodayTopVideoItem(
@@ -86,14 +89,19 @@ private fun TodayTopVideoItem(
             .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
-            modifier = Modifier.fillMaxSize().height(320.dp).padding(bottom = 36.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(320.dp)
+                .padding(bottom = 36.dp),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,
             contentScale = ContentScale.Crop
         )
 
         PrimaryText(
-            modifier = Modifier.align(Alignment.BottomStart).padding(start = 6.dp),
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(start = 6.dp),
             text = "$rank",
             style = WavveTheme.typography.headSuperLarge,
         )

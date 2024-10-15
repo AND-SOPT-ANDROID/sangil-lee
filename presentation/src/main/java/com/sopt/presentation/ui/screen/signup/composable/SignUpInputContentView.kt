@@ -33,7 +33,7 @@ import com.sopt.presentation.ui.component.text.SecondaryText
 import com.sopt.presentation.ui.component.text.TertiaryText
 import com.sopt.presentation.ui.component.textfield.FilledTextField
 import com.sopt.presentation.ui.theme.WavveTheme
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun SignUpInputContentView(
@@ -51,27 +51,31 @@ fun SignUpInputContentView(
     ) {
         Text(
             text = buildAnnotatedString {
-                withStyle(style = SpanStyle(
-                    color = WavveTheme.colorScheme.primary
-                )
+                withStyle(
+                    style = SpanStyle(
+                        color = WavveTheme.colorScheme.primary
+                    )
                 ) {
                     append("이메일과 비밀번호")
                 }
-                withStyle(style = SpanStyle(
-                    color = WavveTheme.colorScheme.secondary
-                )
+                withStyle(
+                    style = SpanStyle(
+                        color = WavveTheme.colorScheme.secondary
+                    )
                 ) {
                     append("만으로\n")
                 }
-                withStyle(style = SpanStyle(
-                    color = WavveTheme.colorScheme.primary
-                )
+                withStyle(
+                    style = SpanStyle(
+                        color = WavveTheme.colorScheme.primary
+                    )
                 ) {
                     append("Wavve를 즐길 수 ")
                 }
-                withStyle(style = SpanStyle(
-                    color = WavveTheme.colorScheme.secondary
-                )
+                withStyle(
+                    style = SpanStyle(
+                        color = WavveTheme.colorScheme.secondary
+                    )
                 ) {
                     append("있어요!")
                 }
@@ -81,7 +85,9 @@ fun SignUpInputContentView(
         )
 
         FilledTextField(
-            modifier = Modifier.padding(top = 28.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 28.dp)
+                .fillMaxWidth(),
             value = emailInput,
             onValueChange = onEmailInputChanged,
             placeholder = stringResource(R.string.sign_up_email_input_placeholder)
@@ -94,7 +100,9 @@ fun SignUpInputContentView(
         )
 
         FilledTextField(
-            modifier = Modifier.padding(top = 20.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth(),
             value = passwordInput,
             onValueChange = onPasswordInputChanged,
             placeholder = stringResource(R.string.sign_up_password_input_placeholder),
@@ -102,8 +110,12 @@ fun SignUpInputContentView(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingContent = {
                 PrimaryText(
-                    modifier = Modifier.noRippleClickable { isPasswordVisible = !isPasswordVisible },
-                    text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(R.string.show_password_indicate)
+                    modifier = Modifier.noRippleClickable {
+                        isPasswordVisible = !isPasswordVisible
+                    },
+                    text = if (isPasswordVisible) stringResource(R.string.hide_password_indicate) else stringResource(
+                        R.string.show_password_indicate
+                    )
                 )
             }
         )
@@ -129,7 +141,9 @@ fun SignUpInputContentView(
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 48.dp)
         ) {
             TertiaryText(
                 text = "· ",

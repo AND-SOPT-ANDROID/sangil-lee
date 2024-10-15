@@ -17,7 +17,7 @@ import com.sopt.presentation.ui.component.icon.PrimaryIcon
 import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpViewModel
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,10 @@ fun SignUpScreen(
                 modifier = Modifier,
                 actions = {
                     PrimaryIcon(
-                        modifier = Modifier.size(28.dp).padding(end = 8.dp).noRippleClickable(onClick = onActionIconClicked),
+                        modifier = Modifier
+                            .size(28.dp)
+                            .padding(end = 8.dp)
+                            .noRippleClickable(onClick = onActionIconClicked),
                         painter = painterResource(R.drawable.ic_close),
                         contentDescription = stringResource(R.string.close_content_description)
                     )

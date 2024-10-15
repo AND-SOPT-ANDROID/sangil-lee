@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.R
-import com.sopt.presentation.util.noRippleClickable
+import com.sopt.presentation.ui.theme.WavveTheme
+import com.sopt.presentation.ui.util.noRippleClickable
 
 enum class WavveBottomBarItem(
     val icon: ImageVector,
