@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -61,6 +62,7 @@ fun TodayTopVideosPager(
                 TodayTopVideoItem(
                     modifier = Modifier.width(screenWidth / 2f - 6.dp),
                     videoOverview = commonVideoOverview.videoOverviews[idx],
+                    rank = idx + 1,
                     onClick = onVideoClicked
                 )
             }
@@ -73,6 +75,7 @@ fun TodayTopVideosPager(
 private fun TodayTopVideoItem(
     modifier: Modifier = Modifier,
     videoOverview: VideoOverviewViewState,
+    rank: Int,
     onClick: (VideoOverviewViewState) -> Unit = {}
 ) {
     Box(
@@ -83,10 +86,16 @@ private fun TodayTopVideoItem(
             .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
-            modifier = Modifier.fillMaxSize().height(320.dp),
+            modifier = Modifier.fillMaxSize().height(320.dp).padding(bottom = 36.dp),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,
             contentScale = ContentScale.Crop
+        )
+
+        PrimaryText(
+            modifier = Modifier.align(Alignment.BottomStart).padding(start = 6.dp),
+            text = "$rank",
+            style = WavveTheme.typography.headSuperLarge,
         )
     }
 }
