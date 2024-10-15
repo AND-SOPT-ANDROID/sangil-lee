@@ -4,13 +4,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,6 +28,7 @@ import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlin.collections.contains
 
+@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun WavveNavigation(
     modifier: Modifier = Modifier,
@@ -32,6 +36,7 @@ fun WavveNavigation(
 ) {
     var selectedMainBottomTab by remember { mutableStateOf(WavveBottomBarItem.Home) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute by remember { derivedStateOf { navBackStackEntry?.destination?.route } }
 
     Scaffold(
         modifier = modifier,
@@ -96,11 +101,24 @@ fun WavveNavigation(
     }
     LaunchedEffect(key1 = selectedMainBottomTab) {
         if (navBackStackEntry?.shouldShowBottomBar() == true) {
-            when (selectedMainBottomTab) {
-                WavveBottomBarItem.Home -> navController.navigate(Routes.Main.Home)
-                WavveBottomBarItem.Search -> navController.navigate(Routes.Main.Search)
-                WavveBottomBarItem.My -> navController.navigate(Routes.Main.My)
+            navController.navigate(
+                when (selectedMainBottomTab) {
+                    WavveBottomBarItem.Home -> Routes.Main.Home
+                    WavveBottomBarItem.Search -> Routes.Main.Search
+                    WavveBottomBarItem.My -> Routes.Main.My
+                }
+            ) {
+                popUpTo(Routes.Main.Home) { inclusive = false }
             }
+        }
+    }
+
+    LaunchedEffect(key1 = currentRoute) {
+        selectedMainBottomTab = when (currentRoute) {
+            Routes.Main.Home.serializer().descriptor.serialName -> WavveBottomBarItem.Home
+            Routes.Main.Search.serializer().descriptor.serialName -> WavveBottomBarItem.Search
+            Routes.Main.My.serializer().descriptor.serialName -> WavveBottomBarItem.My
+            else -> selectedMainBottomTab
         }
     }
 }
