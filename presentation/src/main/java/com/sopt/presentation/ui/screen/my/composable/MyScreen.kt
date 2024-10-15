@@ -9,15 +9,13 @@ import com.sopt.presentation.ui.component.surface.DefaultSurface
 
 @Composable
 fun MyScreen(modifier: Modifier = Modifier) {
-    Scaffold(
-        modifier = modifier,
-    ) { innerPadding ->
-        DefaultSurface {
-            MyContentScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            )
-        }
+    DefaultSurface(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        MyContentScreen(
+            modifier = Modifier
+                .fillMaxSize()
+        )
     }
 }
