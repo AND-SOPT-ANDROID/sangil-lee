@@ -33,6 +33,7 @@ fun HomeContentScreen(
     modifier: Modifier = Modifier,
     headVideoOverviews: List<VideoOverviewViewState>,
     commonVideoOverviews: List<CommonVideoOverviewsViewState>,
+    topVideoOverviews: CommonVideoOverviewsViewState,
     onVideoTypeSelected: (VideoType) -> Unit,
 ) {
 
@@ -74,6 +75,15 @@ fun HomeContentScreen(
             CommonVideosHorizontalPager(
                 modifier = Modifier.fillMaxWidth(),
                 commonVideoOverview = commonVideoOverviews[it],
+                onVideoClicked = { }
+            )
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(12.dp))
+            TodayTopVideosPager(
+                modifier = Modifier.fillMaxWidth(),
+                commonVideoOverview = topVideoOverviews,
                 onVideoClicked = { }
             )
         }

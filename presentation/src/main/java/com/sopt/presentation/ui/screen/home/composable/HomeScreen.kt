@@ -24,6 +24,7 @@ fun HomeScreen(
             modifier = Modifier.padding(top = 4.dp),
             headVideoOverviews = viewModel.headVideoOverviews,
             commonVideoOverviews = viewModel.commonVideoOverviews,
+            topVideoOverviews = viewModel.topVideoOverviews,
             onVideoTypeSelected = { TODO() },
         )
     }
