@@ -18,6 +18,7 @@ val Typography = Typography(
 )
 
 class WavveTypography(
+    val headSuperLarge: TextStyle,
     val headLarge: TextStyle,
     val headMedium: TextStyle,
     val headSmall: TextStyle,
@@ -29,6 +30,7 @@ class WavveTypography(
 ) {
     companion object {
         val Default = WavveTypography(
+            headSuperLarge = WavveTypeTokens.headSuperLarge,
             headLarge = WavveTypeTokens.headLarge,
             headMedium = WavveTypeTokens.headMedium,
             headSmall = WavveTypeTokens.headSmall,
