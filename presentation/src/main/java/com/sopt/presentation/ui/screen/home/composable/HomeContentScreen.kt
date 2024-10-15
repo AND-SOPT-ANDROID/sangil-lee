@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -70,11 +69,11 @@ fun HomeContentScreen(
             )
         }
 
-        itemsIndexed(commonVideoOverviews) { _, commonVideoOverview ->
+        items(count = commonVideoOverviews.size) {
             Spacer(modifier = Modifier.height(12.dp))
             CommonVideosHorizontalPager(
                 modifier = Modifier.fillMaxWidth(),
-                commonVideoOverview = commonVideoOverview,
+                commonVideoOverview = commonVideoOverviews[it],
                 onVideoClicked = { }
             )
         }
