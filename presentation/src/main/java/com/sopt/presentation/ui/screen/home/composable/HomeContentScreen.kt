@@ -87,6 +87,15 @@ fun HomeContentScreen(
                 onVideoClicked = { }
             )
         }
+
+        items(count = commonVideoOverviews.size) {
+            Spacer(modifier = Modifier.height(12.dp))
+            CommonVideosHorizontalPager(
+                modifier = Modifier.fillMaxWidth(),
+                commonVideoOverview = commonVideoOverviews[it],
+                onVideoClicked = { }
+            )
+        }
     }
 }
 
