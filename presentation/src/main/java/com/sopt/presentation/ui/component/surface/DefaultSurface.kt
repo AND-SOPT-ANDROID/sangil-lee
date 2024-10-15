@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.presentation.ui.theme.WavveTheme
 
 @Composable
-fun WavveDefaultSurface(
+fun DefaultSurface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
     color: Color = WavveTheme.colorScheme.background,

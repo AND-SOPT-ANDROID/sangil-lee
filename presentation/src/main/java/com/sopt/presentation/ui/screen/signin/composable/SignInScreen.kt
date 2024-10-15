@@ -1,11 +1,9 @@
 package com.sopt.presentation.ui.screen.signin.composable
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,14 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.image.WavveLogoImage
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
-import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
+import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
 import kotlinx.coroutines.launch
 
@@ -68,7 +65,7 @@ fun SignInScreen(
             }
         }
     ) { innerPadding ->
-        WavveDefaultSurface {
+        DefaultSurface {
             SignInContentScreen(
                 modifier = Modifier
                     .padding(innerPadding)

@@ -14,7 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.icon.PrimaryIcon
-import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
+import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpViewModel
 import com.sopt.presentation.ui.util.noRippleClickable
@@ -52,7 +52,7 @@ fun SignUpScreen(
             )
         }
     ) { innerPadding ->
-        WavveDefaultSurface(
+        DefaultSurface(
             modifier = Modifier.padding(innerPadding)
         ) {
             SignUpContentScreen(

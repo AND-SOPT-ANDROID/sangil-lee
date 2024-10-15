@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
+import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.screen.home.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,7 +16,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel()
 ) {
-    WavveDefaultSurface(
+    DefaultSurface(
         modifier = modifier
             .statusBarsPadding()
     ) {

@@ -5,16 +5,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sopt.presentation.ui.component.surface.WavveDefaultSurface
+import com.sopt.presentation.ui.component.surface.DefaultSurface
 
 @Composable
 fun MyScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
     ) { innerPadding ->
-        WavveDefaultSurface {
+        DefaultSurface {
             MyContentScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             )
         }
     }
