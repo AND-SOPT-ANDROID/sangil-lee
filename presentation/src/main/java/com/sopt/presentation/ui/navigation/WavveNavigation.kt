@@ -24,7 +24,6 @@ import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlin.collections.contains
 
 @OptIn(ExperimentalSerializationApi::class)
 @Composable
@@ -99,15 +98,16 @@ fun WavveNavigation(
     }
     LaunchedEffect(key1 = selectedMainBottomTab) {
         if (navBackStackEntry?.shouldShowBottomBar() == true) {
-            navController.navigate(
-                when (selectedMainBottomTab) {
-                    WavveBottomBarItem.Home -> Routes.Main.Home
-                    WavveBottomBarItem.Search -> Routes.Main.Search
-                    WavveBottomBarItem.My -> Routes.Main.My
+            if (currentRoute != navController.currentDestination?.route)
+                navController.navigate(
+                    when (selectedMainBottomTab) {
+                        WavveBottomBarItem.Home -> Routes.Main.Home
+                        WavveBottomBarItem.Search -> Routes.Main.Search
+                        WavveBottomBarItem.My -> Routes.Main.My
+                    }
+                ) {
+                    popUpTo(Routes.Main.Home) { inclusive = false }
                 }
-            ) {
-                popUpTo(Routes.Main.Home) { inclusive = false }
-            }
         }
     }
 
