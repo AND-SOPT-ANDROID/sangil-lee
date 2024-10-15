@@ -83,8 +83,7 @@ private fun VideosKindDescriptionRow(
     ) {
         PrimaryText(
             text = kindDescription,
-            style = WavveTheme.typography.bodyLarge,
-            fontSize = 18.sp,
+            style = WavveTheme.typography.bodySuperLarge,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.weight(1f))
