@@ -21,6 +21,7 @@ import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
 import com.sopt.presentation.ui.screen.home.composable.HomeScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
+import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
 import com.sopt.presentation.util.getSerialName
@@ -87,7 +88,11 @@ fun WavveNavigation(
                     )
                 }
                 composable<Routes.Main.Search> {
-
+                    SearchScreen(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                    )
                 }
                 composable<Routes.Main.My> {
                     MyScreen(
