@@ -66,6 +66,10 @@ fun SearchScreen(
                     }
                 }
             )
+            SearchContentScreen(
+                modifier = Modifier.fillMaxSize().padding(top = 16.dp),
+                displayedVideoOverviews = viewModel.displayedVideoOverviews
+            )
         }
     }
 }
