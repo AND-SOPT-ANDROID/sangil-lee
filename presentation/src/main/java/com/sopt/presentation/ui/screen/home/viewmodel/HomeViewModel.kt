@@ -132,56 +132,62 @@ class HomeViewModel: ViewModel() {
             videoOverviews = listOf(
                 VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://image.tmdb.org/t/p/original/o5cBRMF6syh4yUBgZ2Ust8LvcxA.jpg",
-                    description = "나의 아저씨 아이유"
+                    title = "무한도전",
+                    titleImage = "https://image.tmdb.org/t/p/w500/4Nn3JUVrB4O6Qqo5yze051OG07O.jpg",
+                    description = "무한도전무한도전"
+                ),
+                VideoOverviewViewState(
+                    id = 1,
+                    title = "나혼자산다",
+                    titleImage = "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/03/12/U6O1e6h0J81C637826787433233791.jpg",
+                    description = "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "런닝맨",
+                    titleImage = "https://i.namu.wiki/i/TbtnALr4A7RG9e5v8YxRAusQ23_cBzaEej_CVBRJp5wx_OrKM9BUESk0mIPbLvS76knR1KnR4YyT1s3Sp-RRdg.webp",
+                    description = "ㅎㅀㅎㅎㅎㅎㅎㅎㅎㅎㅎ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "오은영의 금쪽상담소",
+                    titleImage = "https://i.namu.wiki/i/1HYrJrBZCykBpCy49k6kUGCScyRaA8QCwC745PUXMBYZEplFt2PGOOXHa_yTNG0SX1MpRdLBXlEBXFDhGRakXQ.webp",
+                    description = "금쪽이"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "백종원의 골목식당",
+                    titleImage = "https://dimg.donga.com/wps/NEWS/IMAGE/2019/01/28/93897544.2.jpg",
+                    description = "ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "신서유기",
+                    titleImage = "https://i.namu.wiki/i/0-RXBLtGoNqcyV9TEiLD-ftdqS42a9jc5r29EsDcqMGENwCpFShtSfHfjxx4jliGnuy-wtnKZPtx2mCpi-lXaw.webp",
+                    description = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "쇼미더머니",
+                    titleImage = "https://upload.wikimedia.org/wikipedia/ko/1/1f/Show_Me_the_Money_11.jpg",
+                    description = "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "아는형님",
+                    titleImage = "https://file.mk.co.kr/meet/neds/2021/09/image_readtop_2021_924917_16328769694798426.jpg",
+                    description = "형"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "놀면뭐하니?",
+                    titleImage = "https://i.namu.wiki/i/vjCVCHwKFR7zJm5GIxtEOfPzz8h0_r_nVXe4wfsFMgeKUoeLXDyfgyBho83Ws5nIA-J5CsRFZu5zYU8pENAcBA.webp",
+                    description = "ㄴ"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "유퀴즈온더블럭",
+                    titleImage = "https://i.namu.wiki/i/ReeZ1gxKh-IZhcIFOsGT7KRDKqeN_F-DCaueY0XIgBRDGPa6YkK4iLHfV7kHA6YXBu-vsZW_8EVtdiZ-2duk-Q.webp",
+                    description = "유퀴즈온더블럭"
                 ), VideoOverviewViewState(
                     id = 1,
-                    title = "나의 아저씨",
-                    titleImage = "https://i.namu.wiki/i/wavbYsNgMzAeHOpD7MDDL9xYbxhkIi_xvNKEjiIVrUUnxmkY3peOAjF4NP5RDwgpIwse-LZfQooGtlP2YUBK_g.webp",
-                    description = "나의 아저씨 아이유"
+                    title = "어서와한국은처음이지",
+                    titleImage = "https://m.mbcplus.com/upload/editor/20180508/20180508091207086336.png",
+                    description = "ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ"
                 )
-            )
+            ).reversed()
         )
     )
 
@@ -190,9 +196,21 @@ class HomeViewModel: ViewModel() {
         videoOverviews = listOf(
             VideoOverviewViewState(
                 id = 1,
+                title = "나는 SOLO",
+                titleImage = "https://ena.skylifetv.co.kr/data/file/variety/2887450690_bXmj3MDE_918901dbabb385cba070d53117d45fd0b3f6d2cc.jpg",
+                description = "ㅇㅈㅇㅈㅇㅈㅇ"
+            ),
+            VideoOverviewViewState(
+                id = 1,
                 title = "무한도전",
                 titleImage = "https://image.tmdb.org/t/p/w500/4Nn3JUVrB4O6Qqo5yze051OG07O.jpg",
                 description = "무한도전무한도전"
+            ),
+            VideoOverviewViewState(
+                id = 1,
+                title = "환승연애",
+                titleImage = "https://cdnimage.dailian.co.kr/news/202402/news_1706920016_1324836_m_1.jpeg",
+                description = "ㅇㅈㅇㅈㅇ"
             ),
             VideoOverviewViewState(
                 id = 1,
