@@ -32,6 +32,8 @@
     <string name="notification_content_description">알림</string>
     <string name="caution_content_description">주의</string>
     <string name="see_more_content_description">더보기</string>
+    <string name="series_content_description">시리즈</string>
+    <string name="movie_content_description">영화</string>
 
     <!-- 회원가입 -->
     <string name="sign_up">회원가입</string>
