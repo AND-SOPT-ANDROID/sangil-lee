@@ -1,5 +1,10 @@
 package com.sopt.presentation.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -50,7 +55,12 @@ fun WavveNavigation(
         NavHost(
             modifier = Modifier,
             navController = navController,
-            startDestination = Routes.Auth.Graph
+            startDestination = Routes.Auth.Graph,
+            enterTransition = {
+                EnterTransition.None
+            }, exitTransition = {
+                ExitTransition.None
+            }
         ) {
             navigation<Routes.Auth.Graph>(
                 startDestination = Routes.Auth.SignIn
