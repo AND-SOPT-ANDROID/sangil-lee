@@ -106,10 +106,9 @@ fun WavveNavigation(
                 WavveBottomBarItem.Search -> Routes.Main.Search.serializer().getSerialName()
                 WavveBottomBarItem.My -> Routes.Main.My.serializer().getSerialName()
             }
-            if (currentRoute != targetRoute) {
-                navController.navigate(targetRoute) {
-                    popUpTo(Routes.Main.Home) { inclusive = false }
-                }
+            navController.navigate(targetRoute) {
+                popUpTo(Routes.Main.Home) { inclusive = false }
+                launchSingleTop = true
             }
         }
     }
