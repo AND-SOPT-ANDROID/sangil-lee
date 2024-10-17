@@ -5,7 +5,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 
 @Composable
 fun Modifier.noRippleClickable(
@@ -21,3 +26,15 @@ fun Modifier.noRippleClickable(
     onClickLabel = onClickLabel,
     role = role
 )
+
+@Composable
+fun TextStyle.getMeasuredKoreanHeight(): Dp {
+    val textMeasurer = rememberTextMeasurer()
+    val koreanTextHeight = remember(this, textMeasurer) {
+        textMeasurer.measure(
+            text = "가",
+            style = copy(textAlign = TextAlign.Center)
+        ).size.height
+    }
+    return with(LocalDensity.current) { koreanTextHeight.toDp() }
+}
