@@ -64,4 +64,8 @@
     <string name="no_viewing_history">시청내역이 없어요.</string>
     <string name="interested_program">관심 프로그램</string>
     <string name="no_interested_program">관심 프로그램이 없어요.</string>
+
+    <!-- Search -->
+    <string name="search_placeholder">제목, 장르, 배우로 찾아보세요</string>
+
 </resources>
