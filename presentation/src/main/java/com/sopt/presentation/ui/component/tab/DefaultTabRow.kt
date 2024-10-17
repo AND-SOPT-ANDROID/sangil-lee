@@ -1,5 +1,6 @@
 package com.sopt.presentation.ui.component.tab
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -50,6 +51,16 @@ fun DefaultTabRow(
         mutableStateOf(List(tabs.size) { Offset.Zero })
     }
 
+    val animatedOffsetX by animateDpAsState(
+        targetValue = with(LocalDensity.current) { indicatorPositions[pagerState.currentPage].x.toDp() },
+        label = ""
+    )
+
+    val animatedWidth by animateDpAsState(
+        targetValue = with(LocalDensity.current) { indicatorWidths[pagerState.currentPage].toDp() },
+        label = ""
+    )
+
     Column(
         modifier = modifier.background(containerColor),
     ) {
@@ -85,9 +96,9 @@ fun DefaultTabRow(
             color = indicatorColor,
             thickness = indicatorThickness,
             modifier = Modifier
-                .width(with(LocalDensity.current) { indicatorWidths[pagerState.currentPage].toDp() })
+                .width(animatedWidth)
                 .offset(
-                    x = with(LocalDensity.current) { indicatorPositions[pagerState.currentPage].x.toDp() },
+                    x = animatedOffsetX,
                     y = -indicatorThickness
                 )
         )
