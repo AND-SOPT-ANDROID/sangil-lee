@@ -99,7 +99,7 @@ fun WavveNavigation(
             }
         }
     }
-    LaunchedEffect(key1 = selectedMainBottomTab) {
+    LaunchedEffect(key1 = selectedMainBottomTab) {  // 하단 탭 선택에 의한 라우팅 처리
         if (navBackStackEntry?.shouldShowBottomBar() == true) {
             val targetRoute = when (selectedMainBottomTab) {
                 WavveBottomBarItem.Home -> Routes.Main.Home.serializer().getSerialName()
@@ -113,7 +113,7 @@ fun WavveNavigation(
         }
     }
 
-    LaunchedEffect(key1 = currentRoute) {
+    LaunchedEffect(key1 = currentRoute) {   // 뒤로가기에 의한 하단 탭 변경 처리
         selectedMainBottomTab = when (currentRoute) {
             Routes.Main.Home.serializer().getSerialName() -> WavveBottomBarItem.Home
             Routes.Main.Search.serializer().getSerialName() -> WavveBottomBarItem.Search
