@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.sopt.presentation.ui.component.text.PrimaryText
@@ -91,4 +92,21 @@ fun DefaultTabRow(
                 )
         )
     }
+}
+
+@Composable
+@Preview
+private fun DefaultTabRowPreview() {
+    DefaultTabRow(
+        tabs = listOf("짧은 탭", "인기 영화", "엄청 긴탭탭탭탭"),
+    )
+}
+
+@Composable
+@Preview
+private fun DefaultTabRowPreview2() {
+    DefaultTabRow(
+        tabs = listOf("짧은 탭", "인기 영화", "엄청 긴탭탭탭탭"),
+        pagerState = rememberPagerState(initialPage = 2) { 3 }
+    )
 }
