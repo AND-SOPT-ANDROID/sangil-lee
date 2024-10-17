@@ -1,10 +1,15 @@
 package com.sopt.presentation.ui.component.bottom
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
@@ -15,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,18 +39,21 @@ enum class WavveBottomBarItem(
 
 @Composable
 fun WavveBottomBar(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .background(WavveTheme.colorScheme.backgroundVariant)
+        .navigationBarsPadding(),
+    contentPadding: PaddingValues = PaddingValues(6.dp),
     selectedTab: WavveBottomBarItem,
     onTabSelected: (WavveBottomBarItem) -> Unit,
 ) {
-    BottomAppBar(
-        modifier = modifier.fillMaxWidth(),
-        containerColor = WavveTheme.colorScheme.background,
-        contentColor = WavveTheme.colorScheme.onBackground,
+    Row(
+        modifier = modifier,
     ) {
         WavveBottomBarItem.entries.forEach { item ->
             WavveBottomTabItem(
                 modifier = Modifier.weight(1f),
+                contentPadding = contentPadding,
                 item = item,
                 isSelected = item == selectedTab,
                 onTabSelected = onTabSelected,
@@ -56,16 +65,19 @@ fun WavveBottomBar(
 @Composable
 private fun WavveBottomTabItem(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     item: WavveBottomBarItem,
     isSelected: Boolean,
     onTabSelected: (WavveBottomBarItem) -> Unit,
 ) {
     Column(
-        modifier = modifier.noRippleClickable(onClick = { onTabSelected(item) }),
+        modifier = modifier.noRippleClickable(onClick = { onTabSelected(item) })
+            .padding(vertical = contentPadding.calculateTopPadding()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
         Icon(
+            modifier = Modifier.size(28.dp),
             imageVector = item.icon,
             contentDescription = stringResource(item.titleResId),
             tint = if (isSelected) WavveTheme.colorScheme.primary else WavveTheme.colorScheme.secondary,
