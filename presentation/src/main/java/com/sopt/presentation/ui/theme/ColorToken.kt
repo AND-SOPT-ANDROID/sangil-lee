@@ -8,6 +8,7 @@ object WavveColorDarkTokens {
     val tertiary = Gray30
     val accent = Blue10
     val background = Black10
+    val backgroundVariant = Black0
     val onBackground = Color.White
     val surface = Black20
     val surfaceVariant = Black30
