@@ -19,11 +19,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.image.WavveLogoImage
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
+import com.sopt.presentation.ui.screen.signin.viewmodel.SignInViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,11 +34,15 @@ import kotlinx.coroutines.launch
 fun SignInScreen(
     modifier: Modifier = Modifier,
     onNavigateToSignUp: () -> Unit,
-    onSignInComplete: () -> Unit
+    onSignInComplete: () -> Unit,
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
+
+    val emailInput = viewModel.emailInput.collectAsStateWithLifecycle()
+    val passwordInput = viewModel.passwordInput.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier,
@@ -87,7 +94,11 @@ fun SignInScreen(
                             )
                         }
                     }
-                }, onNavigateToSignUp = onNavigateToSignUp
+                }, onNavigateToSignUp = onNavigateToSignUp,
+                emailInput = emailInput.value,
+                passwordInput = passwordInput.value,
+                onEmailInputChanged = viewModel::onEmailInputChanged,
+                onPasswordInputChanged = viewModel::onPasswordInputChanged
             )
         }
     }
