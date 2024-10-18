@@ -8,12 +8,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sopt.presentation.User
 
 @Composable
 fun SignInContentScreen(
     modifier: Modifier = Modifier,
-    onLoginResult: (Boolean) -> Unit,
+    onSignInButtonClicked: () -> Unit,
     onNavigateToSignUp: () -> Unit,
     emailInput: String,
     passwordInput: String,
@@ -32,12 +31,8 @@ fun SignInContentScreen(
             passwordInput = passwordInput,
             onEmailInputChanged = onEmailInputChanged,
             onPasswordInputChanged = onPasswordInputChanged,
-            onLoginButtonClicked = {
-                if (emailInput.isNotEmpty() && passwordInput.isNotEmpty() && User.email == emailInput && User.password == passwordInput)
-                    onLoginResult(true)
-                else
-                    onLoginResult(false)
-            }, onNavigateToSignUp = onNavigateToSignUp
+            onSignInButtonClicked = onSignInButtonClicked,
+            onNavigateToSignUp = onNavigateToSignUp
         )
     }
 }

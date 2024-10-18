@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import com.sopt.presentation.ui.component.image.WavveLogoImage
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
+import com.sopt.presentation.ui.screen.signin.viewmodel.SignInUiState
 import com.sopt.presentation.ui.screen.signin.viewmodel.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -34,7 +36,7 @@ import kotlinx.coroutines.launch
 fun SignInScreen(
     modifier: Modifier = Modifier,
     onNavigateToSignUp: () -> Unit,
-    onSignInComplete: () -> Unit,
+    onSignInSuccess: () -> Unit,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
@@ -78,28 +80,38 @@ fun SignInScreen(
                     .padding(innerPadding)
                     .fillMaxSize()
                     .padding(horizontal = 14.dp),
-                onLoginResult = { isSuccessful ->
-                    onSignInComplete()
-                    if (isSuccessful) {
-                        onSignInComplete()
-                    } else {
-                        scope.launch {
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                            snackbarHostState.showSnackbar(
-                                message =
-                                ContextCompat.getString(
-                                    context,
-                                    R.string.sign_in_failure
-                                )
-                            )
-                        }
-                    }
-                }, onNavigateToSignUp = onNavigateToSignUp,
+                onSignInButtonClicked = viewModel::trySignIn,
+                onNavigateToSignUp = onNavigateToSignUp,
                 emailInput = emailInput.value,
                 passwordInput = passwordInput.value,
                 onEmailInputChanged = viewModel::onEmailInputChanged,
                 onPasswordInputChanged = viewModel::onPasswordInputChanged
             )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.signInUiState.collect {
+            var snackbarMessage = ""
+            when (it) {
+                is SignInUiState.Success -> onSignInSuccess()
+                is SignInUiState.EmailInputEmpty -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.require_email_input)
+
+                is SignInUiState.PasswordInputEmpty -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.require_password_input)
+
+                is SignInUiState.InvalidEmail -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.not_exist_email)
+
+                is SignInUiState.InvalidPassword -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.not_exist_password)
+            }
+            if (it !is SignInUiState.Success)
+                scope.launch {
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                    snackbarHostState.showSnackbar(message = snackbarMessage)
+                }
         }
     }
 }

@@ -27,7 +27,7 @@ class SignInViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000)
     )
-    
+
     fun onEmailInputChanged(email: String) {
         savedStateHandle[EMAIL] = email
     }
@@ -36,8 +36,8 @@ class SignInViewModel @Inject constructor(
         savedStateHandle[PASSWORD] = password
     }
 
-    fun trySignIn(email: String, password: String) {
-        trySignInUseCase(email, password).onSuccess {
+    fun trySignIn() {
+        trySignInUseCase(emailInput.value, passwordInput.value).onSuccess {
             _signInUiState.tryEmit(SignInUiState.Success)
         }.onFailure {
             when (it) {

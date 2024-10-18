@@ -56,6 +56,10 @@
     <string name="sign_in_with_other">또는 다른 서비스 계정으로 로그인</string>
     <string name="sign_in_success">로그인 성공 !</string>
     <string name="sign_in_failure">로그인 실패</string>
+    <string name="require_email_input">이메일을 입력해주세요.</string>
+    <string name="require_password_input">비밀번호를 입력해주세요.</string>
+    <string name="not_exist_email">존재하지 않는 이메일입니다.</string>
+    <string name="not_exist_password">비밀번호가 일치하지 않습니다.</string>
 
     <!-- My -->
     <string name="profile_image">프로필 이미지</string>

@@ -40,7 +40,7 @@ fun SignInContentView(
     passwordInput: String,
     onEmailInputChanged: (String) -> Unit,
     onPasswordInputChanged: (String) -> Unit,
-    onLoginButtonClicked: () -> Unit,
+    onSignInButtonClicked: () -> Unit,
     onNavigateToSignUp: () -> Unit
 ) {
 
@@ -80,7 +80,7 @@ fun SignInContentView(
             modifier = Modifier
                 .padding(top = 24.dp)
                 .fillMaxWidth(),
-            onClick = onLoginButtonClicked
+            onClick = onSignInButtonClicked
         ) {
             PrimaryText(
                 modifier = Modifier.padding(vertical = 6.dp),
@@ -159,7 +159,7 @@ private fun SignInContentViewPreview() {
         passwordInput = "",
         onEmailInputChanged = {},
         onPasswordInputChanged = {},
-        onLoginButtonClicked = {},
+        onSignInButtonClicked = {},
         onNavigateToSignUp = {}
     )
 }
