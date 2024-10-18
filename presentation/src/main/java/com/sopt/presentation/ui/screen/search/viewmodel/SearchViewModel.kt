@@ -3,8 +3,11 @@ package com.sopt.presentation.ui.screen.search.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.sopt.presentation.ui.state.VideoOverviewViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SearchViewModel(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 

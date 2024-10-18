@@ -3,8 +3,13 @@ package com.sopt.presentation.ui.screen.home.viewmodel
 import androidx.lifecycle.ViewModel
 import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel: ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+
+): ViewModel() {
 
     /* TODO : 임시 데이터 */
     val headVideoOverviews: List<VideoOverviewViewState> = listOf(

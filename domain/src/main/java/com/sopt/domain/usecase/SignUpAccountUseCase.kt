@@ -11,17 +11,15 @@ class SignUpAccountUseCase @Inject constructor(
 ) {
 
     operator fun invoke(email: String, password: String): Result<Unit> {
-        return runCatching {
-            if (email.isBlank())
-                Result.failure(SignUpError.EmailInputEmpty())
-            else if (password.isBlank())
-                Result.failure(SignUpError.PasswordInputEmpty())
-            else if (email.isValidEmail().not())
-                Result.failure(SignUpError.InvalidEmail())
-            else if (password.isValidPassword().not())
-                Result.failure(SignUpError.InvalidPassword())
-            else
-                Result.success(userRepository.saveAccount(email, password))
-        }
+        return if (email.isBlank())
+            Result.failure(SignUpError.EmailInputEmpty())
+        else if (password.isBlank())
+            Result.failure(SignUpError.PasswordInputEmpty())
+        else if (email.isValidEmail().not())
+            Result.failure(SignUpError.InvalidEmail())
+        else if (password.isValidPassword().not())
+            Result.failure(SignUpError.InvalidPassword())
+        else
+            Result.success(userRepository.saveAccount(email, password))
     }
 }

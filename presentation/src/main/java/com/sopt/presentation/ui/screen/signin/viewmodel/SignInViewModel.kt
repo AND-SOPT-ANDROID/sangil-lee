@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.domain.exception.SignInError
-import com.sopt.domain.usecase.TrySignInUseCase
+import com.sopt.domain.usecase.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val trySignInUseCase: TrySignInUseCase
+    private val signInUseCase: SignInUseCase
 ) : ViewModel() {
 
     val emailInput = savedStateHandle.getStateFlow(EMAIL, "")
@@ -37,7 +37,7 @@ class SignInViewModel @Inject constructor(
     }
 
     fun trySignIn() {
-        trySignInUseCase(emailInput.value, passwordInput.value).onSuccess {
+        signInUseCase(emailInput.value, passwordInput.value).onSuccess {
             _signInUiState.tryEmit(SignInUiState.Success)
         }.onFailure {
             when (it) {

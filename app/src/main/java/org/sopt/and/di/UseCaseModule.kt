@@ -1,17 +1,27 @@
 package org.sopt.and.di
 
+import com.sopt.domain.repository.UserRepository
 import com.sopt.domain.usecase.SignUpAccountUseCase
-import com.sopt.domain.usecase.TrySignInUseCase
-import dagger.Binds
+import com.sopt.domain.usecase.SignInUseCase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-abstract class UseCaseModule {
+@Module
+@InstallIn(SingletonComponent::class)
+object UseCaseModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindTrySignInUseCase(trySignInUseCase: TrySignInUseCase): TrySignInUseCase
+    fun bindTrySignInUseCase(userRepository: UserRepository): SignInUseCase {
+        return SignInUseCase(userRepository)
+    }
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindRegisterAccountUseCase(signUpAccountUseCase: SignUpAccountUseCase): SignUpAccountUseCase
+    fun provideRegisterAccountUseCase(userRepository: UserRepository): SignUpAccountUseCase {
+        return SignUpAccountUseCase(userRepository)
+    }
 }

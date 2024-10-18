@@ -16,16 +16,14 @@ class UserLocalDataSource @Inject constructor(
     }
 
     fun trySignIn(email: String, password: String): Result<Unit> {
-        return runCatching {
-            if (email == userSharedPreferences.getString(KEY_EMAIL, null) &&
-                password == userSharedPreferences.getString(KEY_PASSWORD, null)
-            )
-                Result.success(Unit)
-            else if (email != userSharedPreferences.getString(KEY_EMAIL, null))
-                Result.failure(SignInError.NotExistEmail())
-            else
-                Result.failure(SignInError.PasswordNotMatchingWithEmail())
-        }
+        return if (email == userSharedPreferences.getString(KEY_EMAIL, null) &&
+            password == userSharedPreferences.getString(KEY_PASSWORD, null)
+        )
+            Result.success(Unit)
+        else if (email != userSharedPreferences.getString(KEY_EMAIL, null))
+            Result.failure(SignInError.NotExistEmail())
+        else
+            Result.failure(SignInError.PasswordNotMatchingWithEmail())
     }
 
     companion object {
