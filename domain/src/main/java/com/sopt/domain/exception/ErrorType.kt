@@ -6,3 +6,10 @@ sealed class SignInError : Throwable() {
     class EmailInputEmpty() : SignInError()
     class PasswordInputEmpty() : SignInError()
 }
+
+sealed class SignUpError : Throwable() {
+    class InvalidEmail() : SignUpError()
+    class InvalidPassword() : SignUpError()
+    class EmailInputEmpty() : SignUpError()
+    class PasswordInputEmpty() : SignUpError()
+}
