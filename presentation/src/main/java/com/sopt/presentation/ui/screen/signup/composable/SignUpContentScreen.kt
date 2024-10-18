@@ -33,7 +33,7 @@ fun SignUpContentScreen(
     passwordInput: String = "",
     onEmailInputChanged: (String) -> Unit = {},
     onPasswordInputChanged: (String) -> Unit = {},
-    onSignUpComplete: () -> Unit = { }
+    onSignUpButtonClicked: () -> Unit = { }
 ) {
 
     val context = LocalContext.current
@@ -75,7 +75,7 @@ fun SignUpContentScreen(
             onClick = {
                 if (signUpButtonActivated) {
                     keyboardController?.hide()
-                    onSignUpComplete()
+                    onSignUpButtonClicked()
                 } else {
                     when {
                         emailInput.isValidEmail().not() -> toast.show()

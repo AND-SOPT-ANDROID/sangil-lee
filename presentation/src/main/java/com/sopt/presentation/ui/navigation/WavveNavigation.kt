@@ -77,7 +77,7 @@ fun WavveNavigation(
                     SignUpScreen(
                         modifier = Modifier.fillMaxSize(),
                         onActionIconClicked = { navController.popBackStack() },
-                        onSignUpComplete = {
+                        onSignUpSuccess = {
                             navController.navigate(Routes.Auth.SignIn) {
                                 popUpTo(Routes.Auth.SignIn) { inclusive = false }
                             }
