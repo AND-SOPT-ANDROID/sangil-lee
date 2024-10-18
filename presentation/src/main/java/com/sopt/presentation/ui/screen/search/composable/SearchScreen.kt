@@ -15,8 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.textfield.BottomLinedTextField
@@ -27,7 +27,7 @@ import com.sopt.presentation.ui.util.noRippleClickable
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = viewModel()
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
 
     val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle()
@@ -39,7 +39,9 @@ fun SearchScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             BottomLinedTextField(
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
                 value = searchQuery.value,
                 color = WavveTheme.colorScheme.background,
                 onValueChange = viewModel::onSearchQueryChanged,
@@ -56,9 +58,11 @@ fun SearchScreen(
                 }, trailingIcon = {
                     if (searchQuery.value.isNotEmpty()) {
                         Icon(
-                            modifier = Modifier.size(16.dp).noRippleClickable {
-                                viewModel.onSearchQueryChanged("")
-                            },
+                            modifier = Modifier
+                                .size(16.dp)
+                                .noRippleClickable {
+                                    viewModel.onSearchQueryChanged("")
+                                },
                             painter = painterResource(R.drawable.ic_clear),
                             contentDescription = null,
                             tint = WavveTheme.colorScheme.tertiary
@@ -67,7 +71,9 @@ fun SearchScreen(
                 }
             )
             SearchContentScreen(
-                modifier = Modifier.fillMaxSize().padding(top = 16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
                 displayedVideoOverviews = viewModel.displayedVideoOverviews
             )
         }
