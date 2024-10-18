@@ -22,9 +22,9 @@ class UserLocalDataSource @Inject constructor(
             )
                 Result.success(Unit)
             else if (email != userSharedPreferences.getString(KEY_EMAIL, null))
-                Result.failure(SignInError.InvalidEmail())
+                Result.failure(SignInError.NotExistEmail())
             else
-                Result.failure(SignInError.InvalidPassword())
+                Result.failure(SignInError.PasswordNotMatchingWithEmail())
         }
     }
 

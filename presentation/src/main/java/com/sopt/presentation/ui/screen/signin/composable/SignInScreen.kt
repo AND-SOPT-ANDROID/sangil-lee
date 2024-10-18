@@ -101,10 +101,10 @@ fun SignInScreen(
                 is SignInUiState.PasswordInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_password_input)
 
-                is SignInUiState.InvalidEmail -> snackbarMessage =
+                is SignInUiState.NotExistEmail -> snackbarMessage =
                     ContextCompat.getString(context, R.string.not_exist_email)
 
-                is SignInUiState.InvalidPassword -> snackbarMessage =
+                is SignInUiState.PasswordNotMatchingWithEmail -> snackbarMessage =
                     ContextCompat.getString(context, R.string.not_exist_password)
             }
             if (it !is SignInUiState.Success)

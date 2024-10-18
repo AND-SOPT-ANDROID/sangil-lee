@@ -43,8 +43,8 @@ class SignInViewModel @Inject constructor(
             when (it) {
                 is SignInError.EmailInputEmpty -> _signInUiState.tryEmit(SignInUiState.EmailInputEmpty)
                 is SignInError.PasswordInputEmpty -> _signInUiState.tryEmit(SignInUiState.PasswordInputEmpty)
-                is SignInError.InvalidEmail -> _signInUiState.tryEmit(SignInUiState.InvalidEmail)
-                is SignInError.InvalidPassword -> _signInUiState.tryEmit(SignInUiState.InvalidPassword)
+                is SignInError.NotExistEmail -> _signInUiState.tryEmit(SignInUiState.NotExistEmail)
+                is SignInError.PasswordNotMatchingWithEmail -> _signInUiState.tryEmit(SignInUiState.PasswordNotMatchingWithEmail)
             }
         }
     }
@@ -59,6 +59,6 @@ sealed interface SignInUiState {
     data object Success : SignInUiState
     data object EmailInputEmpty : SignInUiState
     data object PasswordInputEmpty : SignInUiState
-    data object InvalidEmail : SignInUiState
-    data object InvalidPassword : SignInUiState
+    data object NotExistEmail : SignInUiState
+    data object PasswordNotMatchingWithEmail : SignInUiState
 }
