@@ -21,10 +21,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.sopt.domain.util.isValidEmail
+import com.sopt.domain.util.isValidPassword
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.button.FullWidthTextButton
-import com.sopt.presentation.util.isValidEmail
-import com.sopt.presentation.util.isValidPassword
 
 @Composable
 fun SignUpContentScreen(
@@ -76,8 +76,7 @@ fun SignUpContentScreen(
                 if (signUpButtonActivated) {
                     keyboardController?.hide()
                     onSignUpComplete()
-                }
-                else {
+                } else {
                     when {
                         emailInput.isValidEmail().not() -> toast.show()
                         passwordInput.isValidPassword().not() -> toast.show()

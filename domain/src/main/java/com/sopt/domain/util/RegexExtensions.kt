@@ -1,4 +1,4 @@
-package com.sopt.presentation.util
+package com.sopt.domain.util
 
 private val emailRegex by lazy {
     Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$")
