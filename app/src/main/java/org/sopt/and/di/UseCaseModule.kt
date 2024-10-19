@@ -15,7 +15,7 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun bindTrySignInUseCase(userRepository: UserRepository): SignInUseCase {
+    fun provideTrySignInUseCase(userRepository: UserRepository): SignInUseCase {
         return SignInUseCase(userRepository)
     }
 

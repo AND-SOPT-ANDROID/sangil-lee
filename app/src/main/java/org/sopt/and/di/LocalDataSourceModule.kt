@@ -16,7 +16,7 @@ object LocalDataSourceModule {
 
     @Provides
     @Singleton
-    fun bindUserLocalDataSource(
+    fun provideUserLocalDataSource(
         @User userSharedPreferences: SharedPreferences
     ): UserLocalDataSource {
         return UserLocalDataSource(userSharedPreferences)
