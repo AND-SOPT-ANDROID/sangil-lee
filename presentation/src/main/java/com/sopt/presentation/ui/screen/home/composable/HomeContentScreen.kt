@@ -1,5 +1,7 @@
 package com.sopt.presentation.ui.screen.home.composable
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -14,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +29,10 @@ import com.sopt.presentation.ui.state.CommonVideoOverviewsViewState
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.ui.util.noRippleClickable
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +44,9 @@ fun HomeContentScreen(
     onVideoTypeSelected: (VideoType) -> Unit,
 ) {
 
-    val headDisplayPagerState = rememberPagerState { headVideoOverviews.size }
+    val headDisplayPagerState = rememberPagerState(initialPage = Int.MAX_VALUE / 2) {
+        Int.MAX_VALUE
+    }
 
     LazyColumn(
         modifier = modifier,
@@ -123,6 +132,20 @@ fun HomeContentScreen(
     
 """.trimIndent()
             )
+        }
+    }
+
+    LaunchedEffect(headDisplayPagerState.currentPage) {
+        launch {
+            while(true) {
+                delay(3000)
+                withContext(NonCancellable) {
+                    headDisplayPagerState.animateScrollToPage(
+                        page = headDisplayPagerState.currentPage + 1,
+                        animationSpec = spring(stiffness = Spring.StiffnessLow)
+                    )
+                }
+            }
         }
     }
 }
