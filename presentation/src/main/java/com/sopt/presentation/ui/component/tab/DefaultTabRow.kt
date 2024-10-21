@@ -1,6 +1,7 @@
 package com.sopt.presentation.ui.component.tab
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,10 +28,12 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.theme.WavveTheme
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @Composable
 fun DefaultTabRow(
@@ -51,8 +54,8 @@ fun DefaultTabRow(
         mutableStateOf(List(tabs.size) { Offset.Zero })
     }
 
-    val animatedOffsetX by animateDpAsState(
-        targetValue = with(LocalDensity.current) { indicatorPositions[pagerState.currentPage].x.toDp() },
+    val animatedOffsetX by animateFloatAsState(
+        targetValue = indicatorPositions[pagerState.currentPage].x,
         label = ""
     )
 
@@ -60,7 +63,9 @@ fun DefaultTabRow(
         targetValue = with(LocalDensity.current) { indicatorWidths[pagerState.currentPage].toDp() },
         label = ""
     )
-
+    val indicatorThicknessPx = LocalDensity.current.run {
+        indicatorThickness.toPx()
+    }
     Column(
         modifier = modifier.background(containerColor),
     ) {
@@ -97,10 +102,12 @@ fun DefaultTabRow(
             thickness = indicatorThickness,
             modifier = Modifier
                 .width(animatedWidth)
-                .offset(
-                    x = animatedOffsetX,
-                    y = -indicatorThickness
-                )
+                .offset {
+                    IntOffset(
+                        x = animatedOffsetX.roundToInt(),
+                        y = -indicatorThicknessPx.roundToInt()
+                    )
+                }
         )
     }
 }
