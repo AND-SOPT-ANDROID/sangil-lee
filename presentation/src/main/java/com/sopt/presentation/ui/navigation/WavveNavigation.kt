@@ -2,7 +2,10 @@ package com.sopt.presentation.ui.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -26,6 +29,7 @@ import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
+import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.getSerialName
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -44,6 +48,10 @@ fun WavveNavigation(
         bottomBar = {
             if (navBackStackEntry?.shouldShowBottomBar() == true)
                 WavveBottomBar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(WavveTheme.colorScheme.backgroundVariant)
+                        .navigationBarsPadding(),
                     onTabSelected = { selectedMainBottomTab = it },
                     selectedTab = selectedMainBottomTab
                 )
