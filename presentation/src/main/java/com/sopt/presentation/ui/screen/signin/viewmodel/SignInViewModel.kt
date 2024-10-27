@@ -22,7 +22,7 @@ class SignInViewModel @Inject constructor(
     val passwordInput = savedStateHandle.getStateFlow(PASSWORD, "")
 
     private val _signInUiState =
-        MutableSharedFlow<SignInUiState>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow<SignInUiState>(extraBufferCapacity = 1)
     val signInUiState = _signInUiState.shareIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000)

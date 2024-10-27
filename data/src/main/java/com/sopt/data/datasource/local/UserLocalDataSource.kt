@@ -1,11 +1,13 @@
 package com.sopt.data.datasource.local
 
 import android.content.SharedPreferences
+import com.sopt.data.UserInjectParam
 import com.sopt.domain.exception.SignInError
 import javax.inject.Inject
+import javax.inject.Qualifier
 
 class UserLocalDataSource @Inject constructor(
-    private val userSharedPreferences: SharedPreferences
+    @UserInjectParam private val userSharedPreferences: SharedPreferences
 ) {
 
     fun saveAccount(email: String, password: String) {
@@ -16,11 +18,12 @@ class UserLocalDataSource @Inject constructor(
     }
 
     fun trySignIn(email: String, password: String): Result<Unit> {
-        return if (email == userSharedPreferences.getString(KEY_EMAIL, null) &&
-            password == userSharedPreferences.getString(KEY_PASSWORD, null)
-        )
+        val savedEmail = userSharedPreferences.getString(KEY_EMAIL, null)
+        val savedPassword = userSharedPreferences.getString(KEY_PASSWORD, null)
+
+        return if (email == savedEmail && password == savedPassword)
             Result.success(Unit)
-        else if (email != userSharedPreferences.getString(KEY_EMAIL, null))
+        else if (email != savedEmail)
             Result.failure(SignInError.NotExistEmail())
         else
             Result.failure(SignInError.PasswordNotMatchingWithEmail())

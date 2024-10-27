@@ -136,6 +136,9 @@ fun WavveNavigation(
     }
 
     LaunchedEffect(key1 = currentRoute) {   // 뒤로가기에 의한 하단 탭 변경 처리
+        println("currentRoute                      : ${currentRoute}")
+        println("toString()                        : ${Routes.Main.Home}")
+        println("serializer().descriptor.serialName: ${Routes.Main.Home.serializer().getSerialName()}")
         selectedMainBottomTab = when (currentRoute) {
             Routes.Main.Home.serializer().getSerialName() -> WavveBottomBarItem.Home
             Routes.Main.Search.serializer().getSerialName() -> WavveBottomBarItem.Search

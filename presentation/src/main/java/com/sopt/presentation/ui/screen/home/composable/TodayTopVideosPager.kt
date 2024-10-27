@@ -61,10 +61,10 @@ fun TodayTopVideosPager(
                 snapPosition = SnapPosition.Start
             )
         ) {
-            itemsIndexed(commonVideoOverview.videoOverviews) { idx, _ ->
+            itemsIndexed(commonVideoOverview.videoOverviews) { idx, videoOverview ->
                 TodayTopVideoItem(
                     modifier = Modifier.width(screenWidth / 2f - 6.dp),
-                    videoOverview = commonVideoOverview.videoOverviews[idx],
+                    videoOverview = videoOverview,
                     rank = idx + 1,
                     onClick = onVideoClicked
                 )

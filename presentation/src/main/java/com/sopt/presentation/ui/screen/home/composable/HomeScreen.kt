@@ -23,7 +23,9 @@ fun HomeScreen(
             headVideoOverviews = viewModel.headVideoOverviews,
             commonVideoOverviews = viewModel.commonVideoOverviews,
             topVideoOverviews = viewModel.topVideoOverviews,
-            onVideoTypeSelected = { TODO() },
+            onVideoTypeSelected = {
+                // TODO()
+            },
         )
     }
 }
