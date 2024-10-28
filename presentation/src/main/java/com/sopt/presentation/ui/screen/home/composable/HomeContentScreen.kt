@@ -1,5 +1,8 @@
 package com.sopt.presentation.ui.screen.home.composable
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -34,7 +37,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun HomeContentScreen(
     modifier: Modifier = Modifier,
@@ -42,6 +47,9 @@ fun HomeContentScreen(
     commonVideoOverviews: List<CommonVideoOverviewsViewState>,
     topVideoOverviews: CommonVideoOverviewsViewState,
     onVideoTypeSelected: (VideoType) -> Unit,
+    onVideoSelected: (VideoOverviewViewState) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
     val headDisplayPagerState = rememberPagerState(initialPage = Int.MAX_VALUE / 2) {
@@ -77,7 +85,9 @@ fun HomeContentScreen(
                     .height(500.dp),
                 state = headDisplayPagerState,
                 videoOverviews = headVideoOverviews,
-                onVideoClicked = { }
+                onVideoClicked = onVideoSelected,
+                sharedTransitionScope = sharedTransitionScope,
+                animatedVisibilityScope = animatedVisibilityScope
             )
         }
 

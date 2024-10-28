@@ -1,5 +1,8 @@
 package com.sopt.presentation.ui.screen.home.composable
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,12 +37,15 @@ import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.ui.util.noRippleClickable
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun HeadDisplayedVideoHorizontalPager(
     modifier: Modifier = Modifier,
     state: PagerState,
     videoOverviews: List<VideoOverviewViewState>,
-    onVideoClicked: (VideoOverviewViewState) -> Unit
+    onVideoClicked: (VideoOverviewViewState) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     HorizontalPager(
         modifier = modifier,
@@ -51,19 +57,23 @@ fun HeadDisplayedVideoHorizontalPager(
             modifier = Modifier.fillMaxSize(),
             videoOverview = videoOverviews[idx % videoOverviews.size], onClick = onVideoClicked,
             totalPage = videoOverviews.size,
-            currentPage = idx % videoOverviews.size + 1
+            currentPage = idx % videoOverviews.size + 1,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedVisibilityScope = animatedVisibilityScope
         )
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 private fun HeadDisplayedVideoItem(
     modifier: Modifier = Modifier,
     videoOverview: VideoOverviewViewState,
     totalPage: Int,
     currentPage: Int,
-    onClick: (VideoOverviewViewState) -> Unit = {}
+    onClick: (VideoOverviewViewState) -> Unit = {},
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Box(
         modifier = modifier
@@ -72,12 +82,17 @@ private fun HeadDisplayedVideoItem(
             )
             .noRippleClickable { onClick(videoOverview) }
     ) {
-        GlideImage(
-            modifier = Modifier.fillMaxSize(),
-            model = videoOverview.titleImage,
-            contentDescription = videoOverview.title,
-            contentScale = ContentScale.Crop
-        )
+        with(sharedTransitionScope) {
+            GlideImage(
+                modifier = Modifier.sharedElement(
+                    rememberSharedContentState("thumbnail"),
+                    animatedVisibilityScope
+                ).fillMaxSize(),
+                model = videoOverview.titleImage,
+                contentDescription = videoOverview.title,
+                contentScale = ContentScale.Crop
+            )
+        }
 
         Row(
             modifier = Modifier
