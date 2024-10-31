@@ -5,6 +5,10 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -69,10 +73,20 @@ fun SharedTransitionScope.HomeContentScreen(
 
         stickyHeader {
             VideoTypeTabRow(
-                modifier = Modifier
-                    .background(WavveTheme.colorScheme.background)
+                modifier = Modifier.renderInSharedTransitionScopeOverlay(
+                    zIndexInOverlay = 1f,
+                ).then(with(animatedVisibilityScope) {
+                    Modifier.animateEnterExit(
+                        enter = fadeIn() + slideInVertically {
+                            it
+                        },
+                        exit = fadeOut() + slideOutVertically {
+                            it
+                        }
+                    )
+                }).background(WavveTheme.colorScheme.background)
                     .padding(horizontal = 16.dp)
-                    .padding(top = 4.dp, bottom = 12.dp),
+                    .padding(top = 4.dp, bottom = 8.dp),
                 onVideoTypeSelected = onVideoTypeSelected
             )
         }

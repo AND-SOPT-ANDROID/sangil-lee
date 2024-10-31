@@ -80,9 +80,11 @@ fun SharedTransitionScope.HeadDisplayedVideoItem(
         GlideImage(
             modifier = Modifier
                 .fillMaxSize()
-                .sharedElement(
+                .sharedBounds(
                     rememberSharedContentState(videoOverview.id),
                     animatedVisibilityScope
+                ).clip(
+                    shape = RoundedCornerShape(12.dp)
                 ),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,

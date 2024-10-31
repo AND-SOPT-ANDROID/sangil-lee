@@ -28,7 +28,7 @@ fun SharedTransitionScope.VideoDetailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(16f / 9)
-                .sharedElement(
+                .sharedBounds(
                     rememberSharedContentState(videoOverview.id),
                     animatedVisibilityScope
                 ),
