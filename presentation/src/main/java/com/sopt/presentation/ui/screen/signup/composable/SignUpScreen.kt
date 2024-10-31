@@ -25,7 +25,6 @@ import com.sopt.presentation.ui.component.icon.PrimaryIcon
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
-import com.sopt.presentation.ui.screen.signin.viewmodel.SignInUiState
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpUiState
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpViewModel
 import com.sopt.presentation.ui.util.noRippleClickable
@@ -40,8 +39,8 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
-    val emailInput = viewModel.email.collectAsStateWithLifecycle()
-    val passwordInput = viewModel.password.collectAsStateWithLifecycle()
+    val emailInput = viewModel.emailInput.collectAsStateWithLifecycle()
+    val passwordInput = viewModel.passwordInput.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }

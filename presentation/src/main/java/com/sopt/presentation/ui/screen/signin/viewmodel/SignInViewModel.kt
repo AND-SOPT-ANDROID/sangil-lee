@@ -1,25 +1,26 @@
 package com.sopt.presentation.ui.screen.signin.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.domain.exception.SignInError
 import com.sopt.domain.usecase.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val signInUseCase: SignInUseCase
 ) : ViewModel() {
 
-    val emailInput = savedStateHandle.getStateFlow(EMAIL, "")
-    val passwordInput = savedStateHandle.getStateFlow(PASSWORD, "")
+    val emailInput: StateFlow<String>
+        field = MutableStateFlow("")
+    val passwordInput: StateFlow<String>
+        field = MutableStateFlow("")
 
     private val _signInUiState =
         MutableSharedFlow<SignInUiState>(extraBufferCapacity = 1)
@@ -29,11 +30,11 @@ class SignInViewModel @Inject constructor(
     )
 
     fun onEmailInputChanged(email: String) {
-        savedStateHandle[EMAIL] = email
+        emailInput.value = email
     }
 
     fun onPasswordInputChanged(password: String) {
-        savedStateHandle[PASSWORD] = password
+        passwordInput.value = password
     }
 
     fun trySignIn() {
@@ -47,11 +48,6 @@ class SignInViewModel @Inject constructor(
                 is SignInError.PasswordNotMatchingWithEmail -> _signInUiState.tryEmit(SignInUiState.PasswordNotMatchingWithEmail)
             }
         }
-    }
-
-    companion object {
-        private const val EMAIL = "email"
-        private const val PASSWORD = "password"
     }
 }
 

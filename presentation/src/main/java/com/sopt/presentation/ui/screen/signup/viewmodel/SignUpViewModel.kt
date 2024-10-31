@@ -1,25 +1,26 @@
 package com.sopt.presentation.ui.screen.signup.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.domain.exception.SignUpError
 import com.sopt.domain.usecase.SignUpAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val signUpAccountUseCase: SignUpAccountUseCase
 ) : ViewModel() {
 
-    val email = savedStateHandle.getStateFlow(EMAIL, "")
-    val password = savedStateHandle.getStateFlow(PASSWORD, "")
+    val emailInput: StateFlow<String>
+        field = MutableStateFlow("")
+    val passwordInput: StateFlow<String>
+        field = MutableStateFlow("")
 
     private val _signUpUiState =
         MutableSharedFlow<SignUpUiState>(extraBufferCapacity = 1)
@@ -29,15 +30,15 @@ class SignUpViewModel @Inject constructor(
     )
 
     fun onEmailInputChanged(email: String) {
-        savedStateHandle[EMAIL] = email
+        emailInput.value = email
     }
 
     fun onPasswordInputChanged(password: String) {
-        savedStateHandle[PASSWORD] = password
+        passwordInput.value = password
     }
 
     fun signUp() {
-        signUpAccountUseCase(email.value, password.value).onSuccess {
+        signUpAccountUseCase(emailInput.value, passwordInput.value).onSuccess {
             _signUpUiState.tryEmit(SignUpUiState.Success)
         }.onFailure {
             when (it) {
@@ -47,11 +48,6 @@ class SignUpViewModel @Inject constructor(
                 is SignUpError.InvalidPassword -> _signUpUiState.tryEmit(SignUpUiState.InvalidPassword)
             }
         }
-    }
-
-    companion object {
-        private const val EMAIL = "email"
-        private const val PASSWORD = "password"
     }
 }
 

@@ -33,7 +33,6 @@ import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.getSerialName
 import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class)
 @Composable
 fun WavveNavigation(
     modifier: Modifier = Modifier,

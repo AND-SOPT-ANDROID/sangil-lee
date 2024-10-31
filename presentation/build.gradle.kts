@@ -46,6 +46,12 @@ kapt {
     correctErrorTypes = true
 }
 
+kotlin {
+    sourceSets.all {
+        languageSettings.enableLanguageFeature("ExplicitBackingFields")
+    }
+}
+
 dependencies {
 
     implementation(project(":domain"))
