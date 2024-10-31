@@ -78,10 +78,12 @@ fun SharedTransitionScope.HeadDisplayedVideoItem(
             .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
-            modifier = Modifier.sharedElement(
-                rememberSharedContentState(videoOverview.id),
-                animatedVisibilityScope
-            ).fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .sharedElement(
+                    rememberSharedContentState(videoOverview.id),
+                    animatedVisibilityScope
+                ),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,
             contentScale = ContentScale.Crop

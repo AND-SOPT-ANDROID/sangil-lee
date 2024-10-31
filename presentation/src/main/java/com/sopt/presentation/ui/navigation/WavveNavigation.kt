@@ -1,9 +1,10 @@
 package com.sopt.presentation.ui.navigation
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -71,9 +72,9 @@ fun WavveNavigation(
                 navController = navController,
                 startDestination = Routes.Main.Graph,
                 enterTransition = {
-                    EnterTransition.None
+                    slideInVertically { it } + fadeIn()
                 }, exitTransition = {
-                    ExitTransition.None
+                    fadeOut()
                 }
             ) {
                 navigation<Routes.Auth.Graph>(

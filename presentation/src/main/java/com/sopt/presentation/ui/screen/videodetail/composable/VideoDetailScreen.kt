@@ -4,13 +4,12 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.sopt.presentation.ui.state.VideoOverviewViewState
@@ -27,12 +26,13 @@ fun SharedTransitionScope.VideoDetailScreen(
     ) {
         GlideImage(
             modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(16f / 9)
                 .sharedElement(
                     rememberSharedContentState(videoOverview.id),
                     animatedVisibilityScope
-                )
-                .fillMaxWidth()
-                .height(200.dp), model = videoOverview.titleImage,
+                ),
+            model = videoOverview.titleImage,
             contentScale = ContentScale.Crop,
             contentDescription = videoOverview.title
         )
