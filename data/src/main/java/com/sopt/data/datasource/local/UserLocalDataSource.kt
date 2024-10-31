@@ -1,13 +1,12 @@
 package com.sopt.data.datasource.local
 
 import android.content.SharedPreferences
-import com.sopt.data.UserInjectParam
+import com.sopt.data.UserSharedPref
 import com.sopt.domain.exception.SignInError
 import javax.inject.Inject
-import javax.inject.Qualifier
 
 class UserLocalDataSource @Inject constructor(
-    @UserInjectParam private val userSharedPreferences: SharedPreferences
+    @UserSharedPref private val userSharedPreferences: SharedPreferences
 ) {
 
     fun saveAccount(email: String, password: String) {

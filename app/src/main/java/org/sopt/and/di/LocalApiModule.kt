@@ -2,7 +2,7 @@ package org.sopt.and.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.sopt.data.UserInjectParam
+import com.sopt.data.UserSharedPref
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object LocalApiModule {
 
-    @UserInjectParam
+    @UserSharedPref
     @Provides
     @Singleton
     fun provideUserLocalDataSource(
