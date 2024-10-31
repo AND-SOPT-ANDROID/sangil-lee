@@ -17,16 +17,14 @@ import com.sopt.presentation.ui.state.VideoOverviewViewState
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun VideoDetailScreen(
+fun SharedTransitionScope.VideoDetailScreen(
     modifier: Modifier = Modifier,
     videoOverviewViewState: VideoOverviewViewState,
-    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        with(sharedTransitionScope) {
             GlideImage(
                 modifier = Modifier
                     .sharedElement(
@@ -38,6 +36,5 @@ fun VideoDetailScreen(
                 contentScale = ContentScale.Crop,
                 contentDescription = videoOverviewViewState.title
             )
-        }
     }
 }

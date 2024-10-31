@@ -15,12 +15,11 @@ import com.sopt.presentation.ui.state.VideoOverviewViewState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HomeScreen(
+fun SharedTransitionScope.HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToVideoDetail: (VideoOverviewViewState) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope,
-    sharedTransitionScope: SharedTransitionScope
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
     DefaultSurface(
@@ -35,8 +34,7 @@ fun HomeScreen(
             onVideoTypeSelected = {
                 // TODO()
             }, onVideoSelected = onNavigateToVideoDetail,
-            animatedVisibilityScope = animatedVisibilityScope,
-            sharedTransitionScope = sharedTransitionScope
+            animatedVisibilityScope = animatedVisibilityScope
         )
     }
 }

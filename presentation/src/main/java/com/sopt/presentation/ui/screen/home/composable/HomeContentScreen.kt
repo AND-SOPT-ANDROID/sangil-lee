@@ -41,14 +41,13 @@ import kotlinx.coroutines.withContext
     ExperimentalSharedTransitionApi::class
 )
 @Composable
-fun HomeContentScreen(
+fun SharedTransitionScope.HomeContentScreen(
     modifier: Modifier = Modifier,
     headVideoOverviews: List<VideoOverviewViewState>,
     commonVideoOverviews: List<CommonVideoOverviewsViewState>,
     topVideoOverviews: CommonVideoOverviewsViewState,
     onVideoTypeSelected: (VideoType) -> Unit,
     onVideoSelected: (VideoOverviewViewState) -> Unit,
-    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
@@ -86,7 +85,6 @@ fun HomeContentScreen(
                 state = headDisplayPagerState,
                 videoOverviews = headVideoOverviews,
                 onVideoClicked = onVideoSelected,
-                sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope
             )
         }

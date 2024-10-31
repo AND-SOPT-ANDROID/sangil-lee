@@ -113,8 +113,7 @@ fun WavveNavigation(
                                 .fillMaxSize(),
                             onNavigateToVideoDetail = {
                                 navController.navigate(Routes.VideoDetail.Video(it))
-                            }, animatedVisibilityScope = this@composable,
-                            sharedTransitionScope = this@SharedTransitionLayout
+                            }, animatedVisibilityScope = this@composable
                         )
                     }
                     composable<Routes.Main.Search> {
@@ -148,8 +147,7 @@ fun WavveNavigation(
                                 .fillMaxSize()
                                 .verticalScroll(rememberScrollState()),
                             videoOverviewViewState = arguments.videoOverviewViewState,
-                            animatedVisibilityScope = this@composable,
-                            sharedTransitionScope = this@SharedTransitionLayout
+                            animatedVisibilityScope = this@composable
                         )
                     }
                 }
