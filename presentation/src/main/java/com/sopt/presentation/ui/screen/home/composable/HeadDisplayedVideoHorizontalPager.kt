@@ -51,7 +51,8 @@ fun SharedTransitionScope.HeadDisplayedVideoHorizontalPager(
     ) { idx ->
         HeadDisplayedVideoItem(
             modifier = Modifier.fillMaxSize(),
-            videoOverview = videoOverviews[idx % videoOverviews.size], onClick = onVideoClicked,
+            videoOverview = videoOverviews[idx % videoOverviews.size],
+            onClick = onVideoClicked,
             totalPage = videoOverviews.size,
             currentPage = idx % videoOverviews.size + 1,
             animatedVisibilityScope = animatedVisibilityScope
@@ -61,7 +62,7 @@ fun SharedTransitionScope.HeadDisplayedVideoHorizontalPager(
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
-private fun SharedTransitionScope.HeadDisplayedVideoItem(
+fun SharedTransitionScope.HeadDisplayedVideoItem(
     modifier: Modifier = Modifier,
     videoOverview: VideoOverviewViewState,
     totalPage: Int,
@@ -78,7 +79,7 @@ private fun SharedTransitionScope.HeadDisplayedVideoItem(
     ) {
         GlideImage(
             modifier = Modifier.sharedElement(
-                rememberSharedContentState("thumbnail"),
+                rememberSharedContentState(videoOverview.id),
                 animatedVisibilityScope
             ).fillMaxSize(),
             model = videoOverview.titleImage,

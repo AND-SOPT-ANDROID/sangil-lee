@@ -31,11 +31,11 @@ import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
 import com.sopt.presentation.ui.navigation.navtype.VideoOverviewNavType
 import com.sopt.presentation.ui.screen.home.composable.HomeScreen
-import com.sopt.presentation.ui.screen.home.composable.VideoDetailScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
+import com.sopt.presentation.ui.screen.videodetail.composable.VideoDetailScreen
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.getSerialName
@@ -146,7 +146,7 @@ fun WavveNavigation(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .verticalScroll(rememberScrollState()),
-                            videoOverviewViewState = arguments.videoOverviewViewState,
+                            videoOverview = arguments.videoOverviewViewState,
                             animatedVisibilityScope = this@composable
                         )
                     }

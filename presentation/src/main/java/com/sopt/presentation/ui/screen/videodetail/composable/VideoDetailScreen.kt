@@ -1,4 +1,4 @@
-package com.sopt.presentation.ui.screen.home.composable
+package com.sopt.presentation.ui.screen.videodetail.composable
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -19,22 +19,22 @@ import com.sopt.presentation.ui.state.VideoOverviewViewState
 @Composable
 fun SharedTransitionScope.VideoDetailScreen(
     modifier: Modifier = Modifier,
-    videoOverviewViewState: VideoOverviewViewState,
+    videoOverview: VideoOverviewViewState,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-            GlideImage(
-                modifier = Modifier
-                    .sharedElement(
-                        rememberSharedContentState("thumbnail"),
-                        animatedVisibilityScope
-                    )
-                    .fillMaxWidth()
-                    .height(200.dp), model = videoOverviewViewState.titleImage,
-                contentScale = ContentScale.Crop,
-                contentDescription = videoOverviewViewState.title
-            )
+        GlideImage(
+            modifier = Modifier
+                .sharedElement(
+                    rememberSharedContentState(videoOverview.id),
+                    animatedVisibilityScope
+                )
+                .fillMaxWidth()
+                .height(200.dp), model = videoOverview.titleImage,
+            contentScale = ContentScale.Crop,
+            contentDescription = videoOverview.title
+        )
     }
 }
