@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AND-ANDROID"
-include(":app")
- 
+include(":app", ":domain", ":data", ":presentation")

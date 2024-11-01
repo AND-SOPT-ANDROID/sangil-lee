@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">AND-ANDROID</string>
+    <string name="wavve">Wavve</string>
+
+    <!-- Common -->
+    <string name="show_password_indicate">show</string>
+    <string name="hide_password_indicate">hide</string>
+
+    <!-- Title -->
+    <string name="title_sign_up">회원가입</string>
+    <string name="title_home">홈</string>
+    <string name="title_my">MY</string>
+    <string name="title_search">검색</string>
+    <string name="type_new_classic">뉴클래식</string>
+    <string name="type_drama">드라마</string>
+    <string name="type_entertainment">예능</string>
+    <string name="type_movie">영화</string>
+    <string name="type_animation">애니</string>
+    <string name="type_abroad_series">해외시리즈</string>
+    <string name="type_information_culture">시사교양</string>
+    <string name="type_kids">키즈</string>
+    <string name="type_movie_plus">영화플러스</string>
+
+    <!-- Content Description -->
+    <string name="close_content_description">닫기</string>
+    <string name="sign_up_with_kakao_content_description">카카오 계정으로 회원가입</string>
+    <string name="sign_up_with_naver_content_description">네이버 계정으로 회원가입</string>
+    <string name="sign_up_with_t_content_description">T 계정으로 회원가입</string>
+    <string name="sign_up_with_facebook_content_description">페이스북 계정으로 회원가입</string>
+    <string name="sign_up_with_apple_content_description">애플 계정으로 회원가입</string>
+    <string name="navigate_up_content_description">뒤로가기</string>
+    <string name="notification_content_description">알림</string>
+    <string name="caution_content_description">주의</string>
+    <string name="see_more_content_description">더보기</string>
+    <string name="series_content_description">시리즈</string>
+    <string name="movie_content_description">영화</string>
+
+    <!-- 회원가입 -->
+    <string name="sign_up">회원가입</string>
+    <string name="sign_up_email_input_placeholder">wavve@example.com</string>
+    <string name="sign_up_caution_exact_email">로그인, 비밀번호 찾기, 알림에 사용되니 정확한 이메일을 입력해주세요.</string>
+    <string name="sign_up_password_input_placeholder">Wavve 비밀번호 설정</string>
+    <string name="sign_up_caution_password">비밀번호는 %s~%s자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
+    <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
+    <string name="alert_social_sign">SNS계정으로 간편하게 가입하여 서비스를 이용하실 수 있습니다. 기존 POOQ 계정 또는 Wavve 계정과는 연동되지 않으니 이용에 참고하세요.</string>
+    <string name="wavve_sign_up">Wavve 회원가입</string>
+    <string name="check_email_format">이메일 형식을 확인해주세요.</string>
+    <string name="check_password_format">비밀번호 형식을 확인해주세요.</string>
+
+    <!-- 로그인 -->
+    <string name="password">비밀번호</string>
+    <string name="email_address_or_id">이메일 주소 또는 아이디</string>
+    <string name="sign_in">로그인</string>\
+    <string name="find_id">아이디 찾기</string>
+    <string name="reset_password">비밀번호 재설정</string>
+    <string name="sign_in_with_other">또는 다른 서비스 계정으로 로그인</string>
+    <string name="sign_in_success">로그인 성공 !</string>
+    <string name="sign_in_failure">로그인 실패</string>
+    <string name="require_email_input">이메일을 입력해주세요.</string>
+    <string name="require_password_input">비밀번호를 입력해주세요.</string>
+    <string name="not_exist_email">존재하지 않는 이메일입니다.</string>
+    <string name="not_exist_password">비밀번호가 일치하지 않습니다.</string>
+
+    <!-- My -->
+    <string name="profile_image">프로필 이미지</string>
+    <string name="promote_first_payment">첫 결제 시 첫 달 100원!</string>
+    <string name="have_no_wavve_access">현재 보유하신 이용권이 없습니다.</string>
+    <string name="pay">구매하기</string>
+    <string name="total_viewing_history">전체 시청내역</string>
+    <string name="no_viewing_history">시청내역이 없어요.</string>
+    <string name="interested_program">관심 프로그램</string>
+    <string name="no_interested_program">관심 프로그램이 없어요.</string>
+
+    <!-- Search -->
+    <string name="search_placeholder">제목, 장르, 배우로 찾아보세요</string>
+
+</resources>
