@@ -20,12 +20,16 @@ class UserLocalDataSource @Inject constructor(
         val savedEmail = userSharedPreferences.getString(KEY_EMAIL, null)
         val savedPassword = userSharedPreferences.getString(KEY_PASSWORD, null)
 
-        return if (email == savedEmail && password == savedPassword)
-            Result.success(Unit)
-        else if (email != savedEmail)
-            Result.failure(SignInError.NotExistEmail())
-        else
-            Result.failure(SignInError.PasswordNotMatchingWithEmail())
+        return when {
+            email == savedEmail && password == savedPassword ->
+                Result.success(Unit)
+
+            email != savedEmail ->
+                Result.failure(SignInError.NotExistEmail())
+
+            else ->
+                Result.failure(SignInError.PasswordNotMatchingWithEmail())
+        }
     }
 
     companion object {

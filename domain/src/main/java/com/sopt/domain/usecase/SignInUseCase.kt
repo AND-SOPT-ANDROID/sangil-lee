@@ -9,11 +9,12 @@ class SignInUseCase @Inject constructor(
 ) {
 
     operator fun invoke(email: String, password: String): Result<Unit> {
-        return if (email.isBlank())
-            Result.failure(SignInError.EmailInputEmpty())
-        else if (password.isBlank())
-            Result.failure(SignInError.PasswordInputEmpty())
-        else
-            userRepository.trySignIn(email, password)
+        return runCatching {
+            when {
+                email.isBlank() -> Result.failure(SignInError.EmailInputEmpty())
+                password.isBlank() -> Result.failure(SignInError.PasswordInputEmpty())
+                else -> userRepository.trySignIn(email, password)
+            }
+        }
     }
 }
