@@ -101,7 +101,7 @@ fun SignUpScreen(
             when (it) {
                 is SignUpUiState.Success -> onSignUpSuccess()
                 is SignUpUiState.UsernameInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_email_input)
+                    ContextCompat.getString(context, R.string.require_username_input)
 
                 is SignUpUiState.PasswordInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_password_input)

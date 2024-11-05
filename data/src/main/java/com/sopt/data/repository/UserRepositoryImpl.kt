@@ -2,8 +2,8 @@ package com.sopt.data.repository
 
 import com.sopt.data.datasource.local.UserLocalDataSource
 import com.sopt.data.datasource.remote.UserRemoteDataSource
+import com.sopt.data.request.SignInRequest
 import com.sopt.data.request.SignUpRequest
-import com.sopt.domain.model.User
 import com.sopt.domain.repository.UserRepository
 import javax.inject.Inject
 
@@ -18,11 +18,9 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun trySignIn(email: String, password: String): Result<Unit> {
-        return userLocalDataSource.trySignIn(email, password)
-    }
-
-    override suspend fun fetchUser(): Result<User> {
-        TODO("Not yet implemented")
+    override suspend fun signIn(username: String, password: String): Result<Unit> {
+        return runCatching {
+            userRemoteDataSource.signIn(SignInRequest(username, password))
+        }
     }
 }

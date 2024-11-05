@@ -1,9 +1,9 @@
 package com.sopt.domain.exception
 
 sealed class SignInError : Throwable() {
-    class NotExistEmail() : SignInError()
-    class PasswordNotMatchingWithEmail() : SignInError()
-    class EmailInputEmpty() : SignInError()
+    class NotExistUsername() : SignInError()
+    class PasswordNotMatchingWithUsername() : SignInError()
+    class UsernameInputEmpty() : SignInError()
     class PasswordInputEmpty() : SignInError()
 }
 

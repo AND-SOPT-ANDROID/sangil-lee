@@ -36,9 +36,9 @@ import com.sopt.presentation.ui.util.noRippleClickable
 @Composable
 fun SignInContentView(
     modifier: Modifier = Modifier,
-    emailInput: String,
+    usernameInput: String,
     passwordInput: String,
-    onEmailInputChanged: (String) -> Unit,
+    onUsernameInputChanged: (String) -> Unit,
     onPasswordInputChanged: (String) -> Unit,
     onSignInButtonClicked: () -> Unit,
     onNavigateToSignUp: () -> Unit
@@ -50,9 +50,9 @@ fun SignInContentView(
         modifier = modifier
     ) {
         FilledTextField(
-            value = emailInput,
+            value = usernameInput,
             innerPadding = PaddingValues(horizontal = 12.dp, vertical = 18.dp),
-            onValueChange = onEmailInputChanged,
+            onValueChange = onUsernameInputChanged,
             placeholder = stringResource(R.string.email_address_or_id),
         )
         FilledTextField(
@@ -155,9 +155,9 @@ fun SignInContentView(
 @Composable
 private fun SignInContentViewPreview() {
     SignInContentView(
-        emailInput = "",
+        usernameInput = "",
         passwordInput = "",
-        onEmailInputChanged = {},
+        onUsernameInputChanged = {},
         onPasswordInputChanged = {},
         onSignInButtonClicked = {},
         onNavigateToSignUp = {}

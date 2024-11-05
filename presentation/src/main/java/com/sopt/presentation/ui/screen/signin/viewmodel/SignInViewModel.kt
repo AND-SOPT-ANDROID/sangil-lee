@@ -7,9 +7,9 @@ import com.sopt.domain.usecase.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,20 +17,16 @@ class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
 ) : ViewModel() {
 
-    val emailInput: StateFlow<String>
+    val usernameInput: StateFlow<String>
         field = MutableStateFlow("")
     val passwordInput: StateFlow<String>
         field = MutableStateFlow("")
 
-    private val _signInUiState =
-        MutableSharedFlow<SignInUiState>(extraBufferCapacity = 1)
-    val signInUiState = _signInUiState.shareIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000)
-    )
+    val signInUiState: SharedFlow<SignInUiState>
+        field = MutableSharedFlow<SignInUiState>()
 
-    fun onEmailInputChanged(email: String) {
-        emailInput.value = email
+    fun onUsernameInputChanged(username: String) {
+        usernameInput.value = username
     }
 
     fun onPasswordInputChanged(password: String) {
@@ -38,14 +34,18 @@ class SignInViewModel @Inject constructor(
     }
 
     fun trySignIn() {
-        signInUseCase(emailInput.value, passwordInput.value).onSuccess {
-            _signInUiState.tryEmit(SignInUiState.Success)
-        }.onFailure {
-            when (it) {
-                is SignInError.EmailInputEmpty -> _signInUiState.tryEmit(SignInUiState.EmailInputEmpty)
-                is SignInError.PasswordInputEmpty -> _signInUiState.tryEmit(SignInUiState.PasswordInputEmpty)
-                is SignInError.NotExistEmail -> _signInUiState.tryEmit(SignInUiState.NotExistEmail)
-                is SignInError.PasswordNotMatchingWithEmail -> _signInUiState.tryEmit(SignInUiState.PasswordNotMatchingWithEmail)
+        viewModelScope.launch {
+            signInUseCase(usernameInput.value, passwordInput.value).onSuccess {
+                signInUiState.emit(SignInUiState.Success)
+            }.onFailure {
+                when (it) {
+                    is SignInError.UsernameInputEmpty -> signInUiState.emit(SignInUiState.UsernameInputEmpty)
+                    is SignInError.PasswordInputEmpty -> signInUiState.emit(SignInUiState.PasswordInputEmpty)
+                    is SignInError.NotExistUsername -> signInUiState.emit(SignInUiState.NotExistUsername)
+                    is SignInError.PasswordNotMatchingWithUsername -> signInUiState.emit(
+                        SignInUiState.PasswordNotMatchingWithUsername
+                    )
+                }
             }
         }
     }
@@ -53,8 +53,8 @@ class SignInViewModel @Inject constructor(
 
 sealed interface SignInUiState {
     data object Success : SignInUiState
-    data object EmailInputEmpty : SignInUiState
+    data object UsernameInputEmpty : SignInUiState
     data object PasswordInputEmpty : SignInUiState
-    data object NotExistEmail : SignInUiState
-    data object PasswordNotMatchingWithEmail : SignInUiState
+    data object NotExistUsername : SignInUiState
+    data object PasswordNotMatchingWithUsername : SignInUiState
 }

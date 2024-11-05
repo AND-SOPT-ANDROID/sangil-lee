@@ -8,12 +8,12 @@ class SignInUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
-    operator fun invoke(email: String, password: String): Result<Unit> {
+    operator fun invoke(username: String, password: String): Result<Unit> {
         return runCatching {
             when {
-                email.isBlank() -> Result.failure(SignInError.EmailInputEmpty())
+                username.isBlank() -> Result.failure(SignInError.UsernameInputEmpty())
                 password.isBlank() -> Result.failure(SignInError.PasswordInputEmpty())
-                else -> userRepository.trySignIn(email, password)
+                else -> userRepository.signIn(username, password)
             }
         }
     }
