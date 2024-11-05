@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.sopt.domain.util.isValidEmail
+import com.sopt.domain.util.isValidUsername
 import com.sopt.domain.util.isValidHobby
 import com.sopt.domain.util.isValidPassword
 import com.sopt.presentation.R
@@ -30,10 +30,10 @@ import com.sopt.presentation.ui.component.button.FullWidthTextButton
 @Composable
 fun SignUpContentScreen(
     modifier: Modifier = Modifier,
-    emailInput: String = "",
+    usernameInput: String = "",
     passwordInput: String = "",
     hobbyInput: String = "",
-    onEmailInputChanged: (String) -> Unit = {},
+    onUsernameInputChanged: (String) -> Unit = {},
     onPasswordInputChanged: (String) -> Unit = {},
     onHobbyInputChanged: (String) -> Unit = {},
     onSignUpButtonClicked: () -> Unit = { }
@@ -43,11 +43,11 @@ fun SignUpContentScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val signUpButtonActivated by remember(
-        emailInput,
+        usernameInput,
         passwordInput
     ) {
         derivedStateOf {
-            emailInput.isValidEmail() && passwordInput.isValidPassword() && hobbyInput.isValidHobby()
+            usernameInput.isValidUsername() && passwordInput.isValidPassword() && hobbyInput.isValidHobby()
         }
     }
 
@@ -69,10 +69,10 @@ fun SignUpContentScreen(
                 modifier = modifier
                     .padding(top = 24.dp)
                     .padding(horizontal = 6.dp),
-                emailInput = emailInput,
+                usernameInput = usernameInput,
                 passwordInput = passwordInput,
                 hobbyInput = hobbyInput,
-                onEmailInputChanged = onEmailInputChanged,
+                onUsernameInputChanged = onUsernameInputChanged,
                 onPasswordInputChanged = onPasswordInputChanged,
                 onHobbyInputChanged = onHobbyInputChanged
             )
@@ -87,7 +87,7 @@ fun SignUpContentScreen(
                     onSignUpButtonClicked()
                 } else {
                     when {
-                        emailInput.isValidEmail().not() -> toast.show()
+                        usernameInput.isValidUsername().not() -> toast.show()
                         passwordInput.isValidPassword().not() -> toast.show()
                     }
                 }
@@ -97,7 +97,7 @@ fun SignUpContentScreen(
 
     LaunchedEffect(signUpButtonActivated) {
         when {
-            emailInput.isValidEmail().not() -> {
+            usernameInput.isValidUsername().not() -> {
                 signUpFailureMessage = ContextCompat.getString(context, R.string.check_email_format)
             }
 

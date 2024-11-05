@@ -17,7 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val signUpAccountUseCase: SignUpAccountUseCase
 ) : ViewModel() {
 
-    val emailInput: StateFlow<String>
+    val usernameInput: StateFlow<String>
         field = MutableStateFlow("")
     val passwordInput: StateFlow<String>
         field = MutableStateFlow("")
@@ -27,8 +27,8 @@ class SignUpViewModel @Inject constructor(
     val signUpUiState: SharedFlow<SignUpUiState>
         field = MutableSharedFlow<SignUpUiState>()
 
-    fun onEmailInputChanged(email: String) {
-        emailInput.value = email
+    fun onUsernameInputChanged(username: String) {
+        usernameInput.value = username
     }
 
     fun onPasswordInputChanged(password: String) {
@@ -42,16 +42,16 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             signUpAccountUseCase(
-                emailInput.value,
+                usernameInput.value,
                 passwordInput.value,
                 hobbyInput.value
             ).onSuccess {
                 signUpUiState.emit(SignUpUiState.Success)
             }.onFailure {
                 when (it) {
-                    is SignUpError.EmailInputEmpty -> signUpUiState.emit(SignUpUiState.EmailInputEmpty)
+                    is SignUpError.UsernameInputEmpty -> signUpUiState.emit(SignUpUiState.UsernameInputEmpty)
                     is SignUpError.PasswordInputEmpty -> signUpUiState.emit(SignUpUiState.PasswordInputEmpty)
-                    is SignUpError.InvalidEmail -> signUpUiState.emit(SignUpUiState.InvalidEmail)
+                    is SignUpError.InvalidUsername -> signUpUiState.emit(SignUpUiState.InvalidUsername)
                     is SignUpError.InvalidPassword -> signUpUiState.emit(SignUpUiState.InvalidPassword)
                 }
             }
@@ -61,8 +61,8 @@ class SignUpViewModel @Inject constructor(
 
 sealed interface SignUpUiState {
     data object Success : SignUpUiState
-    data object EmailInputEmpty : SignUpUiState
+    data object UsernameInputEmpty : SignUpUiState
     data object PasswordInputEmpty : SignUpUiState
-    data object InvalidEmail : SignUpUiState
+    data object InvalidUsername : SignUpUiState
     data object InvalidPassword : SignUpUiState
 }

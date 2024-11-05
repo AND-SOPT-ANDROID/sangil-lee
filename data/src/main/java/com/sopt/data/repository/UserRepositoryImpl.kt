@@ -12,9 +12,9 @@ class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
-    override suspend fun signUp(email: String, password: String, hobby: String): Result<Unit> {
+    override suspend fun signUp(username: String, password: String, hobby: String): Result<Unit> {
         return runCatching {
-            userRemoteDataSource.signUp(SignUpRequest(email, password, hobby))
+            userRemoteDataSource.signUp(SignUpRequest(username, password, hobby))
         }
     }
 

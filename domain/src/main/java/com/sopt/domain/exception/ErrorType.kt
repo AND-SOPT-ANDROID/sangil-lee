@@ -8,8 +8,8 @@ sealed class SignInError : Throwable() {
 }
 
 sealed class SignUpError : Throwable() {
-    class InvalidEmail() : SignUpError()
+    class InvalidUsername() : SignUpError()
     class InvalidPassword() : SignUpError()
-    class EmailInputEmpty() : SignUpError()
+    class UsernameInputEmpty() : SignUpError()
     class PasswordInputEmpty() : SignUpError()
 }

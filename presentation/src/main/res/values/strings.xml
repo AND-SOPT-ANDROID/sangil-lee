@@ -37,7 +37,7 @@
 
     <!-- 회원가입 -->
     <string name="sign_up">회원가입</string>
-    <string name="sign_up_email_input_placeholder">wavve@example.com</string>
+    <string name="sign_up_username_input_placeholder">Wavve 아이디 설정</string>
     <string name="sign_up_caution_exact_email">로그인, 비밀번호 찾기, 알림에 사용되니 정확한 이메일을 입력해주세요.</string>
     <string name="sign_up_password_input_placeholder">Wavve 비밀번호 설정</string>
     <string name="hobby_input_placeholder">취미 설정</string>

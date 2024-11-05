@@ -40,7 +40,7 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
-    val emailInput by viewModel.emailInput.collectAsStateWithLifecycle()
+    val usernameInput by viewModel.usernameInput.collectAsStateWithLifecycle()
     val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
     val hobbyInput by viewModel.hobbyInput.collectAsStateWithLifecycle()
 
@@ -84,10 +84,10 @@ fun SignUpScreen(
         ) {
             SignUpContentScreen(
                 modifier = Modifier.padding(horizontal = 12.dp),
-                emailInput = emailInput,
+                usernameInput = usernameInput,
                 passwordInput = passwordInput,
                 hobbyInput = hobbyInput,
-                onEmailInputChanged = viewModel::onEmailInputChanged,
+                onUsernameInputChanged = viewModel::onUsernameInputChanged,
                 onPasswordInputChanged = viewModel::onPasswordInputChanged,
                 onHobbyInputChanged = viewModel::onHobbyInputChanged,
                 onSignUpButtonClicked = viewModel::signUp
@@ -100,13 +100,13 @@ fun SignUpScreen(
             var snackbarMessage = ""
             when (it) {
                 is SignUpUiState.Success -> onSignUpSuccess()
-                is SignUpUiState.EmailInputEmpty -> snackbarMessage =
+                is SignUpUiState.UsernameInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_email_input)
 
                 is SignUpUiState.PasswordInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_password_input)
 
-                is SignUpUiState.InvalidEmail -> snackbarMessage =
+                is SignUpUiState.InvalidUsername -> snackbarMessage =
                     ContextCompat.getString(context, R.string.not_exist_email)
 
                 is SignUpUiState.InvalidPassword -> snackbarMessage =

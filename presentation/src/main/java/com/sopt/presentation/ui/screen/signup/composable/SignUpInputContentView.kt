@@ -38,10 +38,10 @@ import com.sopt.presentation.ui.util.noRippleClickable
 @Composable
 fun SignUpInputContentView(
     modifier: Modifier = Modifier,
-    emailInput: String = "",
+    usernameInput: String = "",
     passwordInput: String = "",
     hobbyInput: String = "",
-    onEmailInputChanged: (String) -> Unit = {},
+    onUsernameInputChanged: (String) -> Unit = {},
     onPasswordInputChanged: (String) -> Unit = {},
     onHobbyInputChanged: (String) -> Unit = {}
 ) {
@@ -90,9 +90,9 @@ fun SignUpInputContentView(
             modifier = Modifier
                 .padding(top = 28.dp)
                 .fillMaxWidth(),
-            value = emailInput,
-            onValueChange = onEmailInputChanged,
-            placeholder = stringResource(R.string.sign_up_email_input_placeholder)
+            value = usernameInput,
+            onValueChange = onUsernameInputChanged,
+            placeholder = stringResource(R.string.sign_up_username_input_placeholder)
         )
 
         IconFrontText(
