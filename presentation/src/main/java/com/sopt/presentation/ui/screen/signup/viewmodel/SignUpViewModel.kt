@@ -7,9 +7,9 @@ import com.sopt.domain.usecase.SignUpAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,13 +21,11 @@ class SignUpViewModel @Inject constructor(
         field = MutableStateFlow("")
     val passwordInput: StateFlow<String>
         field = MutableStateFlow("")
+    val hobbyInput: StateFlow<String>
+        field = MutableStateFlow("")
 
-    private val _signUpUiState =
-        MutableSharedFlow<SignUpUiState>(extraBufferCapacity = 1)
-    val signUpUiState = _signUpUiState.shareIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000)
-    )
+    val signUpUiState: SharedFlow<SignUpUiState>
+        field = MutableSharedFlow<SignUpUiState>()
 
     fun onEmailInputChanged(email: String) {
         emailInput.value = email
@@ -37,15 +35,25 @@ class SignUpViewModel @Inject constructor(
         passwordInput.value = password
     }
 
+    fun onHobbyInputChanged(hobby: String) {
+        hobbyInput.value = hobby
+    }
+
     fun signUp() {
-        signUpAccountUseCase(emailInput.value, passwordInput.value).onSuccess {
-            _signUpUiState.tryEmit(SignUpUiState.Success)
-        }.onFailure {
-            when (it) {
-                is SignUpError.EmailInputEmpty -> _signUpUiState.tryEmit(SignUpUiState.EmailInputEmpty)
-                is SignUpError.PasswordInputEmpty -> _signUpUiState.tryEmit(SignUpUiState.PasswordInputEmpty)
-                is SignUpError.InvalidEmail -> _signUpUiState.tryEmit(SignUpUiState.InvalidEmail)
-                is SignUpError.InvalidPassword -> _signUpUiState.tryEmit(SignUpUiState.InvalidPassword)
+        viewModelScope.launch {
+            signUpAccountUseCase(
+                emailInput.value,
+                passwordInput.value,
+                hobbyInput.value
+            ).onSuccess {
+                signUpUiState.emit(SignUpUiState.Success)
+            }.onFailure {
+                when (it) {
+                    is SignUpError.EmailInputEmpty -> signUpUiState.emit(SignUpUiState.EmailInputEmpty)
+                    is SignUpError.PasswordInputEmpty -> signUpUiState.emit(SignUpUiState.PasswordInputEmpty)
+                    is SignUpError.InvalidEmail -> signUpUiState.emit(SignUpUiState.InvalidEmail)
+                    is SignUpError.InvalidPassword -> signUpUiState.emit(SignUpUiState.InvalidPassword)
+                }
             }
         }
     }

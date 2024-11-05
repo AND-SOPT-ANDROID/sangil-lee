@@ -10,14 +10,14 @@ class SignUpAccountUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
-    operator fun invoke(email: String, password: String): Result<Unit> {
+    suspend operator fun invoke(email: String, password: String, hobby: String): Result<Unit> {
         return runCatching {
             when {
                 email.isBlank() -> Result.failure(SignUpError.EmailInputEmpty())
                 password.isBlank() -> Result.failure(SignUpError.PasswordInputEmpty())
                 email.isValidEmail().not() -> Result.failure(SignUpError.InvalidEmail())
                 password.isValidPassword().not() -> Result.failure(SignUpError.InvalidPassword())
-                else -> Result.success(userRepository.saveAccount(email, password))
+                else -> userRepository.signUp(email, password, hobby)
             }
         }
     }

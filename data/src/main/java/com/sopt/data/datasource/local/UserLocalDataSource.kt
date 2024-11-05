@@ -9,13 +9,6 @@ class UserLocalDataSource @Inject constructor(
     @UserSharedPref private val userSharedPreferences: SharedPreferences
 ) {
 
-    fun saveAccount(email: String, password: String) {
-        userSharedPreferences.edit()
-            .putString(KEY_EMAIL, email)
-            .putString(KEY_PASSWORD, password)
-            .apply()
-    }
-
     fun trySignIn(email: String, password: String): Result<Unit> {
         val savedEmail = userSharedPreferences.getString(KEY_EMAIL, null)
         val savedPassword = userSharedPreferences.getString(KEY_PASSWORD, null)
