@@ -10,3 +10,4 @@ private val passwordRegex by lazy {
 
 fun String.isValidEmail(): Boolean = emailRegex.matches(this)
 fun String.isValidPassword(): Boolean = passwordRegex.matches(this)
+fun String.isValidHobby(): Boolean = this.isNotBlank()

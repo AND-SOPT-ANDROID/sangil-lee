@@ -10,6 +10,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -39,8 +40,9 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
-    val emailInput = viewModel.emailInput.collectAsStateWithLifecycle()
-    val passwordInput = viewModel.passwordInput.collectAsStateWithLifecycle()
+    val emailInput by viewModel.emailInput.collectAsStateWithLifecycle()
+    val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
+    val hobbyInput by viewModel.hobbyInput.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -82,10 +84,12 @@ fun SignUpScreen(
         ) {
             SignUpContentScreen(
                 modifier = Modifier.padding(horizontal = 12.dp),
-                emailInput = emailInput.value,
-                passwordInput = passwordInput.value,
+                emailInput = emailInput,
+                passwordInput = passwordInput,
+                hobbyInput = hobbyInput,
                 onEmailInputChanged = viewModel::onEmailInputChanged,
                 onPasswordInputChanged = viewModel::onPasswordInputChanged,
+                onHobbyInputChanged = viewModel::onHobbyInputChanged,
                 onSignUpButtonClicked = viewModel::signUp
             )
         }

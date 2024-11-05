@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.sopt.domain.util.isValidEmail
+import com.sopt.domain.util.isValidHobby
 import com.sopt.domain.util.isValidPassword
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.button.FullWidthTextButton
@@ -31,8 +32,10 @@ fun SignUpContentScreen(
     modifier: Modifier = Modifier,
     emailInput: String = "",
     passwordInput: String = "",
+    hobbyInput: String = "",
     onEmailInputChanged: (String) -> Unit = {},
     onPasswordInputChanged: (String) -> Unit = {},
+    onHobbyInputChanged: (String) -> Unit = {},
     onSignUpButtonClicked: () -> Unit = { }
 ) {
 
@@ -42,10 +45,14 @@ fun SignUpContentScreen(
     val signUpButtonActivated by remember(
         emailInput,
         passwordInput
-    ) { derivedStateOf { emailInput.isValidEmail() && passwordInput.isValidPassword() } }
+    ) {
+        derivedStateOf {
+            emailInput.isValidEmail() && passwordInput.isValidPassword() && hobbyInput.isValidHobby()
+        }
+    }
 
     var signUpFailureMessage by remember { mutableStateOf("") }
-    var toast = Toast.makeText(context, signUpFailureMessage, Toast.LENGTH_SHORT)
+    val toast = Toast.makeText(context, signUpFailureMessage, Toast.LENGTH_SHORT)
 
     Column(
         modifier = Modifier
@@ -64,8 +71,10 @@ fun SignUpContentScreen(
                     .padding(horizontal = 6.dp),
                 emailInput = emailInput,
                 passwordInput = passwordInput,
+                hobbyInput = hobbyInput,
                 onEmailInputChanged = onEmailInputChanged,
-                onPasswordInputChanged = onPasswordInputChanged
+                onPasswordInputChanged = onPasswordInputChanged,
+                onHobbyInputChanged = onHobbyInputChanged
             )
         }
         FullWidthTextButton(

@@ -40,8 +40,10 @@ fun SignUpInputContentView(
     modifier: Modifier = Modifier,
     emailInput: String = "",
     passwordInput: String = "",
+    hobbyInput: String = "",
     onEmailInputChanged: (String) -> Unit = {},
-    onPasswordInputChanged: (String) -> Unit = {}
+    onPasswordInputChanged: (String) -> Unit = {},
+    onHobbyInputChanged: (String) -> Unit = {}
 ) {
 
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -123,6 +125,21 @@ fun SignUpInputContentView(
         IconFrontText(
             modifier = Modifier.padding(top = 12.dp),
             text = stringResource(R.string.sign_up_caution_password, 8, 20),
+            painter = painterResource(R.drawable.ic_caution),
+        )
+
+        FilledTextField(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth(),
+            value = hobbyInput,
+            onValueChange = onHobbyInputChanged,
+            placeholder = stringResource(R.string.hobby_input_placeholder)
+        )
+
+        IconFrontText(
+            modifier = Modifier.padding(top = 12.dp),
+            text = stringResource(R.string.sign_up_caution_hobby, 8),
             painter = painterResource(R.drawable.ic_caution),
         )
 
