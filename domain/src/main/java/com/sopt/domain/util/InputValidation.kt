@@ -9,5 +9,5 @@ private val passwordRegex by lazy {
 }
 
 fun String.isValidUsername(): Boolean = this.length in 1..8
-fun String.isValidPassword(): Boolean = passwordRegex.matches(this)
-fun String.isValidHobby(): Boolean = this.isNotBlank()
+fun String.isValidPassword(): Boolean = this.length in 1..8
+fun String.isValidHobby(): Boolean = this.length in 1..8
