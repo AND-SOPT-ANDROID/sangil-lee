@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.sopt.data.UserEncryptedSharedPref
+import com.sopt.data.TokenEncryptedSharedPref
 import com.sopt.data.UserSharedPref
 import dagger.Module
 import dagger.Provides
@@ -26,10 +26,10 @@ object LocalApiModule {
         return context.getSharedPreferences("user.pref", Context.MODE_PRIVATE)
     }
 
-    @UserEncryptedSharedPref
+    @TokenEncryptedSharedPref
     @Provides
     @Singleton
-    fun provideUserEncryptedSharedPreferences(
+    fun provideTokenEncryptedSharedPreferences(
         @ApplicationContext context: Context
     ): SharedPreferences {
         val masterKeyAlias = MasterKey
@@ -37,10 +37,9 @@ object LocalApiModule {
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
 
-
         return EncryptedSharedPreferences.create(
             context,
-            "user.pref.enc",
+            "token.pref.enc",
             masterKeyAlias,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM

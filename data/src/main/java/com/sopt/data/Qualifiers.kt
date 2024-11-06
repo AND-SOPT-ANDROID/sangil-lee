@@ -8,4 +8,4 @@ annotation class UserSharedPref
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class UserEncryptedSharedPref
+annotation class TokenEncryptedSharedPref

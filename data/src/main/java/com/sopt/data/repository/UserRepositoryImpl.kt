@@ -1,5 +1,6 @@
 package com.sopt.data.repository
 
+import com.sopt.data.datasource.local.TokenLocalDataSource
 import com.sopt.data.datasource.local.UserLocalDataSource
 import com.sopt.data.datasource.remote.UserRemoteDataSource
 import com.sopt.data.request.SignInRequest
@@ -9,7 +10,8 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource,
-    private val userRemoteDataSource: UserRemoteDataSource
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val tokenLocalDataSource: TokenLocalDataSource
 ) : UserRepository {
 
     override suspend fun signUp(username: String, password: String, hobby: String): Result<Unit> {
@@ -21,7 +23,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun signIn(username: String, password: String): Result<Unit> {
         return runCatching {
             val signInDto = userRemoteDataSource.signIn(SignInRequest(username, password))
-            userLocalDataSource.saveToken(signInDto.token)
+            tokenLocalDataSource.saveToken(signInDto.token)
         }
     }
 }
