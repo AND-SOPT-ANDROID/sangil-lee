@@ -23,7 +23,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun signIn(username: String, password: String): Result<Unit> {
         return runCatching {
             val signInDto = userRemoteDataSource.signIn(SignInRequest(username, password))
-            tokenLocalDataSource.saveToken(signInDto.token)
+            signInDto.token?.let { tokenLocalDataSource.saveToken(it) }
         }
     }
 }
