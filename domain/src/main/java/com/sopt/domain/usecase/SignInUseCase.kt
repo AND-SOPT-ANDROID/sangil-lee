@@ -8,7 +8,7 @@ class SignInUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
-    operator fun invoke(username: String, password: String): Result<Unit> {
+    suspend operator fun invoke(username: String, password: String): Result<Unit> {
         return runCatching {
             when {
                 username.isBlank() -> Result.failure(SignInError.UsernameInputEmpty())
