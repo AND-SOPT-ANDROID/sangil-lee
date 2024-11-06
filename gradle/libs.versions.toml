@@ -20,10 +20,12 @@ navigationCompose = "2.8.2"
 okhttp = "4.11.0"
 retrofit = "2.11.0"
 retrofitKotlinSerializationConverter = "1.0.0"
+securityCryptoKtx = "1.1.0-alpha06"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "glideCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
