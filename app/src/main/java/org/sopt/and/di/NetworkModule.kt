@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.sopt.and.BuildConfig
+import org.sopt.and.adapter.ResultCallAdapterFactory
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -21,6 +22,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .build()
     }
 }
