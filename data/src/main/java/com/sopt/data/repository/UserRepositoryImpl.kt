@@ -26,4 +26,11 @@ class UserRepositoryImpl @Inject constructor(
             signInDto.token?.let { tokenLocalDataSource.saveToken(it) }
         }
     }
+
+    override suspend fun getMyHobby(): Result<String> {
+        return runCatching {
+            val token = tokenLocalDataSource.getToken()
+            userRemoteDataSource.getMyHobby(token).hobby ?: ""
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.sopt.data.datasource.remote
 
 import com.sopt.data.api.remote.UserApi
+import com.sopt.data.dto.user.HobbyDto
 import com.sopt.data.dto.user.SignInDto
 import com.sopt.data.dto.user.SignUpDto
 import com.sopt.data.request.SignInRequest
@@ -17,5 +18,9 @@ class UserRemoteDataSource @Inject constructor(
 
     suspend fun signIn(signInRequest: SignInRequest): SignInDto {
         return userApi.signIn(signInRequest)
+    }
+
+    suspend fun getMyHobby(token: String): HobbyDto {
+        return userApi.getMyHobby(token)
     }
 }
