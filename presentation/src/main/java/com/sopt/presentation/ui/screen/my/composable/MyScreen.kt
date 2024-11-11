@@ -14,6 +14,7 @@ import com.sopt.presentation.ui.screen.my.viewmodel.MyViewModel
 @Composable
 fun MyScreen(
     modifier: Modifier = Modifier,
+    onNavigateToEditProfile: () -> Unit,
     viewModel: MyViewModel = hiltViewModel()
 ) {
 
@@ -26,7 +27,8 @@ fun MyScreen(
         MyContentScreen(
             modifier = Modifier
                 .fillMaxSize(),
-            myHobby = myHobby
+            myHobby = myHobby,
+            onNavigateToEditProfile = onNavigateToEditProfile
         )
     }
 }

@@ -25,10 +25,12 @@ import com.sopt.presentation.ui.component.surface.VariantSurface
 import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.text.SecondaryText
 import com.sopt.presentation.ui.theme.WavveTheme
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun MyContentScreen(
     myHobby: String,
+    onNavigateToEditProfile: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -59,7 +61,9 @@ fun MyContentScreen(
                         contentDescription = stringResource(R.string.notification_content_description)
                     )
                     PrimaryIcon(
-                        modifier = Modifier.padding(start = 12.dp),
+                        modifier = Modifier.padding(start = 12.dp).noRippleClickable {
+                            onNavigateToEditProfile()
+                        },
                         imageVector = Icons.Outlined.Settings,
                         contentDescription = stringResource(R.string.notification_content_description)
                     )
@@ -81,9 +85,8 @@ fun MyContentScreen(
                     PrimaryIcon(
                         modifier = Modifier.padding(start = 4.dp),
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = stringResource(R.string.profile_image),
-
-                        )
+                        contentDescription = stringResource(R.string.profile_image)
+                    )
                 }
             }
         }
@@ -154,5 +157,6 @@ fun MyContentScreen(
 private fun MyContentScreenPreview() {
     MyContentScreen(
         myHobby = "축구",
+        onNavigateToEditProfile = {}
     )
 }

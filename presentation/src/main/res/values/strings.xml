@@ -82,4 +82,11 @@
     <string name="require_only_number">숫자만 입력해주세요.</string>
     <string name="not_exist_search_result">존재하지 않는 사용자입니다.</string>
 
+    <!-- 프로필 수정 -->
+    <string name="title_profile_edit">프로필 수정</string>
+    <string name="edit_password_placeholder">새 비밀번호를 입력해주세요.</string>
+    <string name="edit_hobby_placeholder">새 취미를 입력해주세요.</string>
+    <string name="save">저장</string>
+
+
 </resources>

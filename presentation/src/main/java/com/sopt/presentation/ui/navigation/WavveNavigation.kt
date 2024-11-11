@@ -32,6 +32,7 @@ import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
 import com.sopt.presentation.ui.navigation.navtype.VideoOverviewNavType
 import com.sopt.presentation.ui.screen.home.composable.HomeScreen
+import com.sopt.presentation.ui.screen.my.composable.EditProfileScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
@@ -128,7 +129,10 @@ fun WavveNavigation(
                         MyScreen(
                             modifier = Modifier
                                 .padding(innerPadding)
-                                .fillMaxSize()
+                                .fillMaxSize(),
+                            onNavigateToEditProfile = {
+                                navController.navigate(Routes.MySetting.EditProfile)
+                            }
                         )
                     }
                 }
@@ -137,7 +141,12 @@ fun WavveNavigation(
                     startDestination = Routes.MySetting.EditProfile
                 ) {
                     composable<Routes.MySetting.EditProfile> {
-                        
+                        EditProfileScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onCompleteEdit = {
+                                navController.popBackStack()
+                            }
+                        )
                     }
                 }
 
