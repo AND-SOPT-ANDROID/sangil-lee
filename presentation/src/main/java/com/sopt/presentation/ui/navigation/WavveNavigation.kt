@@ -133,6 +133,14 @@ fun WavveNavigation(
                     }
                 }
 
+                navigation<Routes.MySetting.Graph>(
+                    startDestination = Routes.MySetting.EditProfile
+                ) {
+                    composable<Routes.MySetting.EditProfile> {
+                        
+                    }
+                }
+
                 navigation<Routes.VideoDetail.Graph>(
                     startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.Empty)
                 ) {
