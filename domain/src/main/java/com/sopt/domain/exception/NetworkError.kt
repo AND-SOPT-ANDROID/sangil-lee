@@ -24,3 +24,7 @@ sealed class SignUpError : Throwable() {
     class HobbyInputEmpty() : SignUpError()
     class AlreadyExistUsername() : SignUpError()
 }
+
+sealed class HobbyError : Throwable() {
+    class NotExistUserNo : HobbyError()
+}

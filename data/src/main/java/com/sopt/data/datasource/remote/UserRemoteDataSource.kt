@@ -23,4 +23,8 @@ class UserRemoteDataSource @Inject constructor(
     suspend fun fetchMyHobby(token: String): HobbyDto {
         return userApi.fetchMyHobby(token)
     }
+
+    suspend fun fetchUserHobby(token: String, no: Int): HobbyDto {
+        return userApi.fetchUserHobby(token, no)
+    }
 }

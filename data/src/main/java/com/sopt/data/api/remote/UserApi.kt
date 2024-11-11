@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface UserApi {
 
@@ -20,4 +21,7 @@ interface UserApi {
 
     @GET("user/my-hobby")
     suspend fun fetchMyHobby(@Header("token") token: String): HobbyDto
+
+    @GET("user/{no}/hobby")
+    suspend fun fetchUserHobby(@Header("token") token: String, @Path("no") no: Int): HobbyDto
 }
