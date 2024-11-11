@@ -20,7 +20,7 @@ class UserRemoteDataSource @Inject constructor(
         return userApi.signIn(signInRequest)
     }
 
-    suspend fun getMyHobby(token: String): HobbyDto {
-        return userApi.getMyHobby(token)
+    suspend fun fetchMyHobby(token: String): HobbyDto {
+        return userApi.fetchMyHobby(token)
     }
 }

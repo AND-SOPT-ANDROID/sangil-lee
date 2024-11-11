@@ -19,5 +19,5 @@ interface UserApi {
     suspend fun signIn(@Body signInRequest: SignInRequest): SignInDto
 
     @GET("user/my-hobby")
-    suspend fun getMyHobby(@Header("token") token: String): HobbyDto
+    suspend fun fetchMyHobby(@Header("token") token: String): HobbyDto
 }

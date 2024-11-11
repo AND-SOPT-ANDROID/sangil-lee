@@ -34,10 +34,10 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMyHobby(): Result<String> {
+    override suspend fun fetchMyHobby(): Result<String> {
         return runSuspendCatching {
             val token = tokenLocalDataSource.getToken()
-            userRemoteDataSource.getMyHobby(token).hobby ?: ""
+            userRemoteDataSource.fetchMyHobby(token).hobby ?: ""
         }
     }
 }

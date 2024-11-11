@@ -16,7 +16,7 @@ class MyViewModel @Inject constructor(
 ) : ViewModel() {
 
     val myHobby = flow {
-        emit(userRepository.getMyHobby())
+        emit(userRepository.fetchMyHobby())
     }.transform { result ->
         result.onSuccess {
             emit(it)
