@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SignUpDto(
-    @SerialName("no") val no: Int?
+    @SerialName("no") val no: Int
 )
