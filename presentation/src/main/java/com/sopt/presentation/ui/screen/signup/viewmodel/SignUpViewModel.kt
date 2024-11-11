@@ -51,8 +51,11 @@ class SignUpViewModel @Inject constructor(
                 when (it) {
                     is SignUpError.UsernameInputEmpty -> signUpUiState.emit(SignUpUiState.UsernameInputEmpty)
                     is SignUpError.PasswordInputEmpty -> signUpUiState.emit(SignUpUiState.PasswordInputEmpty)
+                    is SignUpError.HobbyInputEmpty -> signUpUiState.emit(SignUpUiState.HobbyInputEmpty)
                     is SignUpError.InvalidUsername -> signUpUiState.emit(SignUpUiState.InvalidUsername)
                     is SignUpError.InvalidPassword -> signUpUiState.emit(SignUpUiState.InvalidPassword)
+                    is SignUpError.InvalidHobby -> signUpUiState.emit(SignUpUiState.InvalidHobby)
+                    is SignUpError.AlreadyExistUsername -> signUpUiState.emit(SignUpUiState.AlreadyExistUsername)
                 }
             }
         }
@@ -63,6 +66,9 @@ sealed interface SignUpUiState {
     data object Success : SignUpUiState
     data object UsernameInputEmpty : SignUpUiState
     data object PasswordInputEmpty : SignUpUiState
+    data object HobbyInputEmpty : SignUpUiState
     data object InvalidUsername : SignUpUiState
     data object InvalidPassword : SignUpUiState
+    data object InvalidHobby : SignUpUiState
+    data object AlreadyExistUsername : SignUpUiState
 }

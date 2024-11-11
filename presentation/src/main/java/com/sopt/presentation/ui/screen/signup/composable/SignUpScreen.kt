@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -34,9 +35,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
+    onSignUpSuccess: () -> Unit,
     modifier: Modifier = Modifier,
     onActionIconClicked: () -> Unit = {},
-    onSignUpSuccess: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
@@ -44,6 +45,7 @@ fun SignUpScreen(
     val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
     val hobbyInput by viewModel.hobbyInput.collectAsStateWithLifecycle()
 
+    val keyboardController = LocalSoftwareKeyboardController.current
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -69,7 +71,7 @@ fun SignUpScreen(
             )
         }, snackbarHost = {
             SnackbarHost(
-                modifier = Modifier.imePadding(),
+                modifier = Modifier.imePadding().padding(bottom = 40.dp),
                 hostState = snackbarHostState
             ) {
                 TextSnackbar(
@@ -99,18 +101,31 @@ fun SignUpScreen(
         viewModel.signUpUiState.collect {
             var snackbarMessage = ""
             when (it) {
-                is SignUpUiState.Success -> onSignUpSuccess()
+                is SignUpUiState.Success -> {
+                    keyboardController?.hide()
+                    onSignUpSuccess()
+                }
+
                 is SignUpUiState.UsernameInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_username_input)
 
                 is SignUpUiState.PasswordInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_password_input)
 
+                is SignUpUiState.HobbyInputEmpty -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.require_hobby_input)
+
                 is SignUpUiState.InvalidUsername -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.not_exist_email)
+                    ContextCompat.getString(context, R.string.check_email_format)
 
                 is SignUpUiState.InvalidPassword -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.not_exist_password)
+                    ContextCompat.getString(context, R.string.check_password_format)
+
+                is SignUpUiState.InvalidHobby -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.check_hobby_format)
+
+                is SignUpUiState.AlreadyExistUsername -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.already_exist_username)
             }
             if (it !is SignUpUiState.Success)
                 scope.launch {

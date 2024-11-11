@@ -70,7 +70,7 @@ fun WavveNavigation(
             NavHost(
                 modifier = Modifier,
                 navController = navController,
-                startDestination = Routes.Main.Graph,
+                startDestination = Routes.Auth.Graph,
                 enterTransition = {
                     slideInVertically { it } + fadeIn()
                 }, exitTransition = {

@@ -48,6 +48,8 @@
     <string name="wavve_sign_up">Wavve 회원가입</string>
     <string name="check_email_format">이메일 형식을 확인해주세요.</string>
     <string name="check_password_format">비밀번호 형식을 확인해주세요.</string>
+    <string name="check_hobby_format">취미 형식을 확인해주세요.</string>
+    <string name="already_exist_username">이미 존재하는 아이디입니다.</string>"
 
     <!-- 로그인 -->
     <string name="password">비밀번호</string>
@@ -60,6 +62,7 @@
     <string name="sign_in_failure">로그인 실패</string>
     <string name="require_username_input">아이디를 입력해주세요.</string>
     <string name="require_password_input">비밀번호를 입력해주세요.</string>
+    <string name="require_hobby_input">취미를 입력해주세요.</string>
     <string name="not_exist_email">존재하지 않는 아이디입니다.</string>
     <string name="not_exist_password">비밀번호가 일치하지 않습니다.</string>
 
