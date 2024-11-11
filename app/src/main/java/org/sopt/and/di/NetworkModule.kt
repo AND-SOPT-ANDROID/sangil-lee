@@ -1,15 +1,22 @@
 package org.sopt.and.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.sopt.domain.exception.NetworkError
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.and.BuildConfig
-import org.sopt.and.adapter.ResultCallAdapterFactory
+import org.sopt.and.adapter.ResultConverterFactory
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -18,11 +25,58 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideClient(
+        responseInterceptor: Interceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }).addInterceptor(responseInterceptor)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideResponseInterceptor(
+    ) : Interceptor = Interceptor { chain ->
+        val response = chain.proceed(chain.request())
+
+        if (response.isSuccessful.not()) {
+            val errorBody = response.body?.string()
+            val errorResponse = try {
+                Json.decodeFromString<ErrorResponse>(errorBody ?: "")
+            } catch (e: Exception) {
+                null
+            }
+
+            throw NetworkError(
+                statusCode = response.code,
+                errorCode = errorResponse?.code?.toInt() ?: -1,
+                message = response.message,
+            )
+        }
+        return@Interceptor response
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        client: OkHttpClient
+    ): Retrofit {
+        val json = Json { ignoreUnknownKeys = true }
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-            .addCallAdapterFactory(ResultCallAdapterFactory())
+            .client(client)
+            .addConverterFactory(ResultConverterFactory())
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
 }
+
+@Serializable
+private data class ErrorResponse(
+    val code: String
+)
