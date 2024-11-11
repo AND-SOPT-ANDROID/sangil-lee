@@ -5,6 +5,7 @@ import com.sopt.data.datasource.local.UserLocalDataSource
 import com.sopt.data.datasource.remote.UserRemoteDataSource
 import com.sopt.data.request.SignInRequest
 import com.sopt.data.request.SignUpRequest
+import com.sopt.domain.exception.SignInError
 import com.sopt.domain.exception.SignUpError
 import com.sopt.domain.exception.runCatchingByCode
 import com.sopt.domain.exception.runSuspendCatching
@@ -24,7 +25,10 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun signIn(username: String, password: String): Result<Unit> {
-        return runSuspendCatching {
+        return runCatchingByCode(
+            2 to SignInError.NotExistUsername(),
+            1 to SignInError.PasswordNotMatchingWithUsername()
+        ) {
             val signInDto = userRemoteDataSource.signIn(SignInRequest(username, password))
             signInDto.token?.let { tokenLocalDataSource.saveToken(it) }
         }
