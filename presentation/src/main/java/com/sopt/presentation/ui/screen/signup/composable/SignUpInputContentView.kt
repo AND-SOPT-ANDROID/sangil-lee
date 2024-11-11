@@ -124,7 +124,7 @@ fun SignUpInputContentView(
 
         IconFrontText(
             modifier = Modifier.padding(top = 12.dp),
-            text = stringResource(R.string.sign_up_caution_password, 8, 20),
+            text = stringResource(R.string.sign_up_caution_password, 1, 8),
             painter = painterResource(R.drawable.ic_caution),
         )
 

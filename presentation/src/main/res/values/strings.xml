@@ -46,10 +46,10 @@
     <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
     <string name="alert_social_sign">SNS계정으로 간편하게 가입하여 서비스를 이용하실 수 있습니다. 기존 POOQ 계정 또는 Wavve 계정과는 연동되지 않으니 이용에 참고하세요.</string>
     <string name="wavve_sign_up">Wavve 회원가입</string>
-    <string name="check_email_format">이메일 형식을 확인해주세요.</string>
-    <string name="check_password_format">비밀번호 형식을 확인해주세요.</string>
-    <string name="check_hobby_format">취미 형식을 확인해주세요.</string>
-    <string name="already_exist_username">이미 존재하는 아이디입니다.</string>"
+    <string name="check_email_format">아이디를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="check_password_format">비밀번호를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="check_hobby_format">취미를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="already_exist_username">이미 존재하는 아이디입니다.</string>
 
     <!-- 로그인 -->
     <string name="password">비밀번호</string>
