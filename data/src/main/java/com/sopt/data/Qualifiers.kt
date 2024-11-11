@@ -9,3 +9,7 @@ annotation class UserSharedPref
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class TokenEncryptedSharedPref
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class IODispatcher
