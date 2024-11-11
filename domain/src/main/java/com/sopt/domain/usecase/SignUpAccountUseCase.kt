@@ -11,14 +11,14 @@ class SignUpAccountUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(username: String, password: String, hobby: String): Result<Unit> {
-        return runCatching {
-            when {
-                username.isBlank() -> Result.failure(SignUpError.UsernameInputEmpty())
-                password.isBlank() -> Result.failure(SignUpError.PasswordInputEmpty())
-                username.isValidUsername().not() -> Result.failure(SignUpError.InvalidUsername())
-                password.isValidPassword().not() -> Result.failure(SignUpError.InvalidPassword())
-                else -> userRepository.signUp(username, password, hobby)
-            }
+        return when {
+            username.isBlank() -> Result.failure(SignUpError.UsernameInputEmpty())
+            password.isBlank() -> Result.failure(SignUpError.PasswordInputEmpty())
+            hobby.isBlank() -> Result.failure(SignUpError.HobbyInputEmpty())
+            username.isValidUsername().not() -> Result.failure(SignUpError.InvalidUsername())
+            password.isValidPassword().not() -> Result.failure(SignUpError.InvalidPassword())
+            hobby.isValidUsername().not() -> Result.failure(SignUpError.InvalidHobby())
+            else -> userRepository.signUp(username, password, hobby)
         }
     }
 }
