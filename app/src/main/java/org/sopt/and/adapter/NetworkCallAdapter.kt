@@ -1,49 +1,36 @@
 package org.sopt.and.adapter
 
-import kotlinx.serialization.json.JsonObject
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.serializer
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import retrofit2.Retrofit
-import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class ResultCallAdapterFactory : CallAdapter.Factory() {
-    override fun get(
-        returnType: Type,
-        annotations: Array<Annotation>,
-        retrofit: Retrofit
-    ): CallAdapter<*, *>? {
-        if (getRawType(returnType) != Call::class.java) return null
-
-        val responseType = (returnType as? ParameterizedType)?.actualTypeArguments?.firstOrNull()
-            ?: return null
-
-        return object : CallAdapter<Any, Call<Any>> {
-            override fun responseType(): Type = responseType
-
-            override fun adapt(call: Call<Any>): Call<Any> {
-                return ResultCall(call)
-            }
+class ResultConverter<T>(
+    private val serializer: KSerializer<T>,
+    private val json: Json
+) : Converter<ResponseBody, T> {
+    override fun convert(responseBody: ResponseBody): T? {
+        return responseBody.use {
+            val jsonObject = json.parseToJsonElement(responseBody.string()).jsonObject
+            val result = jsonObject["result"] ?: return null
+            json.decodeFromJsonElement(serializer, result)
         }
     }
 }
 
-private class ResultCall(
-    private val delegate: Call<Any>
-) : Call<Any> by delegate {
+class ResultConverterFactory : Converter.Factory() {
 
-    override fun enqueue(callback: Callback<Any>) = delegate.enqueue(
-        object : Callback<Any> {
-            override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                val result = (response.body() as? JsonObject)?.get("result")
-                callback.onResponse(this@ResultCall, Response.success(result))
-            }
-
-            override fun onFailure(call: Call<Any>, t: Throwable) {
-                callback.onFailure(call, t)
-            }
-        }
-    )
+    override fun responseBodyConverter(
+        type: Type,
+        annotations: Array<out Annotation>,
+        retrofit: Retrofit
+    ): Converter<ResponseBody, *> {
+        val json = Json { ignoreUnknownKeys = true }
+        val resultSerializer = json.serializersModule.serializer(type)
+        return ResultConverter(resultSerializer, json)
+    }
 }
