@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
@@ -15,14 +17,8 @@ class MyViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val myHobby = flow {
-        emit(userRepository.fetchMyHobby())
-    }.transform { result ->
-        result.onSuccess {
-            emit(it)
-        }.onFailure {
-            emit("Unknown")
-        }
+    val myHobby = userRepository.fetchMyHobby().catch {
+        emit("Error")
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

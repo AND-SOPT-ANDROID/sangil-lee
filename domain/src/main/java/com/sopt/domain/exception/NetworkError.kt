@@ -30,3 +30,10 @@ sealed class SearchHobbyError : Throwable() {
     class InputNotNumber : SearchHobbyError()
     class NotExistUserNo : SearchHobbyError()
 }
+
+sealed class UpdateProfileError : Throwable() {
+    class InvalidPassword() : UpdateProfileError()
+    class InvalidHobby() : UpdateProfileError()
+    class PasswordInputEmpty() : UpdateProfileError()
+    class HobbyInputEmpty() : UpdateProfileError()
+}
