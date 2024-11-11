@@ -22,4 +22,9 @@ object Routes {
         @Serializable object Graph
         @Serializable data class Video(val videoOverviewViewState: VideoOverviewViewState)
     }
+
+    object MySetting {
+        @Serializable object Graph
+        @Serializable object EditProfile
+    }
 }
