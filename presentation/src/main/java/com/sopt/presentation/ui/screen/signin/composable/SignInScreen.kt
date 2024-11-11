@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -42,6 +43,7 @@ fun SignInScreen(
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val keyboardController = LocalSoftwareKeyboardController.current
     val context = LocalContext.current
 
     val usernameInput by viewModel.usernameInput.collectAsStateWithLifecycle()
@@ -95,7 +97,10 @@ fun SignInScreen(
         viewModel.signInUiState.collect {
             var snackbarMessage = ""
             when (it) {
-                is SignInUiState.Success -> onSignInSuccess()
+                is SignInUiState.Success -> {
+                    onSignInSuccess()
+                    keyboardController?.hide()
+                }
                 is SignInUiState.UsernameInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_username_input)
 
