@@ -2,13 +2,21 @@ package com.sopt.presentation.ui.screen.search.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sopt.domain.exception.SearchHobbyError
+import com.sopt.domain.usecase.SearchHobbyUseCase
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    val savedStateHandle: SavedStateHandle
+    val savedStateHandle: SavedStateHandle,
+    private val searchHobbyUseCase: SearchHobbyUseCase
 ): ViewModel() {
 
     val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
@@ -73,12 +81,36 @@ class SearchViewModel @Inject constructor(
             )
         )
 
+    val searchedHobby: SharedFlow<SearchResultUiState>
+        field = MutableSharedFlow()
 
     fun onSearchQueryChanged(query: String) {
         savedStateHandle[SEARCH_QUERY] = query
+    }
+
+    fun search(query: String) {
+        viewModelScope.launch {
+            searchHobbyUseCase(query).onSuccess {
+                searchedHobby.emit(SearchResultUiState.Success(it))
+            }.onFailure {
+                when (it) {
+                    is SearchHobbyError.InputEmpty -> searchedHobby.emit(SearchResultUiState.InputEmpty)
+                    is SearchHobbyError.InputNotNumber -> searchedHobby.emit(SearchResultUiState.InputNotNumber)
+                    is SearchHobbyError.NotExistUserNo -> searchedHobby.emit(SearchResultUiState.NotExistUser)
+                }
+            }
+        }
     }
     
     companion object {
         const val SEARCH_QUERY = "searchQuery"
     }
+}
+
+sealed interface SearchResultUiState {
+    data object Nothing: SearchResultUiState
+    data class Success(val hobby: String): SearchResultUiState
+    data object InputEmpty: SearchResultUiState
+    data object InputNotNumber: SearchResultUiState
+    data object NotExistUser: SearchResultUiState
 }

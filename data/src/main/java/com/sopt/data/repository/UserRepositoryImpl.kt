@@ -5,7 +5,7 @@ import com.sopt.data.datasource.local.UserLocalDataSource
 import com.sopt.data.datasource.remote.UserRemoteDataSource
 import com.sopt.data.request.SignInRequest
 import com.sopt.data.request.SignUpRequest
-import com.sopt.domain.exception.HobbyError
+import com.sopt.domain.exception.SearchHobbyError
 import com.sopt.domain.exception.SignInError
 import com.sopt.domain.exception.SignUpError
 import com.sopt.domain.exception.runCatchingByCode
@@ -43,7 +43,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchUserHobby(no: Int): Result<String> {
-        return runCatchingByCode(1 to HobbyError.NotExistUserNo()) {
+        return runCatchingByCode(1 to SearchHobbyError.NotExistUserNo()) {
             val token = tokenLocalDataSource.getToken()
             userRemoteDataSource.fetchUserHobby(token, no).hobby ?: ""
         }
