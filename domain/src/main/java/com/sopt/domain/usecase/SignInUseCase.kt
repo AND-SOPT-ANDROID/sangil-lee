@@ -9,12 +9,10 @@ class SignInUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(username: String, password: String): Result<Unit> {
-        return runCatching {
-            when {
-                username.isBlank() -> Result.failure(SignInError.UsernameInputEmpty())
-                password.isBlank() -> Result.failure(SignInError.PasswordInputEmpty())
-                else -> userRepository.signIn(username, password)
-            }
+        return when {
+            username.isBlank() -> Result.failure(SignInError.UsernameInputEmpty())
+            password.isBlank() -> Result.failure(SignInError.PasswordInputEmpty())
+            else -> userRepository.signIn(username, password)
         }
     }
 }
