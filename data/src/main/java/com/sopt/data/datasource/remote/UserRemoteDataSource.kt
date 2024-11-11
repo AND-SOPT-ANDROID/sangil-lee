@@ -6,6 +6,7 @@ import com.sopt.data.dto.user.SignInDto
 import com.sopt.data.dto.user.SignUpDto
 import com.sopt.data.request.SignInRequest
 import com.sopt.data.request.SignUpRequest
+import com.sopt.data.request.UpdateProfileRequest
 import javax.inject.Inject
 
 class UserRemoteDataSource @Inject constructor(
@@ -26,5 +27,9 @@ class UserRemoteDataSource @Inject constructor(
 
     suspend fun fetchUserHobby(token: String, no: Int): HobbyDto {
         return userApi.fetchUserHobby(token, no)
+    }
+
+    suspend fun updateProfile(token: String, updateProfileRequest: UpdateProfileRequest) {
+        return userApi.updateProfile(token, updateProfileRequest)
     }
 }
