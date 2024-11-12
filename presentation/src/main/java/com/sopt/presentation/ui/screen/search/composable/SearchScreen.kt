@@ -43,7 +43,7 @@ fun SearchScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val searchedHobby by viewModel.searchedHobby.collectAsStateWithLifecycle()
+    val searchedHobby by viewModel.searchedHobbyUiState.collectAsStateWithLifecycle()
 
     DefaultSurface(
         modifier = modifier
@@ -96,10 +96,11 @@ fun SearchScreen(
                 when {
                     searchedHobby is SearchResultUiState.Success -> {
                         val hobby = (searchedHobby as SearchResultUiState.Success).hobby
-                        PrimaryText(text = "너의 취미는 $hobby",)
+                        PrimaryText(text = "너의 취미는 $hobby")
                     }
+
                     searchedHobby is SearchResultUiState.NotExistUser -> {
-                        PrimaryText(text = "존재하지 않는 사용자입니다.",)
+                        PrimaryText(text = "존재하지 않는 사용자입니다.")
                     }
                 }
             }
