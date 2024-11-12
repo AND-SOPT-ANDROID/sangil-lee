@@ -7,19 +7,19 @@ import com.sopt.domain.exception.SearchHobbyError
 import com.sopt.domain.usecase.SearchHobbyUseCase
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val searchHobbyUseCase: SearchHobbyUseCase
 ): ViewModel() {
-
-    val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
 
     val displayedVideoOverviews = listOf(
             VideoOverviewViewState(
@@ -81,25 +81,29 @@ class SearchViewModel @Inject constructor(
             )
         )
 
-    val searchedHobby: SharedFlow<SearchResultUiState>
-        field = MutableSharedFlow()
-
-    fun onSearchQueryChanged(query: String) {
-        savedStateHandle[SEARCH_QUERY] = query
-    }
-
-    fun search(query: String) {
-        viewModelScope.launch {
-            searchHobbyUseCase(query).onSuccess {
-                searchedHobby.emit(SearchResultUiState.Success(it))
+    val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
+    val searchedHobby: StateFlow<SearchResultUiState> = searchQuery.debounce(200)
+        .distinctUntilChanged()
+        .transform { query ->
+            searchHobbyUseCase(query).onSuccess { hobby ->
+                emit(SearchResultUiState.Success(hobby))
             }.onFailure {
                 when (it) {
-                    is SearchHobbyError.InputEmpty -> searchedHobby.emit(SearchResultUiState.InputEmpty)
-                    is SearchHobbyError.InputNotNumber -> searchedHobby.emit(SearchResultUiState.InputNotNumber)
-                    is SearchHobbyError.NotExistUserNo -> searchedHobby.emit(SearchResultUiState.NotExistUser)
+                    is SearchHobbyError.InputEmpty -> emit(SearchResultUiState.InputEmpty)
+                    is SearchHobbyError.InputNotNumber -> emit(SearchResultUiState.InputNotNumber)
+                    is SearchHobbyError.NotExistUserNo -> emit(SearchResultUiState.NotExistUser)
                 }
             }
-        }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = SearchResultUiState.InputEmpty
+        )
+
+    fun onSearchQueryChanged(query: String) {
+        query.findLast { it.isDigit().not() }?.let { return }
+
+        savedStateHandle[SEARCH_QUERY] = query
     }
     
     companion object {
@@ -108,7 +112,6 @@ class SearchViewModel @Inject constructor(
 }
 
 sealed interface SearchResultUiState {
-    data object Nothing: SearchResultUiState
     data class Success(val hobby: String): SearchResultUiState
     data object InputEmpty: SearchResultUiState
     data object InputNotNumber: SearchResultUiState

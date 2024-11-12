@@ -1,6 +1,5 @@
 package com.sopt.presentation.ui.screen.search.composable
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,27 +11,27 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.surface.DefaultSurface
+import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.textfield.BottomLinedTextField
 import com.sopt.presentation.ui.screen.search.viewmodel.SearchResultUiState
 import com.sopt.presentation.ui.screen.search.viewmodel.SearchViewModel
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.ui.util.noRippleClickable
-import kotlinx.coroutines.flow.collect
 
 @Composable
 fun SearchScreen(
@@ -41,9 +40,10 @@ fun SearchScreen(
 ) {
 
     val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val searchedHobby by viewModel.searchedHobby.collectAsStateWithLifecycle(SearchResultUiState.Nothing)
+    val searchedHobby by viewModel.searchedHobby.collectAsStateWithLifecycle()
 
     DefaultSurface(
         modifier = modifier
@@ -60,9 +60,10 @@ fun SearchScreen(
                 onValueChange = viewModel::onSearchQueryChanged,
                 placeholder = stringResource(R.string.search_placeholder),
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Search
+                    imeAction = ImeAction.Search,
+                    keyboardType = KeyboardType.Number
                 ), keyboardActions = KeyboardActions(
-                    onSearch = { viewModel.search(searchQuery) }
+                    onSearch = { keyboardController?.hide() }
                 ),
                 leadingIcon = {
                     Icon(
@@ -86,16 +87,19 @@ fun SearchScreen(
                 }
             )
 
-            when {
-                searchedHobby is SearchResultUiState.Success -> {
-                    val hobby = (searchedHobby as SearchResultUiState.Success).hobby
-                    Box(
-                        modifier = Modifier.fillMaxWidth().padding(32.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "너의 취미는 $hobby",
-                        )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                when {
+                    searchedHobby is SearchResultUiState.Success -> {
+                        val hobby = (searchedHobby as SearchResultUiState.Success).hobby
+                        PrimaryText(text = "너의 취미는 $hobby",)
+                    }
+                    searchedHobby is SearchResultUiState.NotExistUser -> {
+                        PrimaryText(text = "존재하지 않는 사용자입니다.",)
                     }
                 }
             }
@@ -105,19 +109,6 @@ fun SearchScreen(
                     .padding(top = 16.dp),
                 displayedVideoOverviews = viewModel.displayedVideoOverviews
             )
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.searchedHobby.collect {
-            when {
-                it is SearchResultUiState.InputEmpty ->
-                    Toast.makeText(context, context.getString(R.string.require_search_input), Toast.LENGTH_SHORT).show()
-                it is SearchResultUiState.InputNotNumber ->
-                    Toast.makeText(context, context.getString(R.string.require_only_number), Toast.LENGTH_SHORT).show()
-                it is SearchResultUiState.NotExistUser ->
-                    Toast.makeText(context, context.getString(R.string.not_exist_search_result), Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }
