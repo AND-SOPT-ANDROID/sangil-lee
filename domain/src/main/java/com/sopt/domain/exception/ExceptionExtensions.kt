@@ -18,15 +18,3 @@ suspend fun <T, R> T.runCatchingByCode(
         Result.failure(e)
     }
 }
-
-suspend fun <T, R> T.runSuspendCatching(
-    block: suspend T.() -> R
-): Result<R> {
-    return try {
-        Result.success(block())
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Throwable) {
-        Result.failure(e)
-    }
-}

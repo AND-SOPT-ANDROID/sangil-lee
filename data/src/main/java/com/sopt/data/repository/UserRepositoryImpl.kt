@@ -11,6 +11,7 @@ import com.sopt.domain.exception.SearchHobbyError
 import com.sopt.domain.exception.SignInError
 import com.sopt.domain.exception.SignUpError
 import com.sopt.domain.exception.runCatchingByCode
+import com.sopt.domain.model.Account
 import com.sopt.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -76,5 +77,15 @@ class UserRepositoryImpl @Inject constructor(
                 _myHobby.value = hobby
             }
         }
+    }
+
+    override suspend fun saveAccount(account: Account): Result<Unit> {
+        return runCatchingByCode {
+            userLocalDataSource.saveAccount(account)
+        }
+    }
+
+    override suspend fun getAccount(): Account? {
+        return userLocalDataSource.getAccount()
     }
 }
