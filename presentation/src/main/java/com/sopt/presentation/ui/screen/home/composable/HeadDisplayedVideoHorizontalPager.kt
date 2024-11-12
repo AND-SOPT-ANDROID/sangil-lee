@@ -1,5 +1,8 @@
 package com.sopt.presentation.ui.screen.home.composable
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +12,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,24 +24,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.text.TertiaryText
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.ui.util.noRippleClickable
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HeadDisplayedVideoHorizontalPager(
+fun SharedTransitionScope.HeadDisplayedVideoHorizontalPager(
     modifier: Modifier = Modifier,
     state: PagerState,
     videoOverviews: List<VideoOverviewViewState>,
-    onVideoClicked: (VideoOverviewViewState) -> Unit
+    onVideoClicked: (VideoOverviewViewState) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     HorizontalPager(
         modifier = modifier,
@@ -49,21 +51,24 @@ fun HeadDisplayedVideoHorizontalPager(
     ) { idx ->
         HeadDisplayedVideoItem(
             modifier = Modifier.fillMaxSize(),
-            videoOverview = videoOverviews[idx % videoOverviews.size], onClick = onVideoClicked,
+            videoOverview = videoOverviews[idx % videoOverviews.size],
+            onClick = onVideoClicked,
             totalPage = videoOverviews.size,
-            currentPage = idx % videoOverviews.size + 1
+            currentPage = idx % videoOverviews.size + 1,
+            animatedVisibilityScope = animatedVisibilityScope
         )
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
-private fun HeadDisplayedVideoItem(
+fun SharedTransitionScope.HeadDisplayedVideoItem(
     modifier: Modifier = Modifier,
     videoOverview: VideoOverviewViewState,
     totalPage: Int,
     currentPage: Int,
-    onClick: (VideoOverviewViewState) -> Unit = {}
+    onClick: (VideoOverviewViewState) -> Unit = {},
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Box(
         modifier = modifier
@@ -73,7 +78,14 @@ private fun HeadDisplayedVideoItem(
             .noRippleClickable { onClick(videoOverview) }
     ) {
         GlideImage(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .sharedBounds(
+                    rememberSharedContentState(videoOverview.id),
+                    animatedVisibilityScope
+                ).clip(
+                    shape = RoundedCornerShape(12.dp)
+                ),
             model = videoOverview.titleImage,
             contentDescription = videoOverview.title,
             contentScale = ContentScale.Crop

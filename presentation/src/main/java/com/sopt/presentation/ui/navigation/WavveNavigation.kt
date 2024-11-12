@@ -1,12 +1,17 @@
 package com.sopt.presentation.ui.navigation
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,17 +27,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
+import androidx.navigation.toRoute
 import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
+import com.sopt.presentation.ui.navigation.navtype.VideoOverviewNavType
 import com.sopt.presentation.ui.screen.home.composable.HomeScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
 import com.sopt.presentation.ui.screen.signup.composable.SignUpScreen
+import com.sopt.presentation.ui.screen.videodetail.composable.VideoDetailScreen
+import com.sopt.presentation.ui.state.VideoOverviewViewState
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.util.getSerialName
-import kotlinx.serialization.ExperimentalSerializationApi
+import kotlin.reflect.typeOf
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun WavveNavigation(
     modifier: Modifier = Modifier,
@@ -56,70 +66,96 @@ fun WavveNavigation(
                 )
         }
     ) { innerPadding ->
-        NavHost(
-            modifier = Modifier,
-            navController = navController,
-            startDestination = Routes.Auth.Graph,
-            enterTransition = {
-                EnterTransition.None
-            }, exitTransition = {
-                ExitTransition.None
-            }
-        ) {
-            navigation<Routes.Auth.Graph>(
-                startDestination = Routes.Auth.SignIn
+        SharedTransitionLayout {
+            NavHost(
+                modifier = Modifier,
+                navController = navController,
+                startDestination = Routes.Main.Graph,
+                enterTransition = {
+                    slideInVertically { it } + fadeIn()
+                }, exitTransition = {
+                    fadeOut()
+                }
             ) {
-                composable<Routes.Auth.SignIn> {
-                    SignInScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        onNavigateToSignUp = { navController.navigate(Routes.Auth.SignUp) },
-                        onSignInSuccess = {
-                            navController.navigate(Routes.Main.Graph) {
-                                popUpTo(Routes.Auth.SignIn) { inclusive = true }
+                navigation<Routes.Auth.Graph>(
+                    startDestination = Routes.Auth.SignIn
+                ) {
+                    composable<Routes.Auth.SignIn> {
+                        SignInScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onNavigateToSignUp = { navController.navigate(Routes.Auth.SignUp) },
+                            onSignInSuccess = {
+                                navController.navigate(Routes.Main.Graph) {
+                                    popUpTo(Routes.Auth.SignIn) { inclusive = true }
+                                }
                             }
-                        }
-                    )
-                }
-                composable<Routes.Auth.SignUp> {
-                    SignUpScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        onActionIconClicked = { navController.popBackStack() },
-                        onSignUpSuccess = {
-                            navController.navigate(Routes.Auth.SignIn) {
-                                popUpTo(Routes.Auth.SignIn) { inclusive = false }
+                        )
+                    }
+                    composable<Routes.Auth.SignUp> {
+                        SignUpScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onActionIconClicked = { navController.popBackStack() },
+                            onSignUpSuccess = {
+                                navController.navigate(Routes.Auth.SignIn) {
+                                    popUpTo(Routes.Auth.SignIn) { inclusive = false }
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
-            }
 
-            navigation<Routes.Main.Graph>(
-                startDestination = Routes.Main.Home
-            ) {
-                composable<Routes.Main.Home> {
-                    HomeScreen(
-                        modifier = Modifier
-                            .padding(bottom = innerPadding.calculateBottomPadding())
-                            .fillMaxSize()
-                    )
+                navigation<Routes.Main.Graph>(
+                    startDestination = Routes.Main.Home
+                ) {
+                    composable<Routes.Main.Home> {
+                        HomeScreen(
+                            modifier = Modifier
+                                .padding(bottom = innerPadding.calculateBottomPadding())
+                                .fillMaxSize(),
+                            onNavigateToVideoDetail = {
+                                navController.navigate(Routes.VideoDetail.Video(it))
+                            }, animatedVisibilityScope = this@composable
+                        )
+                    }
+                    composable<Routes.Main.Search> {
+                        SearchScreen(
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
+                        )
+                    }
+                    composable<Routes.Main.My> {
+                        MyScreen(
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
+                        )
+                    }
                 }
-                composable<Routes.Main.Search> {
-                    SearchScreen(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize()
-                    )
-                }
-                composable<Routes.Main.My> {
-                    MyScreen(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize()
-                    )
+
+                navigation<Routes.VideoDetail.Graph>(
+                    startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.Empty)
+                ) {
+
+                    composable<Routes.VideoDetail.Video>(
+                        typeMap = mapOf(
+                            typeOf<VideoOverviewViewState>() to VideoOverviewNavType
+                        )
+                    ) {
+                        val arguments = it.toRoute<Routes.VideoDetail.Video>()
+                        VideoDetailScreen(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState()),
+                            videoOverview = arguments.videoOverviewViewState,
+                            animatedVisibilityScope = this@composable
+                        )
+                    }
                 }
             }
         }
     }
+
     LaunchedEffect(key1 = selectedMainBottomTab) {  // 하단 탭 선택에 의한 라우팅 처리
         if (navBackStackEntry?.shouldShowBottomBar() == true) {
             val targetRoute = when (selectedMainBottomTab) {
@@ -135,9 +171,6 @@ fun WavveNavigation(
     }
 
     LaunchedEffect(key1 = currentRoute) {   // 뒤로가기에 의한 하단 탭 변경 처리
-        println("currentRoute                      : ${currentRoute}")
-        println("toString()                        : ${Routes.Main.Home}")
-        println("serializer().descriptor.serialName: ${Routes.Main.Home.serializer().getSerialName()}")
         selectedMainBottomTab = when (currentRoute) {
             Routes.Main.Home.serializer().getSerialName() -> WavveBottomBarItem.Home
             Routes.Main.Search.serializer().getSerialName() -> WavveBottomBarItem.Search
@@ -147,7 +180,6 @@ fun WavveNavigation(
     }
 }
 
-@OptIn(ExperimentalSerializationApi::class)
 private fun NavBackStackEntry.shouldShowBottomBar(): Boolean {
     return this.destination.route in listOf(
         Routes.Main.Home.serializer().getSerialName(),

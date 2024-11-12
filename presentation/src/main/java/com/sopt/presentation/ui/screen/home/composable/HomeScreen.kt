@@ -1,5 +1,8 @@
 package com.sopt.presentation.ui.screen.home.composable
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
@@ -8,12 +11,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.screen.home.viewmodel.HomeViewModel
+import com.sopt.presentation.ui.state.VideoOverviewViewState
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HomeScreen(
+fun SharedTransitionScope.HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToVideoDetail: (VideoOverviewViewState) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
+
     DefaultSurface(
         modifier = modifier
             .statusBarsPadding()
@@ -25,7 +33,8 @@ fun HomeScreen(
             topVideoOverviews = viewModel.topVideoOverviews,
             onVideoTypeSelected = {
                 // TODO()
-            },
+            }, onVideoSelected = onNavigateToVideoDetail,
+            animatedVisibilityScope = animatedVisibilityScope
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.sopt.presentation.ui.navigation
 
+import com.sopt.presentation.ui.state.VideoOverviewViewState
 import kotlinx.serialization.Serializable
 
 object Routes {
@@ -15,5 +16,10 @@ object Routes {
         @Serializable object Home
         @Serializable object Search
         @Serializable object My
+    }
+
+    object VideoDetail {
+        @Serializable object Graph
+        @Serializable data class Video(val videoOverviewViewState: VideoOverviewViewState)
     }
 }

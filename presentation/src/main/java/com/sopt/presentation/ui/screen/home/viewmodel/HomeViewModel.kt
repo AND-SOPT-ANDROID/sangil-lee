@@ -16,15 +16,15 @@ class HomeViewModel @Inject constructor(
         VideoOverviewViewState(
             id = 1,
             title = "나의 아저씨",
-            titleImage = "https://image.tmdb.org/t/p/original/o5cBRMF6syh4yUBgZ2Ust8LvcxA.jpg",
+            titleImage = "https://m.imaeil.com/photos/2018/03/07/2018030723535899172_l.jpg",
             description = "나의 아저씨 아이유"
         ), VideoOverviewViewState(
-            id = 1,
-            title = "호텔델루나",
-            titleImage = "https://i.namu.wiki/i/wIAb2jXT5mzO-tWlADEz5z47I1RoW3RzIULQDXNBj58yGKEgBLdZknJIm5tWgmLSnEKD6URFsFLo1lhCW7vNvg.webp",
+            id = 2,
+            title = "DP2",
+            titleImage = "https://i.namu.wiki/i/gwrohfaji36226DFuPhfMyGgdl-_4vo2O0vvLB4C_TeUXx33MI2Onv50c4mlOQh1s16pHcp23xmtxPyWkZifcw.webp",
             description = "ㅇㅇㅇㅇㅇ"
         ), VideoOverviewViewState(
-            id = 1,
+            id = 3,
             title = "데드풀과 울버린",
             titleImage = "https://i.namu.wiki/i/Iw90hSU6JdUAOsAmuNqMQ56SSzubq8eAQEzZfziufEskrUh9ZidDjMhUzU96kCp8dKmSPGlcoP3eYutpU7Paww.webp",
             description = "데드풀과 울버린과 데드풀과 울버린과 데드풀"
