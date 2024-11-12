@@ -37,11 +37,11 @@ import com.sopt.presentation.ui.util.noRippleClickable
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.HeadDisplayedVideoHorizontalPager(
-    modifier: Modifier = Modifier,
     state: PagerState,
     videoOverviews: List<VideoOverviewViewState>,
     onVideoClicked: (VideoOverviewViewState) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier
 ) {
     HorizontalPager(
         modifier = modifier,
@@ -63,12 +63,12 @@ fun SharedTransitionScope.HeadDisplayedVideoHorizontalPager(
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.HeadDisplayedVideoItem(
-    modifier: Modifier = Modifier,
     videoOverview: VideoOverviewViewState,
     totalPage: Int,
     currentPage: Int,
-    onClick: (VideoOverviewViewState) -> Unit = {},
-    animatedVisibilityScope: AnimatedVisibilityScope
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier,
+    onClick: (VideoOverviewViewState) -> Unit = {}
 ) {
     Box(
         modifier = modifier

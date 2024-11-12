@@ -152,7 +152,7 @@ fun WavveNavigation(
                 }
 
                 navigation<Routes.VideoDetail.Graph>(
-                    startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.Empty)
+                    startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.empty)
                 ) {
 
                     composable<Routes.VideoDetail.Video>(
