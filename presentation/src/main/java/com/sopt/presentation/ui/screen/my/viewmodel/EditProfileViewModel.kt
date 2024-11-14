@@ -55,10 +55,8 @@ class EditProfileViewModel @Inject constructor(
     fun updateProfile() {
         viewModelScope.launch {
             updateProfileUseCase(passwordInput.value, hobbyInput.value).onSuccess {
-                println("dddddddd $it")
                 updateProfileUiState.emit(UpdateProfileUiState.Success)
             }.onFailure {
-                println("dddddddd2 $it")
                 when(it) {
                     is UpdateProfileError.PasswordInputEmpty -> updateProfileUiState.emit(UpdateProfileUiState.PasswordInputEmpty)
                     is UpdateProfileError.HobbyInputEmpty -> updateProfileUiState.emit(UpdateProfileUiState.HobbyInputEmpty)
