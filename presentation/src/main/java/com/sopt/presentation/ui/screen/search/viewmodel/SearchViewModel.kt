@@ -7,6 +7,7 @@ import com.sopt.domain.exception.SearchHobbyError
 import com.sopt.domain.usecase.SearchHobbyUseCase
 import com.sopt.presentation.ui.state.VideoOverviewViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val searchHobbyUseCase: SearchHobbyUseCase
-) : ViewModel() {
+): ViewModel() {
 
     val displayedVideoOverviews = listOf(
         VideoOverviewViewState(
@@ -82,9 +83,11 @@ class SearchViewModel @Inject constructor(
     )
 
     val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
-    val searchedHobbyUiState: StateFlow<SearchResultUiState> = searchQuery.debounce(200)
+    val searchedHobbyUiState: StateFlow<SearchResultUiState> = searchQuery.debounce(300)
         .distinctUntilChanged()
         .transform { query ->
+            emit(SearchResultUiState.Loading)
+            delay(200)
             searchHobbyUseCase(query).onSuccess { hobby ->
                 emit(SearchResultUiState.Success(hobby))
             }.onFailure {
@@ -112,8 +115,9 @@ class SearchViewModel @Inject constructor(
 }
 
 sealed interface SearchResultUiState {
-    data class Success(val hobby: String) : SearchResultUiState
-    data object InputEmpty : SearchResultUiState
-    data object InputNotNumber : SearchResultUiState
-    data object NotExistUser : SearchResultUiState
+    data class Success(val hobby: String): SearchResultUiState
+    data object Loading: SearchResultUiState
+    data object InputEmpty: SearchResultUiState
+    data object InputNotNumber: SearchResultUiState
+    data object NotExistUser: SearchResultUiState
 }

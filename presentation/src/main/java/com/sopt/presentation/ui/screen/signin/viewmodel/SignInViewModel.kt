@@ -50,12 +50,12 @@ class SignInViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun trySignIn() {
         viewModelScope.launch {
             signInUseCase(usernameInput.value, passwordInput.value).onSuccess {
-                signInUiState.emit(SignInUiState.Success)
                 userRepository.saveAccount(Account(usernameInput.value, passwordInput.value))
+                signInUiState.emit(SignInUiState.Success)
             }.onFailure {
                 when (it) {
                     is SignInError.UsernameInputEmpty -> signInUiState.emit(SignInUiState.UsernameInputEmpty)

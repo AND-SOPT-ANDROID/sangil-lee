@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,7 +44,7 @@ fun SearchScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val searchedHobby by viewModel.searchedHobbyUiState.collectAsStateWithLifecycle()
+    val searchedHobbyUiState by viewModel.searchedHobbyUiState.collectAsStateWithLifecycle()
 
     DefaultSurface(
         modifier = modifier
@@ -94,13 +95,15 @@ fun SearchScreen(
                 contentAlignment = Alignment.Center
             ) {
                 when {
-                    searchedHobby is SearchResultUiState.Success -> {
-                        val hobby = (searchedHobby as SearchResultUiState.Success).hobby
-                        PrimaryText(text = "너의 취미는 $hobby")
+                    searchedHobbyUiState is SearchResultUiState.Success -> {
+                        val hobby = (searchedHobbyUiState as SearchResultUiState.Success).hobby
+                        PrimaryText(text = "너의 취미는 $hobby",)
                     }
-
-                    searchedHobby is SearchResultUiState.NotExistUser -> {
-                        PrimaryText(text = "존재하지 않는 사용자입니다.")
+                    searchedHobbyUiState is SearchResultUiState.NotExistUser -> {
+                        PrimaryText(text = "존재하지 않는 사용자입니다.",)
+                    }
+                    searchedHobbyUiState is SearchResultUiState.Loading -> {
+                        CircularProgressIndicator()
                     }
                 }
             }
