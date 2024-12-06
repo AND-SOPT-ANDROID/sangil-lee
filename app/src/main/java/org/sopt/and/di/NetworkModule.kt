@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -51,7 +50,7 @@ object NetworkModule {
         if (response.isSuccessful.not()) {
             val errorBody = response.body?.string()
             val errorResponse = try {
-                Json.decodeFromString<ErrorResponse>(errorBody ?: "")
+                Json.decodeFromString<NetworkErrorResponse>(errorBody ?: "")
             } catch (e: Exception) {
                 null
             }
@@ -81,6 +80,6 @@ object NetworkModule {
 }
 
 @Serializable
-private data class ErrorResponse(
+private data class NetworkErrorResponse(
     val code: String
 )

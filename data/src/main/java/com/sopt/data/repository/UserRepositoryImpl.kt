@@ -10,7 +10,7 @@ import com.sopt.data.request.UpdateProfileRequest
 import com.sopt.domain.exception.SearchHobbyError
 import com.sopt.domain.exception.SignInError
 import com.sopt.domain.exception.SignUpError
-import com.sopt.domain.exception.runCatchingByCode
+import com.sopt.domain.exception.runCatchingExceptCancellation
 import com.sopt.domain.model.Account
 import com.sopt.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -44,15 +44,15 @@ class UserRepositoryImpl @Inject constructor(
     )
 
     override suspend fun signUp(username: String, password: String, hobby: String): Result<Unit> {
-        return runCatchingByCode(0 to SignUpError.AlreadyExistUsername()) {
+        return runCatchingExceptCancellation(SignUpError.AlreadyExistUsername()) {
             userRemoteDataSource.signUp(SignUpRequest(username, password, hobby))
         }
     }
 
     override suspend fun signIn(username: String, password: String): Result<Unit> {
-        return runCatchingByCode(
-            2 to SignInError.NotExistUsername(),
-            1 to SignInError.PasswordNotMatchingWithUsername()
+        return runCatchingExceptCancellation(
+            SignInError.NotExistUsername(),
+            SignInError.PasswordNotMatchingWithUsername()
         ) {
             val signInDto = userRemoteDataSource.signIn(SignInRequest(username, password))
             signInDto.token?.let { tokenLocalDataSource.saveToken(it) }
@@ -64,14 +64,14 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchUserHobby(no: Int): Result<String> {
-        return runCatchingByCode(1 to SearchHobbyError.NotExistUserNo()) {
+        return runCatchingExceptCancellation(SearchHobbyError.NotExistUserNo()) {
             val token = tokenLocalDataSource.getToken()
             userRemoteDataSource.fetchUserHobby(token, no).hobby ?: ""
         }
     }
 
     override suspend fun updateProfile(password: String, hobby: String): Result<Unit> {
-        return runCatchingByCode {
+        return runCatchingExceptCancellation {
             val token = tokenLocalDataSource.getToken()
             userRemoteDataSource.updateProfile(token, UpdateProfileRequest(password, hobby)).also {
                 _myHobby.value = hobby
@@ -80,7 +80,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveAccount(account: Account): Result<Unit> {
-        return runCatchingByCode {
+        return runCatchingExceptCancellation {
             userLocalDataSource.saveAccount(account)
         }
     }

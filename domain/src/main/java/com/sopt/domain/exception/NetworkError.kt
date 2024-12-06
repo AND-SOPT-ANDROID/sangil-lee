@@ -8,32 +8,44 @@ data class NetworkError(
     override val message: String?
 ) : IOException()
 
-sealed class SignInError : Throwable() {
-    class NotExistUsername() : SignInError()
-    class PasswordNotMatchingWithUsername() : SignInError()
-    class UsernameInputEmpty() : SignInError()
-    class PasswordInputEmpty() : SignInError()
+abstract class CommonError : Throwable() {
+    open val code: Int = -1
 }
 
-sealed class SignUpError : Throwable() {
-    class InvalidUsername() : SignUpError()
-    class InvalidPassword() : SignUpError()
-    class InvalidHobby() : SignUpError()
-    class UsernameInputEmpty() : SignUpError()
-    class PasswordInputEmpty() : SignUpError()
-    class HobbyInputEmpty() : SignUpError()
-    class AlreadyExistUsername() : SignUpError()
+sealed class SignInError : CommonError() {
+    class NotExistUsername : SignInError() {
+        override val code: Int = 2
+    }
+    class PasswordNotMatchingWithUsername : SignInError() {
+        override val code: Int = 1
+    }
+    class UsernameInputEmpty : SignInError()
+    class PasswordInputEmpty : SignInError()
 }
 
-sealed class SearchHobbyError : Throwable() {
+sealed class SignUpError : CommonError() {
+    class InvalidUsername : SignUpError()
+    class InvalidPassword : SignUpError()
+    class InvalidHobby : SignUpError()
+    class UsernameInputEmpty : SignUpError()
+    class PasswordInputEmpty : SignUpError()
+    class HobbyInputEmpty : SignUpError()
+    class AlreadyExistUsername : SignUpError() {
+        override val code: Int = 0
+    }
+}
+
+sealed class SearchHobbyError : CommonError() {
     class InputEmpty : SearchHobbyError()
     class InputNotNumber : SearchHobbyError()
-    class NotExistUserNo : SearchHobbyError()
+    class NotExistUserNo : SearchHobbyError() {
+        override val code: Int = 1
+    }
 }
 
-sealed class UpdateProfileError : Throwable() {
-    class InvalidPassword() : UpdateProfileError()
-    class InvalidHobby() : UpdateProfileError()
-    class PasswordInputEmpty() : UpdateProfileError()
-    class HobbyInputEmpty() : UpdateProfileError()
+sealed class UpdateProfileError : CommonError() {
+    class InvalidPassword : UpdateProfileError()
+    class InvalidHobby : UpdateProfileError()
+    class PasswordInputEmpty : UpdateProfileError()
+    class HobbyInputEmpty : UpdateProfileError()
 }
