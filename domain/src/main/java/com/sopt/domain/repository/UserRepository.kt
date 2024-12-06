@@ -1,6 +1,14 @@
 package com.sopt.domain.repository
 
+import com.sopt.domain.model.Account
+import kotlinx.coroutines.flow.Flow
+
 interface UserRepository {
-    fun saveAccount(email: String, password: String)
-    fun trySignIn(email: String, password: String): Result<Unit>
+    suspend fun signUp(username: String, password: String, hobby: String): Result<Unit>
+    suspend fun signIn(username: String, password: String): Result<Unit>
+    fun fetchMyHobby(): Flow<String>
+    suspend fun fetchUserHobby(no: Int): Result<String>
+    suspend fun updateProfile(password: String, hobby: String): Result<Unit>
+    suspend fun saveAccount(account: Account): Result<Unit>
+    suspend fun getAccount(): Account?
 }

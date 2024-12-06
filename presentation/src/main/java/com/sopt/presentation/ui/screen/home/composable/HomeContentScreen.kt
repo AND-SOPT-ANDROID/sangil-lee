@@ -46,13 +46,13 @@ import kotlinx.coroutines.withContext
 )
 @Composable
 fun SharedTransitionScope.HomeContentScreen(
-    modifier: Modifier = Modifier,
     headVideoOverviews: List<VideoOverviewViewState>,
     commonVideoOverviews: List<CommonVideoOverviewsViewState>,
     topVideoOverviews: CommonVideoOverviewsViewState,
     onVideoTypeSelected: (VideoType) -> Unit,
     onVideoSelected: (VideoOverviewViewState) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    modifier: Modifier = Modifier,
 ) {
 
     val headDisplayPagerState = rememberPagerState(initialPage = Int.MAX_VALUE / 2) {
@@ -174,8 +174,8 @@ fun SharedTransitionScope.HomeContentScreen(
 
 @Composable
 private fun VideoTypeTabRow(
-    modifier: Modifier = Modifier,
-    onVideoTypeSelected: (VideoType) -> Unit
+    onVideoTypeSelected: (VideoType) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()),

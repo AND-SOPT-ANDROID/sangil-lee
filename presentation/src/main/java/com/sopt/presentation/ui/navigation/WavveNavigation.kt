@@ -1,10 +1,9 @@
 package com.sopt.presentation.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +31,7 @@ import com.sopt.presentation.ui.component.bottom.WavveBottomBar
 import com.sopt.presentation.ui.component.bottom.WavveBottomBarItem
 import com.sopt.presentation.ui.navigation.navtype.VideoOverviewNavType
 import com.sopt.presentation.ui.screen.home.composable.HomeScreen
+import com.sopt.presentation.ui.screen.my.composable.EditProfileScreen
 import com.sopt.presentation.ui.screen.my.composable.MyScreen
 import com.sopt.presentation.ui.screen.search.composable.SearchScreen
 import com.sopt.presentation.ui.screen.signin.composable.SignInScreen
@@ -70,11 +70,13 @@ fun WavveNavigation(
             NavHost(
                 modifier = Modifier,
                 navController = navController,
-                startDestination = Routes.Main.Graph,
+                startDestination = Routes.Auth.Graph,
                 enterTransition = {
-                    slideInVertically { it } + fadeIn()
+                    //slideInVertically { it } + fadeIn()
+                    EnterTransition.None
                 }, exitTransition = {
-                    fadeOut()
+                    //fadeOut()
+                    ExitTransition.None
                 }
             ) {
                 navigation<Routes.Auth.Graph>(
@@ -128,13 +130,29 @@ fun WavveNavigation(
                         MyScreen(
                             modifier = Modifier
                                 .padding(innerPadding)
-                                .fillMaxSize()
+                                .fillMaxSize(),
+                            onNavigateToEditProfile = {
+                                navController.navigate(Routes.MySetting.EditProfile)
+                            }
+                        )
+                    }
+                }
+
+                navigation<Routes.MySetting.Graph>(
+                    startDestination = Routes.MySetting.EditProfile
+                ) {
+                    composable<Routes.MySetting.EditProfile> {
+                        EditProfileScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onCompleteEdit = {
+                                navController.popBackStack()
+                            }
                         )
                     }
                 }
 
                 navigation<Routes.VideoDetail.Graph>(
-                    startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.Empty)
+                    startDestination = Routes.VideoDetail.Video(VideoOverviewViewState.empty)
                 ) {
 
                     composable<Routes.VideoDetail.Video>(

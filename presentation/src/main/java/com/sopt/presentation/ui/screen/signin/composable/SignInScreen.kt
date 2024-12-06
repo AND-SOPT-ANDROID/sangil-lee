@@ -13,10 +13,12 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -41,10 +43,11 @@ fun SignInScreen(
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val keyboardController = LocalSoftwareKeyboardController.current
     val context = LocalContext.current
 
-    val emailInput = viewModel.emailInput.collectAsStateWithLifecycle()
-    val passwordInput = viewModel.passwordInput.collectAsStateWithLifecycle()
+    val usernameInput by viewModel.usernameInput.collectAsStateWithLifecycle()
+    val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier,
@@ -82,9 +85,9 @@ fun SignInScreen(
                     .padding(horizontal = 14.dp),
                 onSignInButtonClicked = viewModel::trySignIn,
                 onNavigateToSignUp = onNavigateToSignUp,
-                emailInput = emailInput.value,
-                passwordInput = passwordInput.value,
-                onEmailInputChanged = viewModel::onEmailInputChanged,
+                usernameInput = usernameInput,
+                passwordInput = passwordInput,
+                onUsernameInputChanged = viewModel::onUsernameInputChanged,
                 onPasswordInputChanged = viewModel::onPasswordInputChanged
             )
         }
@@ -94,17 +97,20 @@ fun SignInScreen(
         viewModel.signInUiState.collect {
             var snackbarMessage = ""
             when (it) {
-                is SignInUiState.Success -> onSignInSuccess()
-                is SignInUiState.EmailInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_email_input)
+                is SignInUiState.Success -> {
+                    onSignInSuccess()
+                    keyboardController?.hide()
+                }
+                is SignInUiState.UsernameInputEmpty -> snackbarMessage =
+                    ContextCompat.getString(context, R.string.require_username_input)
 
                 is SignInUiState.PasswordInputEmpty -> snackbarMessage =
                     ContextCompat.getString(context, R.string.require_password_input)
 
-                is SignInUiState.NotExistEmail -> snackbarMessage =
+                is SignInUiState.NotExistUsername -> snackbarMessage =
                     ContextCompat.getString(context, R.string.not_exist_email)
 
-                is SignInUiState.PasswordNotMatchingWithEmail -> snackbarMessage =
+                is SignInUiState.PasswordNotMatchingWithUsername -> snackbarMessage =
                     ContextCompat.getString(context, R.string.not_exist_password)
             }
             if (it !is SignInUiState.Success)

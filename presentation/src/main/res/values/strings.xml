@@ -37,15 +37,19 @@
 
     <!-- 회원가입 -->
     <string name="sign_up">회원가입</string>
-    <string name="sign_up_email_input_placeholder">wavve@example.com</string>
+    <string name="sign_up_username_input_placeholder">Wavve 아이디 설정</string>
     <string name="sign_up_caution_exact_email">로그인, 비밀번호 찾기, 알림에 사용되니 정확한 이메일을 입력해주세요.</string>
     <string name="sign_up_password_input_placeholder">Wavve 비밀번호 설정</string>
+    <string name="hobby_input_placeholder">취미 설정</string>
     <string name="sign_up_caution_password">비밀번호는 %s~%s자 이내로 영문 대소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해 주세요.</string>
+    <string name="sign_up_caution_hobby">취미는 %s자 이내로 입력해주세요.</string>
     <string name="sign_up_with_other">또는 다른 서비스 계정으로 가입</string>
     <string name="alert_social_sign">SNS계정으로 간편하게 가입하여 서비스를 이용하실 수 있습니다. 기존 POOQ 계정 또는 Wavve 계정과는 연동되지 않으니 이용에 참고하세요.</string>
     <string name="wavve_sign_up">Wavve 회원가입</string>
-    <string name="check_email_format">이메일 형식을 확인해주세요.</string>
-    <string name="check_password_format">비밀번호 형식을 확인해주세요.</string>
+    <string name="check_email_format">아이디를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="check_password_format">비밀번호를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="check_hobby_format">취미를 1글자 이상, 8글자 이내로 입력해주세요.</string>
+    <string name="already_exist_username">이미 존재하는 아이디입니다.</string>
 
     <!-- 로그인 -->
     <string name="password">비밀번호</string>
@@ -56,9 +60,10 @@
     <string name="sign_in_with_other">또는 다른 서비스 계정으로 로그인</string>
     <string name="sign_in_success">로그인 성공 !</string>
     <string name="sign_in_failure">로그인 실패</string>
-    <string name="require_email_input">이메일을 입력해주세요.</string>
+    <string name="require_username_input">아이디를 입력해주세요.</string>
     <string name="require_password_input">비밀번호를 입력해주세요.</string>
-    <string name="not_exist_email">존재하지 않는 이메일입니다.</string>
+    <string name="require_hobby_input">취미를 입력해주세요.</string>
+    <string name="not_exist_email">존재하지 않는 아이디입니다.</string>
     <string name="not_exist_password">비밀번호가 일치하지 않습니다.</string>
 
     <!-- My -->
@@ -73,5 +78,15 @@
 
     <!-- Search -->
     <string name="search_placeholder">제목, 장르, 배우로 찾아보세요</string>
+    <string name="require_search_input">검색어를 입력해주세요.</string>
+    <string name="require_only_number">숫자만 입력해주세요.</string>
+    <string name="not_exist_search_result">존재하지 않는 사용자입니다.</string>
+
+    <!-- 프로필 수정 -->
+    <string name="title_profile_edit">프로필 수정</string>
+    <string name="edit_password_placeholder">새 비밀번호를 입력해주세요.</string>
+    <string name="edit_hobby_placeholder">새 취미를 입력해주세요.</string>
+    <string name="save">저장</string>
+
 
 </resources>

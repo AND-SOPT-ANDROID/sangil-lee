@@ -7,9 +7,9 @@ import com.sopt.domain.usecase.SignUpAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,35 +17,46 @@ class SignUpViewModel @Inject constructor(
     private val signUpAccountUseCase: SignUpAccountUseCase
 ) : ViewModel() {
 
-    val emailInput: StateFlow<String>
+    val usernameInput: StateFlow<String>
         field = MutableStateFlow("")
     val passwordInput: StateFlow<String>
         field = MutableStateFlow("")
+    val hobbyInput: StateFlow<String>
+        field = MutableStateFlow("")
 
-    private val _signUpUiState =
-        MutableSharedFlow<SignUpUiState>(extraBufferCapacity = 1)
-    val signUpUiState = _signUpUiState.shareIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000)
-    )
+    val signUpUiState: SharedFlow<SignUpUiState>
+        field = MutableSharedFlow<SignUpUiState>()
 
-    fun onEmailInputChanged(email: String) {
-        emailInput.value = email
+    fun onUsernameInputChanged(username: String) {
+        usernameInput.value = username
     }
 
     fun onPasswordInputChanged(password: String) {
         passwordInput.value = password
     }
 
+    fun onHobbyInputChanged(hobby: String) {
+        hobbyInput.value = hobby
+    }
+
     fun signUp() {
-        signUpAccountUseCase(emailInput.value, passwordInput.value).onSuccess {
-            _signUpUiState.tryEmit(SignUpUiState.Success)
-        }.onFailure {
-            when (it) {
-                is SignUpError.EmailInputEmpty -> _signUpUiState.tryEmit(SignUpUiState.EmailInputEmpty)
-                is SignUpError.PasswordInputEmpty -> _signUpUiState.tryEmit(SignUpUiState.PasswordInputEmpty)
-                is SignUpError.InvalidEmail -> _signUpUiState.tryEmit(SignUpUiState.InvalidEmail)
-                is SignUpError.InvalidPassword -> _signUpUiState.tryEmit(SignUpUiState.InvalidPassword)
+        viewModelScope.launch {
+            signUpAccountUseCase(
+                usernameInput.value,
+                passwordInput.value,
+                hobbyInput.value
+            ).onSuccess {
+                signUpUiState.emit(SignUpUiState.Success)
+            }.onFailure {
+                when (it) {
+                    is SignUpError.UsernameInputEmpty -> signUpUiState.emit(SignUpUiState.UsernameInputEmpty)
+                    is SignUpError.PasswordInputEmpty -> signUpUiState.emit(SignUpUiState.PasswordInputEmpty)
+                    is SignUpError.HobbyInputEmpty -> signUpUiState.emit(SignUpUiState.HobbyInputEmpty)
+                    is SignUpError.InvalidUsername -> signUpUiState.emit(SignUpUiState.InvalidUsername)
+                    is SignUpError.InvalidPassword -> signUpUiState.emit(SignUpUiState.InvalidPassword)
+                    is SignUpError.InvalidHobby -> signUpUiState.emit(SignUpUiState.InvalidHobby)
+                    is SignUpError.AlreadyExistUsername -> signUpUiState.emit(SignUpUiState.AlreadyExistUsername)
+                }
             }
         }
     }
@@ -53,8 +64,11 @@ class SignUpViewModel @Inject constructor(
 
 sealed interface SignUpUiState {
     data object Success : SignUpUiState
-    data object EmailInputEmpty : SignUpUiState
+    data object UsernameInputEmpty : SignUpUiState
     data object PasswordInputEmpty : SignUpUiState
-    data object InvalidEmail : SignUpUiState
+    data object HobbyInputEmpty : SignUpUiState
+    data object InvalidUsername : SignUpUiState
     data object InvalidPassword : SignUpUiState
+    data object InvalidHobby : SignUpUiState
+    data object AlreadyExistUsername : SignUpUiState
 }

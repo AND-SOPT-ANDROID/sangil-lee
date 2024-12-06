@@ -14,9 +14,9 @@ fun SignInContentScreen(
     modifier: Modifier = Modifier,
     onSignInButtonClicked: () -> Unit,
     onNavigateToSignUp: () -> Unit,
-    emailInput: String,
+    usernameInput: String,
     passwordInput: String,
-    onEmailInputChanged: (String) -> Unit,
+    onUsernameInputChanged: (String) -> Unit,
     onPasswordInputChanged: (String) -> Unit
 ) {
 
@@ -27,9 +27,9 @@ fun SignInContentScreen(
     ) {
         SignInContentView(
             modifier = Modifier.padding(top = 36.dp),
-            emailInput = emailInput,
+            usernameInput = usernameInput,
             passwordInput = passwordInput,
-            onEmailInputChanged = onEmailInputChanged,
+            onUsernameInputChanged = onUsernameInputChanged,
             onPasswordInputChanged = onPasswordInputChanged,
             onSignInButtonClicked = onSignInButtonClicked,
             onNavigateToSignUp = onNavigateToSignUp

@@ -2,38 +2,32 @@ package com.sopt.data.datasource.local
 
 import android.content.SharedPreferences
 import com.sopt.data.UserSharedPref
-import com.sopt.domain.exception.SignInError
+import com.sopt.domain.model.Account
 import javax.inject.Inject
 
 class UserLocalDataSource @Inject constructor(
-    @UserSharedPref private val userSharedPreferences: SharedPreferences
+    @UserSharedPref private val userSharedPreferences: SharedPreferences,
 ) {
 
-    fun saveAccount(email: String, password: String) {
+    fun saveAccount(account: Account) {
         userSharedPreferences.edit()
-            .putString(KEY_EMAIL, email)
-            .putString(KEY_PASSWORD, password)
+            .putString(KEY_USERNAME, account.username)
+            .putString(KEY_PASSWORD, account.password)
             .apply()
     }
 
-    fun trySignIn(email: String, password: String): Result<Unit> {
-        val savedEmail = userSharedPreferences.getString(KEY_EMAIL, null)
-        val savedPassword = userSharedPreferences.getString(KEY_PASSWORD, null)
-
-        return when {
-            email == savedEmail && password == savedPassword ->
-                Result.success(Unit)
-
-            email != savedEmail ->
-                Result.failure(SignInError.NotExistEmail())
-
-            else ->
-                Result.failure(SignInError.PasswordNotMatchingWithEmail())
+    fun getAccount(): Account? {
+        val username = userSharedPreferences.getString(KEY_USERNAME, null)
+        val password = userSharedPreferences.getString(KEY_PASSWORD, null)
+        return if (username != null && password != null) {
+            Account(username, password)
+        } else {
+            null
         }
     }
 
     companion object {
-        private const val KEY_EMAIL = "email"
+        private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
     }
 }

@@ -17,9 +17,9 @@ import com.sopt.presentation.ui.state.VideoOverviewViewState
 @Composable
 fun SharedTransitionScope.HomeScreen(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToVideoDetail: (VideoOverviewViewState) -> Unit,
-    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
 
     DefaultSurface(

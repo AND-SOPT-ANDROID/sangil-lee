@@ -38,10 +38,12 @@ import com.sopt.presentation.ui.util.noRippleClickable
 @Composable
 fun SignUpInputContentView(
     modifier: Modifier = Modifier,
-    emailInput: String = "",
+    usernameInput: String = "",
     passwordInput: String = "",
-    onEmailInputChanged: (String) -> Unit = {},
-    onPasswordInputChanged: (String) -> Unit = {}
+    hobbyInput: String = "",
+    onUsernameInputChanged: (String) -> Unit = {},
+    onPasswordInputChanged: (String) -> Unit = {},
+    onHobbyInputChanged: (String) -> Unit = {}
 ) {
 
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -88,9 +90,9 @@ fun SignUpInputContentView(
             modifier = Modifier
                 .padding(top = 28.dp)
                 .fillMaxWidth(),
-            value = emailInput,
-            onValueChange = onEmailInputChanged,
-            placeholder = stringResource(R.string.sign_up_email_input_placeholder)
+            value = usernameInput,
+            onValueChange = onUsernameInputChanged,
+            placeholder = stringResource(R.string.sign_up_username_input_placeholder)
         )
 
         IconFrontText(
@@ -122,7 +124,22 @@ fun SignUpInputContentView(
 
         IconFrontText(
             modifier = Modifier.padding(top = 12.dp),
-            text = stringResource(R.string.sign_up_caution_password, 8, 20),
+            text = stringResource(R.string.sign_up_caution_password, 1, 8),
+            painter = painterResource(R.drawable.ic_caution),
+        )
+
+        FilledTextField(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxWidth(),
+            value = hobbyInput,
+            onValueChange = onHobbyInputChanged,
+            placeholder = stringResource(R.string.hobby_input_placeholder)
+        )
+
+        IconFrontText(
+            modifier = Modifier.padding(top = 12.dp),
+            text = stringResource(R.string.sign_up_caution_hobby, 8),
             painter = painterResource(R.drawable.ic_caution),
         )
 

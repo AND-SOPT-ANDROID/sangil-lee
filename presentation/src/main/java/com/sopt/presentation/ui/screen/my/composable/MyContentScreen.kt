@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.presentation.R
-import com.sopt.presentation.User
 import com.sopt.presentation.ui.component.box.NoContentAlertBox
 import com.sopt.presentation.ui.component.icon.PrimaryIcon
 import com.sopt.presentation.ui.component.image.CircularImage
@@ -26,10 +25,13 @@ import com.sopt.presentation.ui.component.surface.VariantSurface
 import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.text.SecondaryText
 import com.sopt.presentation.ui.theme.WavveTheme
+import com.sopt.presentation.ui.util.noRippleClickable
 
 @Composable
 fun MyContentScreen(
-    modifier: Modifier = Modifier
+    myHobby: String,
+    onNavigateToEditProfile: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -49,7 +51,7 @@ fun MyContentScreen(
                     )
                     PrimaryText(
                         modifier = Modifier.padding(start = 12.dp),
-                        text = User.email,
+                        text = myHobby,
                         style = WavveTheme.typography.bodyLarge,
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -59,7 +61,9 @@ fun MyContentScreen(
                         contentDescription = stringResource(R.string.notification_content_description)
                     )
                     PrimaryIcon(
-                        modifier = Modifier.padding(start = 12.dp),
+                        modifier = Modifier.padding(start = 12.dp).noRippleClickable {
+                            onNavigateToEditProfile()
+                        },
                         imageVector = Icons.Outlined.Settings,
                         contentDescription = stringResource(R.string.notification_content_description)
                     )
@@ -81,18 +85,21 @@ fun MyContentScreen(
                     PrimaryIcon(
                         modifier = Modifier.padding(start = 4.dp),
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = stringResource(R.string.profile_image),
-
+                        contentDescription = stringResource(R.string.profile_image)
                     )
                 }
             }
         }
 
         VariantSurface(
-            modifier = Modifier.padding(top = 1.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(top = 1.dp)
+                .fillMaxWidth()
         ) {
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp).padding(top = 8.dp, bottom = 20.dp)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 8.dp, bottom = 20.dp)
             ) {
                 SecondaryText(
                     text = stringResource(R.string.have_no_wavve_access),
@@ -116,14 +123,18 @@ fun MyContentScreen(
         }
 
         Column(
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
         ) {
             PrimaryText(
                 text = stringResource(R.string.total_viewing_history),
                 style = WavveTheme.typography.headSmall
             )
             NoContentAlertBox(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 60.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 60.dp),
                 text = stringResource(R.string.no_viewing_history)
             )
 
@@ -132,7 +143,9 @@ fun MyContentScreen(
                 style = WavveTheme.typography.headSmall
             )
             NoContentAlertBox(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 60.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 60.dp),
                 text = stringResource(R.string.no_interested_program)
             )
         }
@@ -142,5 +155,8 @@ fun MyContentScreen(
 @Composable
 @Preview
 private fun MyContentScreenPreview() {
-    MyContentScreen()
+    MyContentScreen(
+        myHobby = "축구",
+        onNavigateToEditProfile = {}
+    )
 }

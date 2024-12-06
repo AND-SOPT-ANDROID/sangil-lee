@@ -1,25 +1,35 @@
 package com.sopt.presentation.ui.screen.search.composable
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.presentation.R
 import com.sopt.presentation.ui.component.surface.DefaultSurface
+import com.sopt.presentation.ui.component.text.PrimaryText
 import com.sopt.presentation.ui.component.textfield.BottomLinedTextField
+import com.sopt.presentation.ui.screen.search.viewmodel.SearchResultUiState
 import com.sopt.presentation.ui.screen.search.viewmodel.SearchViewModel
 import com.sopt.presentation.ui.theme.WavveTheme
 import com.sopt.presentation.ui.util.noRippleClickable
@@ -30,7 +40,11 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel()
 ) {
 
-    val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val searchedHobbyUiState by viewModel.searchedHobbyUiState.collectAsStateWithLifecycle()
 
     DefaultSurface(
         modifier = modifier
@@ -42,12 +56,15 @@ fun SearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                value = searchQuery.value,
+                value = searchQuery,
                 color = WavveTheme.colorScheme.background,
                 onValueChange = viewModel::onSearchQueryChanged,
                 placeholder = stringResource(R.string.search_placeholder),
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Search
+                    imeAction = ImeAction.Search,
+                    keyboardType = KeyboardType.Number
+                ), keyboardActions = KeyboardActions(
+                    onSearch = { keyboardController?.hide() }
                 ),
                 leadingIcon = {
                     Icon(
@@ -56,7 +73,7 @@ fun SearchScreen(
                         tint = WavveTheme.colorScheme.tertiary
                     )
                 }, trailingIcon = {
-                    if (searchQuery.value.isNotEmpty()) {
+                    if (searchQuery.isNotEmpty()) {
                         Icon(
                             modifier = Modifier
                                 .size(16.dp)
@@ -70,6 +87,26 @@ fun SearchScreen(
                     }
                 }
             )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                when {
+                    searchedHobbyUiState is SearchResultUiState.Success -> {
+                        val hobby = (searchedHobbyUiState as SearchResultUiState.Success).hobby
+                        PrimaryText(text = "너의 취미는 $hobby",)
+                    }
+                    searchedHobbyUiState is SearchResultUiState.NotExistUser -> {
+                        PrimaryText(text = "존재하지 않는 사용자입니다.",)
+                    }
+                    searchedHobbyUiState is SearchResultUiState.Loading -> {
+                        CircularProgressIndicator()
+                    }
+                }
+            }
             SearchContentScreen(
                 modifier = Modifier
                     .fillMaxSize()

@@ -8,5 +8,6 @@ private val passwordRegex by lazy {
     Regex("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&#.~_-])[A-Za-z\\d@$!%*?&#.~_-]{8,20}$")
 }
 
-fun String.isValidEmail(): Boolean = emailRegex.matches(this)
-fun String.isValidPassword(): Boolean = passwordRegex.matches(this)
+fun String.isValidUsername(): Boolean = this.length in 1..8
+fun String.isValidPassword(): Boolean = this.length in 1..8
+fun String.isValidHobby(): Boolean = this.length in 1..8

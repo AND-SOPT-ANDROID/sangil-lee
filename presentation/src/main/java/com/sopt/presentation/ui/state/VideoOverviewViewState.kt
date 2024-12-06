@@ -13,10 +13,10 @@ data class VideoOverviewViewState(
     val title: String,
     val titleImage: String,
     val description: String,
-): Parcelable {
+) : Parcelable {
 
     companion object {
-        val Empty = VideoOverviewViewState(
+        val empty = VideoOverviewViewState(
             id = 0,
             title = "",
             titleImage = "",
