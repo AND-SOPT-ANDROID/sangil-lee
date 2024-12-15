@@ -29,6 +29,9 @@ import com.sopt.presentation.ui.component.image.WavveLogoImage
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
+import com.sopt.presentation.ui.screen.signin.viewmodel.SignInEffect
+import com.sopt.presentation.ui.screen.signin.viewmodel.SignInIntent
+import com.sopt.presentation.ui.screen.signin.viewmodel.SignInResult
 import com.sopt.presentation.ui.screen.signin.viewmodel.SignInUiState
 import com.sopt.presentation.ui.screen.signin.viewmodel.SignInViewModel
 import kotlinx.coroutines.launch
@@ -46,8 +49,7 @@ fun SignInScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val context = LocalContext.current
 
-    val usernameInput by viewModel.usernameInput.collectAsStateWithLifecycle()
-    val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier,
@@ -83,41 +85,54 @@ fun SignInScreen(
                     .padding(innerPadding)
                     .fillMaxSize()
                     .padding(horizontal = 14.dp),
-                onSignInButtonClicked = viewModel::trySignIn,
+                onSignInButtonClicked = {
+                    viewModel.handleIntent(SignInIntent.TrySignIn)
+                },
                 onNavigateToSignUp = onNavigateToSignUp,
-                usernameInput = usernameInput,
-                passwordInput = passwordInput,
-                onUsernameInputChanged = viewModel::onUsernameInputChanged,
-                onPasswordInputChanged = viewModel::onPasswordInputChanged
+                usernameInput = uiState.username,
+                passwordInput = uiState.password,
+                onUsernameInputChanged = {
+                    viewModel.handleIntent(SignInIntent.UpdateUsername(it))
+                },
+                onPasswordInputChanged = {
+                    viewModel.handleIntent(SignInIntent.UpdatePassword(it))
+                }
             )
         }
     }
 
     LaunchedEffect(Unit) {
-        viewModel.signInUiState.collect {
+        viewModel.effect.collect {
             var snackbarMessage = ""
             when (it) {
-                is SignInUiState.Success -> {
+                is SignInEffect.ShowSnackbar -> {
+                    when (uiState.signInResult) {
+                        SignInResult.UsernameInputEmpty -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.require_username_input)
+
+                        SignInResult.PasswordInputEmpty -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.require_password_input)
+
+                        SignInResult.NotExistUsername -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.not_exist_email)
+
+                        SignInResult.PasswordNotMatchingWithUsername -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.not_exist_password)
+
+                        else -> Unit
+                    }
+                    if (uiState.signInResult != SignInResult.Success)
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar(message = snackbarMessage)
+                        }
+                }
+
+                is SignInEffect.Success -> {
                     onSignInSuccess()
                     keyboardController?.hide()
                 }
-                is SignInUiState.UsernameInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_username_input)
-
-                is SignInUiState.PasswordInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_password_input)
-
-                is SignInUiState.NotExistUsername -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.not_exist_email)
-
-                is SignInUiState.PasswordNotMatchingWithUsername -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.not_exist_password)
             }
-            if (it !is SignInUiState.Success)
-                scope.launch {
-                    snackbarHostState.currentSnackbarData?.dismiss()
-                    snackbarHostState.showSnackbar(message = snackbarMessage)
-                }
         }
     }
 }
