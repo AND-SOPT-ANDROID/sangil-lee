@@ -27,6 +27,9 @@ import com.sopt.presentation.ui.component.icon.PrimaryIcon
 import com.sopt.presentation.ui.component.snackbar.TextSnackbar
 import com.sopt.presentation.ui.component.surface.DefaultSurface
 import com.sopt.presentation.ui.component.top.DefaultCenterAlignedTopAppBar
+import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpEffect
+import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpIntent
+import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpResult
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpUiState
 import com.sopt.presentation.ui.screen.signup.viewmodel.SignUpViewModel
 import com.sopt.presentation.ui.util.noRippleClickable
@@ -41,9 +44,7 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
-    val usernameInput by viewModel.usernameInput.collectAsStateWithLifecycle()
-    val passwordInput by viewModel.passwordInput.collectAsStateWithLifecycle()
-    val hobbyInput by viewModel.hobbyInput.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val context = LocalContext.current
@@ -71,7 +72,9 @@ fun SignUpScreen(
             )
         }, snackbarHost = {
             SnackbarHost(
-                modifier = Modifier.imePadding().padding(bottom = 40.dp),
+                modifier = Modifier
+                    .imePadding()
+                    .padding(bottom = 40.dp),
                 hostState = snackbarHostState
             ) {
                 TextSnackbar(
@@ -86,52 +89,67 @@ fun SignUpScreen(
         ) {
             SignUpContentScreen(
                 modifier = Modifier.padding(horizontal = 12.dp),
-                usernameInput = usernameInput,
-                passwordInput = passwordInput,
-                hobbyInput = hobbyInput,
-                onUsernameInputChanged = viewModel::onUsernameInputChanged,
-                onPasswordInputChanged = viewModel::onPasswordInputChanged,
-                onHobbyInputChanged = viewModel::onHobbyInputChanged,
-                onSignUpButtonClicked = viewModel::signUp
+                usernameInput = uiState.username,
+                passwordInput = uiState.password,
+                hobbyInput = uiState.hobby,
+                onUsernameInputChanged = {
+                    viewModel.handleIntent(SignUpIntent.UpdateUsername(it))
+                },
+                onPasswordInputChanged = {
+                    viewModel.handleIntent(SignUpIntent.UpdatePassword(it))
+                },
+                onHobbyInputChanged = {
+                    viewModel.handleIntent(SignUpIntent.UpdateHobby(it))
+                },
+                onSignUpButtonClicked = {
+                    viewModel.handleIntent(SignUpIntent.TrySignUp)
+                }
             )
         }
     }
 
     LaunchedEffect(Unit) {
-        viewModel.signUpUiState.collect {
+        viewModel.effect.collect {
             var snackbarMessage = ""
             when (it) {
-                is SignUpUiState.Success -> {
-                    keyboardController?.hide()
+                is SignUpEffect.ShowSnackbar -> {
+                    when(uiState.signUpResult) {
+                        is SignUpResult.UsernameInputEmpty -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.require_username_input)
+
+                        is SignUpResult.PasswordInputEmpty -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.require_password_input)
+
+                        is SignUpResult.HobbyInputEmpty -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.require_hobby_input)
+
+                        is SignUpResult.InvalidUsername -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.check_email_format)
+
+                        is SignUpResult.InvalidPassword -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.check_password_format)
+
+                        is SignUpResult.InvalidHobby -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.check_hobby_format)
+
+                        is SignUpResult.AlreadyExistUsername -> snackbarMessage =
+                            ContextCompat.getString(context, R.string.already_exist_username)
+
+                        else -> Unit
+                    }
+
+                    if (uiState.signUpResult !is SignUpResult.Success)
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar(message = snackbarMessage)
+                        }
+                }
+
+                is SignUpEffect.Success -> {
                     onSignUpSuccess()
+                    keyboardController?.hide()
                 }
-
-                is SignUpUiState.UsernameInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_username_input)
-
-                is SignUpUiState.PasswordInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_password_input)
-
-                is SignUpUiState.HobbyInputEmpty -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.require_hobby_input)
-
-                is SignUpUiState.InvalidUsername -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.check_email_format)
-
-                is SignUpUiState.InvalidPassword -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.check_password_format)
-
-                is SignUpUiState.InvalidHobby -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.check_hobby_format)
-
-                is SignUpUiState.AlreadyExistUsername -> snackbarMessage =
-                    ContextCompat.getString(context, R.string.already_exist_username)
             }
-            if (it !is SignUpUiState.Success)
-                scope.launch {
-                    snackbarHostState.currentSnackbarData?.dismiss()
-                    snackbarHostState.showSnackbar(message = snackbarMessage)
-                }
         }
     }
 }
