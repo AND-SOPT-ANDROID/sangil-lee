@@ -57,7 +57,7 @@ object NetworkModule {
 
             throw NetworkError(
                 statusCode = response.code,
-                errorCode = errorResponse?.code?.toInt() ?: -1,
+                errorCode = errorResponse?.code?.toInt() ?: -2,
                 message = response.message,
             )
         }
